@@ -1,0 +1,136 @@
+﻿@model List<Master_pice.ViewModel.CartItemViewModel>
+
+@{
+    ViewData["Title"] = "Cart";
+    decimal subtotal = 0;
+    var userId = ViewBag.UserId as int? ?? 0;
+}
+
+@section StylesCart {
+    <link rel="stylesheet" href="~/css/CartStyle.css" />
+}
+
+<div class="container">
+    <!-- Cart Section -->
+    <div class="cart-section">
+        <div class="cart-header">Shopping Cart</div>
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var itemTotal = item.Price * item.Quantity;
+                    subtotal += itemTotal;
+                    <tr>
+                        <td>
+                            <img src="~/uploads/@item.ImageURL" alt="Product" />
+                            <div>@item.Name</div>
+                            <span class="text-muted">@item.Type</span>
+                        </td>
+                        <td>@($"JD{item.Price:0.00}")</td>
+                        <td>
+                            @if (userId != 0)
+                            {
+                                <form asp-action="UpdateQuantity" asp-controller="Product" method="post">
+                                    <input type="hidden" name="ProductId" value="@item.ProductId" />
+                                    <input type="hidden" name="Type" value="@item.Type" />
+                                    <input type="number" name="Quantity" class="quantity-select" value="@item.Quantity" min="1" max="20"
+                                           onchange="this.form.submit()" />
+                                </form>
+                            }
+                            else
+                            {
+                                <input type="number" class="quantity-select" value="@item.Quantity" disabled />
+                            }
+                        </td>
+
+                        <td>@($"JD{itemTotal:0.00}")</td>
+                        <td>
+                            @if (userId != 0)
+                            {
+                                <form asp-action="RemoveFromCart" asp-controller="Product" method="post">
+                                    <input type="hidden" name="ProductId" value="@item.ProductId" />
+                                    <input type="hidden" name="Type" value="@item.Type" />
+                                    <button type="submit" class="remove-item">✖</button>
+                                </form>
+
+                            }
+                            else
+                            {
+                                <span class="remove-item" onclick="removeFromCart(@item.ProductId, '@item.Type')">✖</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="cart-buttons">
+            <form asp-controller="Categories" asp-action="Products" method="get" style="display:inline-block;">
+                <button type="submit"
+                        style="background-color: #d35266; color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer;">
+                    Continue Shopping
+                </button>
+            </form>
+
+            @if (userId != 0)
+            {
+                <form asp-action="ClearCart" asp-controller="Product" method="post" style="display:inline-block;">
+                    <button type="submit"
+                            style="background-color: #d35266; color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer;">
+                        Clear Shopping Cart
+                    </button>
+                </form>
+            }
+            else
+            {
+                <button onclick="clearCart()"
+                        style="background-color: #d35266; color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer;">
+                    Clear Shopping Cart
+                </button>
+            }
+        </div>
+
+
+
+    </div>
+
+    <!-- Summary Section -->
+    <div class="summary-section">
+        <h3>Summary</h3>
+        <div class="summary-item">
+            <span>Subtotal</span>
+            <span>@($"JD{subtotal:0.00}")</span>
+        </div>
+        <div class="summary-item">
+            <span>Shipping</span>
+            <span>JD21.00</span>
+        </div>
+        <div class="summary-item">
+            <span>Tax</span>
+            <span>@($"JD{(subtotal * 0.15m):0.00}")</span>
+        </div>
+        <div class="summary-total">
+            <span>Order Total</span>
+            <span>@($"JD{(subtotal + 21 + (subtotal * 0.15m)):0.00}")</span>
+        </div>
+        <br />
+        
+        <div class="checkout-buttons">
+            <a asp-action="Checkout"
+               asp-controller="Payment"
+               style="background-color: #d35266; color: white; padding: 10px 20px; border-radius: 8px; border: none; text-decoration: none; display: inline-block;">
+                Proceed to Checkout
+            </a>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styleIndex.css">
+  <title>Product Page with Filters</title>
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Pagination Container */
+.pagination-container {
+  text-align: center;
+}
+
+/* Pagination Buttons */
+.pagination {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.pagination button {
+  width: 40px;
+  height: 40px;
+  background-color: #d35266;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #d35266;
+  transform: scale(1.1);
+}
+
+.pagination button:active {
+  transform: scale(1);
+  background-color: #d35266;
+}
+
+.inputcont 
+{
+    width: 100%;
+    text-align: center;
+}
+
+body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fc;
+      color: #333;
+}
+
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 20px auto;
+      gap: 20px;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 25%;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar hr {
+      margin: 10px 0;
+      border: none;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+    }
+
+    .filter-section h4 {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .filter-section label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .filter-section .color-options {
+      display: flex;
+      gap: 10px;
+    }
+
+    .filter-section .color-options div {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .color-red {
+      background-color: red;
+    }
+
+    .color-black {
+      background-color: black;
+    }
+
+    .apply-filters-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #d35266;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .searchbtn {
+    height: 35px;
+    width: 75px;
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    background: #d35266;
+    color: white;
+    font-size: 17px;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    top: -14%;
+}
+    .d-head {
+    text-transform: capitalize;
+    color: white;
+    position: absolute;
+    top: 24%;
+    }
+
+    .d-body
+    {
+      text-transform: capitalize;
+    color: white;
+    position: absolute;
+    top: 32%;
+
+    }
+
+    .apply-filters-btn:hover {
+      background-color: #7d3c46;
+    }
+
+    /* Products Section */
+    .products {
+      width: 75%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .product-card h4 {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .product-card p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .product-card .price {
+      font-size: 18px;
+      color: #d35266;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .product-card .reviews {
+      color: #f0a500;
+      margin-bottom: 10px;
+    }
+
+    .product-card button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #d35266;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .product-card button:hover {
+      background-color: #975760;
+    }
+
+    /* Header Section for Filters */
+    .filter-header {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .filter-header h4 {
+      font-size: 18px;
+    }
+
+    .clear-filters {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 5px 10px;
+      border: 1px solid #f5c6cb;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .clear-filters:hover {
+      background-color: #f5c6cb;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .products {
+        width: 100%;
+      }
+
+
+      .inputcont {
+    width: 95%;
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    display: inline-flex
+;
+    gap: 4px;
+    flex-direction: column;
+}
+
+.footer .newsletter-form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: white;
+    color: #b43e57;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    position: relative;
+    top: 12px;
+}
+
+.searchbtn {
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background: #d35266;
+    color: white;
+    text-decoration: none;
+}
+
+
+    }
+  </style>
+   <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <div id="navbar"></div>
+    <script>
+        fetch('navbar.html')
+         .then(response => response.text())
+         .then(data => {
+             document.getElementById('navbar').innerHTML = data;
+
+             // إعادة تفعيل زر الـ Burger Menu
+             const menuToggle = document.querySelector('.menu-toggle');
+             const menu = document.querySelector('.menu');
+             if (menuToggle) {
+                 menuToggle.addEventListener('click', () => {
+                     menu.classList.toggle('active');
+                 });
+             }
+         });
+         </script>
+
+<section class="display flex align-2">
+
+  <h1 class="lato text-white d-head">Super Electronics</h1>
+  <h3 class="catamaran text-white mt-3 d-body">Best gadets, best value, excellent service</h3>
+  <div class="inputcont text-center mt-4">
+  <select class="select input-item" name="select">
+    <option value="Desktop">Desktops</option>
+    <option value="Laptops">Laptops</option>
+    <option value="Smartphones">Smartphones</option>
+    <option value="smartwatches">Smartwatches</option>
+      <option value="others">Other Products</option>
+  </select>
+  <input type="text" placeholder="What do you search for?" class="lato input-item mt-2">
+  <a href="Search.html" class="searchbtn eclipse-bg text-white px-3 py-2">Search</a>
+  </div>
+  </section>
+
+  <!-- Container -->
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h3>Filters</h3>
+      <hr>
+
+      <!-- Filter Header -->
+      <div class="filter-header">
+        <h4>Filters</h4>
+        <button class="clear-filters">Clear All</button>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="filter-section">
+        <h4>Category</h4>
+        <label><input type="checkbox" value="Custom PCs"> Custom PCs</label>
+        <label><input type="checkbox" value="MSI All-in-One PCs"> MSI All-in-One PCs</label>
+        <label><input type="checkbox" value="HP/Compaq PCs"> HP/Compaq PCs</label>
+      </div>
+
+      <!-- Price Filter -->
+      <div class="filter-section">
+        <h4>Price</h4>
+        <label><input type="checkbox" value="JD200 - JD350"> JD200 - JD350</label>
+        <label><input type="checkbox" value="JD350 - JD499"> JD350 - JD499</label>
+        <label><input type="checkbox" value="JD500 - JD750"> JD500 - JD750</label>
+      </div>
+
+      <!-- Color Filter -->
+      <div class="filter-section">
+        <h4>Color</h4>
+        <div class="color-options">
+          <div class="color-red" data-color="red"></div>
+          <div class="color-black" data-color="black"></div>
+        </div>
+      </div>
+
+      <!-- Brands Filter -->
+      <div class="filter-section">
+        <h4>Brands</h4>
+        <label><input type="checkbox" value="MSI"> MSI</label>
+        <label><input type="checkbox" value="Gigabyte"> Gigabyte</label>
+        <label><input type="checkbox" value="Adata"> Adata</label>
+      </div>
+
+      <button class="apply-filters-btn">Apply Filters</button>
+    </div>
+
+    <!-- Products -->
+    <div class="products">
+      <!-- Product Card -->
+      <div class="product-card">
+        <img src="images/big-display.jpg" alt="Product Image">
+        <h4>MSI Pro 16 Flex</h4>
+        <p>EX DISPLAY - MULTITOUCH</p>
+        <div class="reviews">★★★★★ (4 Reviews)</div>
+        <div class="price">$499.00</div>
+        <button>Add to Cart</button>
+      </div>
+      <!-- Repeat Product Card -->
+      <div class="product-card">
+        <img src="images/big-display.jpg" alt="Product Image">
+        <h4>MSI Pro 16 Flex</h4>
+        <p>EX DISPLAY - MULTITOUCH</p>
+        <div class="reviews">★★★★★ (4 Reviews)</div>
+        <div class="price">$499.00</div>
+        <button>Add to Cart</button>
+      </div>
+      <!-- Repeat Product Card -->
+      <div class="product-card">
+        <img src="images/big-display.jpg" alt="Product Image">
+        <h4>MSI Pro 16 Flex</h4>
+        <p>EX DISPLAY - MULTITOUCH</p>
+        <div class="reviews">★★★★★ (4 Reviews)</div>
+        <div class="price">$499.00</div>
+        <button>Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="images/big-display.jpg" alt="Product Image">
+        <h4>MSI Pro 16 Flex</h4>
+        <p>EX DISPLAY - MULTITOUCH</p>
+        <div class="reviews">★★★★★ (4 Reviews)</div>
+        <div class="price">$499.00</div>
+        <button>Add to Cart</button>
+      </div>
+      <!-- Repeat Product Card -->
+      <div class="product-card">
+        <img src="images/big-display.jpg" alt="Product Image">
+        <h4>MSI Pro 16 Flex</h4>
+        <p>EX DISPLAY - MULTITOUCH</p>
+        <div class="reviews">★★★★★ (4 Reviews)</div>
+        <div class="price">$499.00</div>
+        <button>Add to Cart</button>
+      </div>
+      <!-- Repeat Product Card -->
+      <div class="product-card">
+        <img src="images/big-display.jpg" alt="Product Image">
+        <h4>MSI Pro 16 Flex</h4>
+        <p>EX DISPLAY - MULTITOUCH</p>
+        <div class="reviews">★★★★★ (4 Reviews)</div>
+        <div class="price">$499.00</div>
+        <button>Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="images/big-display.jpg" alt="Product Image">
+        <h4>MSI Pro 16 Flex</h4>
+        <p>EX DISPLAY - MULTITOUCH</p>
+        <div class="reviews">★★★★★ (4 Reviews)</div>
+        <div class="price">$499.00</div>
+        <button>Add to Cart</button>
+      </div>
+      <!-- Repeat Product Card -->
+      <div class="product-card">
+        <img src="images/big-display.jpg">
+          <div class="details">
+            <h4>MSI Pro 16 Flex</h4>
+            <p>EX DISPLAY - MULTITOUCH</p>
+            <div class="reviews">★★★★★ (4 Reviews)</div>
+            <div class="price">$499.00</div>
+            <button>Add to Cart</button>
+          </div>
+      </div>
+
+    </div>
+  </div>
+<br>
+  <div class="pagination-container">
+    <div class="pagination">
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+    </div>
+  </div>
+  <br>
+  <div id="footer-container"></div>
+  <script>
+    // Load footer using JavaScript
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-container').innerHTML = data;
+      });
+  </script>
+  
+
+</body>
+</html>

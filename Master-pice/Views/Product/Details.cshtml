@@ -1,0 +1,119 @@
+﻿@model dynamic
+
+
+@* @{ *@
+@*     ViewData["Title"] = "Product Details"; *@
+
+@*     string name = Model is Master_pice.Models.PC pc ? pc.Brand + " " + pc.Processor : *@
+@*                   Model is Master_pice.Models.Laptop laptop ? laptop.Brand + " " + laptop.Model : *@
+@*                   Model is Master_pice.Models.PCPart part ? part.Model : "Unknown Product"; *@
+
+@*     string image = Model.ImageURL ?? "no-image.png"; *@
+
+@*     string description = Model is Master_pice.Models.PC pcDesc ? pcDesc.Description : *@
+@*                          Model is Master_pice.Models.Laptop lapDesc ? lapDesc.Description : *@
+@*                          "No description available"; *@
+
+@*     decimal price = Model.Price; *@
+
+
+
+
+@* } *@
+
+
+@{
+    ViewData["Title"] = "Product Details";
+
+    string name = Model is Master_pice.Models.PC pc ? pc.Brand + " " + pc.Processor :
+                  Model is Master_pice.Models.Laptop laptop ? laptop.Brand + " " + laptop.Model :
+                  Model is Master_pice.Models.PCPart part ? part.Model : "Unknown Product";
+
+    string image = Model.ImageURL ?? "no-image.png";
+
+    string description = Model is Master_pice.Models.PC pcDesc ? pcDesc.Description :
+                         Model is Master_pice.Models.Laptop lapDesc ? lapDesc.Description :
+                         Model is Master_pice.Models.PCPart partDesc ? partDesc.Compatibility :
+                         "No description available";
+
+    decimal price = Model.Price;
+
+    string type = Model is Master_pice.Models.PC ? "pc" :
+                  Model is Master_pice.Models.Laptop ? "laptop" :
+                  Model is Master_pice.Models.PCPart ? "part" : "unknown";
+
+    int productId = Model is Master_pice.Models.PC pcId ? pcId.PCID :
+                    Model is Master_pice.Models.Laptop lapId ? lapId.LaptopID :
+                    Model is Master_pice.Models.PCPart partId ? partId.PartID : 0;
+}
+
+
+
+@section StylesProductDet {
+    <link rel="stylesheet" href="~/css/productDet.css" />
+    <link rel="stylesheet" href="~/css/det.css" />
+}
+
+<section class="product-container">
+    <!-- Left side -->
+    <div class="img-card">
+        <img src="~/uploads/@image" alt="@name" id="featured-image">
+        <div class="small-Card">
+            <img src="~/uploads/@image" class="small-Img" />
+            <img src="~/uploads/@image" class="small-Img" />
+            <img src="~/uploads/@image" class="small-Img" />
+            <img src="~/uploads/@image" class="small-Img" />
+        </div>
+    </div>
+
+    <!-- Right side -->
+    <div class="product-info">
+        <div class="product-details">
+            <div class="product-card">
+                <h2 class="product-title">@name</h2>
+                <ul class="product-details">
+                    <li>@description</li>
+                    @if (Model is Master_pice.Models.PC pcModel)
+                    {
+                        <li><b>Processor:</b> @pcModel.Processor</li>
+                        <li><b>Graphics:</b> @pcModel.GPU</li>
+                        <li><b>Storage:</b> @pcModel.Storage</li>
+                        <li><b>RAM:</b> @pcModel.RAM</li>
+                    }
+                    else if (Model is Master_pice.Models.Laptop laptopModel)
+                    {
+                        <li><b>Processor:</b> @laptopModel.Processor</li>
+                        <li><b>RAM:</b> @laptopModel.RAM</li>
+                        <li><b>Storage:</b> @laptopModel.Storage</li>
+                        <li><b>GPU:</b> @laptopModel.GPU</li>
+                    }
+                    else if (Model is Master_pice.Models.PCPart partModel)
+                    {
+                        <li><b>Category:</b> @partModel.Category</li>
+                        <li><b>Specs:</b> @partModel.Model</li>
+                        <li><b>Price:</b> $@partModel.Price</li>
+                    }
+                </ul>
+
+                <p class="price">On Sale from <span>$@price</span></p>
+
+                <div class="actions">
+                   
+                    <form method="post" asp-action="AddToCart" asp-controller="Product">
+                        <input type="hidden" name="ProductId" value="@productId" />
+                        <input type="hidden" name="Type" value="@type" />
+                        <div class="actions">
+                            <label for="quantity" class="quantity-label">Quantity:</label>
+                            <input type="number" name="Quantity" class="quantity-input" value="1" min="1" />
+                            <button type="submit" class="btn add-to-cart">Add to Cart</button>
+                            <button class="btn paypal">PayPal</button>
+                        </div>
+                    </form>
+
+                  
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

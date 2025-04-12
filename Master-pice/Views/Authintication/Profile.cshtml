@@ -1,0 +1,145 @@
+﻿@model User
+
+<h2 class="mb-4">My Profile</h2>
+
+<div class="card" style="width: 22rem;">
+    <img src="~/uploads/@Model.ProfileImage" class="card-img-top" alt="Profile Image" style="height: 250px; object-fit: cover;">
+    <div class="card-body">
+        <h4 class="card-title">@Model.FullName</h4>
+        <p class="card-text"><strong>Email:</strong> @Model.Email</p>
+        <p class="card-text"><strong>Phone:</strong> @Model.Phone</p>
+        @* <p class="card-text"><strong>Role:</strong> @Model.UserType</p> *@
+        <p class="card-text"><strong>Joined:</strong> @Model.CreatedAt.ToShortDateString()</p>
+    </div>
+</div>
+<a asp-action="EditProfile" asp-controller="Authintication" class="btn btn-primary mt-3">Edit Profile</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @{ *@
+@*     ViewData["Title"] = "Profile"; *@
+@* } *@
+
+@* @section StylesProfile *@
+@* { *@
+@*     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> *@
+@*     <link rel="stylesheet" href="~/css/styles.css"> *@
+@* } *@
+
+
+@* <div id="navbar"></div> *@
+@* <script> *@
+@*     fetch('navbar.html') *@
+@*      .then(response => response.text()) *@
+@*      .then(data => { *@
+@*          document.getElementById('navbar').innerHTML = data; *@
+
+@*          // إعادة تفعيل زر الـ Burger Menu *@
+@*          const menuToggle = document.querySelector('.menu-toggle'); *@
+@*          const menu = document.querySelector('.menu'); *@
+@*          if (menuToggle) { *@
+@*              menuToggle.addEventListener('click', () => { *@
+@*                  menu.classList.toggle('active'); *@
+@*              }); *@
+@*          } *@
+@*      }); *@
+@* </script> *@
+
+@* <!-- Profile Section --> *@
+@* <div class="container mt-5"> *@
+@*     <div class="row"> *@
+@*         <!-- Sidebar --> *@
+@*         <div class="col-md-3"> *@
+@*             <div class="card"> *@
+@*                 <div class="card-body"> *@
+@*                     <h5 class="card-title">Profile</h5> *@
+@*                     <ul class="list-group list-group-flush"> *@
+@*                         <li class="list-group-item"><a href="#">Account Information</a></li> *@
+@*                         <li class="list-group-item"><a href="myOrder.html">My Orders</a></li> *@
+@*                         <li class="list-group-item"><a href="WishList.html">My Wish List</a></li> *@
+@*                     </ul> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+
+@*         <!-- Main Content --> *@
+@*         <div class="col-md-9"> *@
+@*             <div class="card"> *@
+@*                 <div class="card-body"> *@
+@*                     <h5 class="card-title">Account Information</h5> *@
+@*                     <p>Here you can view and edit your account information.</p> *@
+@*                     <form> *@
+@*                         <div class="mb-3"> *@
+@*                             <label for="name" class="form-label">Name</label> *@
+@*                             <input type="text" class="form-control" id="name" value="John Doe" readonly> *@
+@*                         </div> *@
+@*                         <div class="mb-3"> *@
+@*                             <label for="email" class="form-label">Email</label> *@
+@*                             <input type="email" class="form-control" id="email" value="john.doe@example.com" readonly> *@
+@*                         </div> *@
+@*                         <div class="mb-3"> *@
+@*                             <label for="phone" class="form-label">Phone</label> *@
+@*                             <input type="tel" class="form-control" id="phone" value="+1234567890" readonly> *@
+@*                         </div> *@
+@*                         <button type="submit" class="btn btn-primary">Edit Profile</button> *@
+
+@*                     </form> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+@* <br> *@
+@* <br> *@
+@* <!-- Features Section *@
+@* <div class="container mt-5"> *@
+@*     <div class="row text-center"> *@
+@*         <div class="col-md-4"> *@
+@*             <div class="card p-4"> *@
+@*                 <h5>Product Support</h5> *@
+@*                 <p>Up to 3 years on-site warranty available for your peace of mind.</p> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="col-md-4"> *@
+@*             <div class="card p-4"> *@
+@*                 <h5>Personal Account</h5> *@
+@*                 <p>With big discounts, free delivery, and a dedicated support specialist.</p> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="col-md-4"> *@
+@*             <div class="card p-4"> *@
+@*                 <h5>Amazing Savings</h5> *@
+@*                 <p>Up to 70% off new products. You can be sure of the best price.</p> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> --> *@
+
+@* <div id="footer-container"></div> *@
+@* <script> *@
+@*     // Load footer using JavaScript *@
+@*     fetch('footer.html') *@
+@*       .then(response => response.text()) *@
+@*       .then(data => { *@
+@*         document.getElementById('footer-container').innerHTML = data; *@
+@*       }); *@
+@* </script> *@
+@* <!-- Bootstrap JS Bundle --> *@
+@* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> *@
+
+

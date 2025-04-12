@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+@section StylesAbout 
+{
+   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/About.css" />
+}
+
+
+
+<div class="container">
+    <!-- Now You're In Safe Hands -->
+    <div class="section">
+        <div class="section-text">
+            <h3>Now You're In Safe Hands</h3>
+            <p>Experience a 40% boost in computing from last generation. MSI developed the high-performance Intel Core™ i7 processor with the ultimate computing power to bring you an unparalleled gaming experience.</p>
+            <p><strong>*Performance compared to i7-9700K. Specs vary by model.</strong></p>
+        </div>
+        <div class="section-image">
+            <img src="~/images/th.jpeg" alt="Computer Image 1">
+        </div>
+    </div>
+
+    <!-- The Highest Quality of Products -->
+    <div class="section section-reverse">
+        <div class="section-text">
+            <h3>The Highest Quality of Products</h3>
+            <p>We guarantee the highest quality of the products we sell. Several decades of successful operation and millions of happy customers have led us to focus on quality control. That’s why, all items we sell pass through quality control so no characteristics mismatch can escape the eye of our professionals.</p>
+        </div>
+        <div class="section-image">
+            <img src="~/images/download.jpeg" alt="Computer Image 2">
+        </div>
+    </div>
+
+    <!-- We Deliver to Any Regions -->
+    <div class="section">
+        <div class="section-text">
+            <h3>We Deliver to Any Regions</h3>
+            <p>We deliver our goods all across Jordan. No matter where you live, your order will be shipped in time and delivered right to your door or to any other location you have stored. The packages are highly secured and come with the state-of-the-art products will be handed to you in prime condition.</p>
+        </div>
+        <div class="section-image">
+            <img src="~/images/download (1).jpeg" alt="Computer Image 3">
+        </div>
+    </div>
+
+    <!-- Review Section -->
+    <div class="review-section">
+        <div class="review-container">
+            <div class="review-text" id="review-text">
+                "My first order arrived today in perfect condition. From the time I sent a question about the item to making the purchase, to the shipping and now the delivery, your company, Teacs, has stayed in touch. Such great service. I look forward to shopping on your site in the future and would highly recommend it."
+            </div>
+            <button class="btn-review">Leave Us A Review</button>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer-Section">
+        <div class="footer-card">
+            <h5>Product Support</h5>
+            <p>Up to 3 years on-site warranty available for your peace of mind.</p>
+        </div>
+        <div class="footer-card">
+            <h5>Personal Account</h5>
+            <p>With big discounts, free delivery, and a dedicated support specialist.</p>
+        </div>
+        <div class="footer-card">
+            <h5>Amazing Savings</h5>
+            <p>Up to 70% off new products, you can be sure of the best price.</p>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript for Slider Effect -->
+<script>
+    const reviewText = [
+        `"My first order arrived today in perfect condition. From the time I sent a question about the item to making the purchase, to the shipping and now the delivery, your company, Teacs, has stayed in touch. Such great service. I look forward to shopping on your site in the future and would highly recommend it."`,
+        `"Absolutely fantastic service! I placed my order and received it the very next day. The product was well-packaged, and the customer support was incredible. I will definitely be shopping here again!"`,
+        `"I am so impressed with the speed of delivery and the quality of the product. I had a minor issue with my order, but it was resolved quickly by the amazing support team. Highly recommended!"`,
+    ];
+
+    let currentReview = 0;
+
+    const reviewElement = document.getElementById("review-text");
+
+    function changeReview() {
+        currentReview = (currentReview + 1) % reviewText.length;
+        reviewElement.textContent = reviewText[currentReview];
+    }
+
+    setInterval(changeReview, 5000); 
+</script>
+
+
+
+
+
+

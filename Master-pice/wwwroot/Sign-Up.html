@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="loginstyle.css">
+    <title>Sign-Up</title>
+    <style>
+      
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer .links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer .links div {
+                text-align: center;
+                flex: 1 1 100%;
+            }
+
+            .footer .newsletter input {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            .footer .newsletter button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="navbar"></div>
+    <script>
+        fetch('navbar.html')
+         .then(response => response.text())
+         .then(data => {
+             document.getElementById('navbar').innerHTML = data;
+
+             // إعادة تفعيل زر الـ Burger Menu
+             const menuToggle = document.querySelector('.menu-toggle');
+             const menu = document.querySelector('.menu');
+             if (menuToggle) {
+                 menuToggle.addEventListener('click', () => {
+                     menu.classList.toggle('active');
+                 });
+             }
+         });
+         </script>
+
+<div class="rahul">
+    <img src="https://thumbs.dreamstime.com/z/technology-electronic-items-several-seen-above-wood-effect-background-171895362.jpg" alt="Background Image">
+</div>
+
+   </div>
+   <div class="shift"> 
+       <div class="wrapper login">
+           <div class="container">
+               <div class="col-left">
+                   <div class="login-text">
+                       <h2>Welcome!</h2>
+                       <p>Do you have account?</p>
+                       <a style="text-decoration: none;" href="login.html" class="btn">Login</a>
+                   </div>
+               </div>
+               <div class="col-right">
+                   <div class="login-form">
+                       <h2>Sign Up</h2>
+                       <form action="#">
+                           <p>
+                               <label>Full Name:<span>*</span></label>
+                               <input type="text" placeholder="Full Name" required>
+                           </p>
+                           <p>
+                            <label>Email<span>*</span></label>
+                            <input type="text" placeholder="Email" required>
+                        </p>
+                           <p>
+                            <label>Password<span>*</span></label>
+                            <input type="password" placeholder="Password" required>
+                        </p>
+                           <p>
+                               <label>Confirm-Password<span>*</span></label>
+                               <input type="password" placeholder="Confirm-Password" required>
+                           </p>
+                           <p>
+                               <input type="submit" value="Sign Up">
+                           </p>
+                       </form>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+    <div id="footer-container"></div>
+  <script>
+    // Load footer using JavaScript
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-container').innerHTML = data;
+      });
+  </script>
+
+    <script>
+        function toggleNav() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

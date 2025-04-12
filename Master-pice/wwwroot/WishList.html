@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .wishlist-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .item-details {
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+
+        .item-details h3 {
+            font-size: 18px;
+            margin: 0 0 10px;
+        }
+
+        .item-details p {
+            font-size: 14px;
+            color: #888;
+            margin: 0 0 5px;
+        }
+
+        .item-details .price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #b43e57;
+        }
+
+        .item-details .original-price {
+            font-size: 14px;
+            color: #b43e57;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-to-cart {
+            background-color: #b43e57;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #b43e57;
+        }
+
+        .view {
+            background-color: green;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        .view:hover {
+            background-color: green;
+        }
+
+        .remove {
+            background-color: darkred;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        .remove:hover {
+            background-color: #b43e57;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .actions a {
+            text-decoration: none;
+            font-size: 14px;
+            color: #b43e57;
+        }
+
+        .actions a:hover {
+            text-decoration: underline;
+        }
+
+        .actions .clear-wishlist {
+            background-color: darkred;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .actions .clear-wishlist:hover {
+            background-color: #c82333;
+        }
+
+         /* Responsive Styles */
+         @media (max-width: 426px) {
+            .wishlist-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .wishlist-item img {
+                margin-bottom: 10px;
+            }
+
+            .item-details {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+
+            .buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .buttons button {
+                width: calc(33.33% - 10px);
+                text-align: center;
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .actions a {
+                margin-bottom: 10px;
+            }
+
+            .actions .clear-wishlist {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+
+          /* Responsive Styles for max-width 425px */
+    @media (max-width: 426px) {
+        .wishlist-item {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 15px;
+        }
+
+        .wishlist-item img {
+            margin-bottom: 10px;
+            width: 80px;
+            height: 80px;
+        }
+
+        .item-details {
+            margin-left: 0;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .item-details h3 {
+            font-size: 16px;
+        }
+
+        .item-details p {
+            font-size: 12px;
+        }
+
+        .item-details .price {
+            font-size: 14px;
+        }
+
+        .item-details .original-price {
+            font-size: 12px;
+        }
+
+        .buttons {
+            width: 100%;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: space-between;
+        }
+
+        .buttons button {
+            width: calc(33.33% - 5px);
+            font-size: 12px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .actions {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .actions a {
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        .actions .clear-wishlist {
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            padding: 10px;
+        }
+    }
+
+    </style>
+</head>
+<body>
+
+    <div id="navbar"></div>
+    <script>
+        fetch('navbar.html')
+         .then(response => response.text())
+         .then(data => {
+             document.getElementById('navbar').innerHTML = data;
+
+             // إعادة تفعيل زر الـ Burger Menu
+             const menuToggle = document.querySelector('.menu-toggle');
+             const menu = document.querySelector('.menu');
+             if (menuToggle) {
+                 menuToggle.addEventListener('click', () => {
+                     menu.classList.toggle('active');
+                 });
+             }
+         });
+         </script>
+
+<div class="container">
+    <h1>Wishlist</h1>
+
+    <div class="wishlist-item">
+        <img src="images/laptop-3.jpeg" alt="Product Image">
+        <div class="item-details">
+            <h3>Yellow Wireless Headphone</h3>
+            <p>Electronics</p>
+            <p>
+                <span class="price">$125.00</span>
+                <span class="original-price">$160.00</span>
+            </p>
+        </div>
+        <div class="buttons">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="view">View</button>
+            <button class="remove">Remove</button>
+        </div>
+    </div>
+
+    <div class="wishlist-item">
+        <img src="images/desktop-3.jpeg" alt="Product Image">
+        <div class="item-details">
+            <h3>New Dress D Nice Elegant</h3>
+            <p>Women Clothing</p>
+            <p>
+                <span class="price">$125.00</span>
+                <span class="original-price">$160.00</span>
+            </p>
+        </div>
+        <div class="buttons">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="view">View</button>
+            <button class="remove">Remove</button>
+        </div>
+    </div>
+
+    <div class="wishlist-item">
+        <img src="images/desktop-3.jpeg" alt="Product Image">
+        <div class="item-details">
+            <h3>New Fashion D Nice Elegant</h3>
+            <p>Men Clothing</p>
+            <p>
+                <span class="price">$125.00</span>
+                <span class="original-price">$160.00</span>
+            </p>
+        </div>
+        <div class="buttons">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="view">View</button>
+            <button class="remove">Remove</button>
+        </div>
+    </div>
+
+    <div class="actions">
+        <a href="#">&larr; Continue Shopping</a>
+        <button class="clear-wishlist">Clear Wishlist</button>
+    </div>
+</div>
+    <div id="footer-container"></div>
+    <script>
+      // Load footer using JavaScript
+      fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer-container').innerHTML = data;
+        });
+    </script>
+</body>
+</html>

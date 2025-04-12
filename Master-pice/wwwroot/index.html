@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="styleIndex.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <script src="https://kit.fontawesome.com/5b1eeceadd.js" crossorigin="anonymous"></script>
+    <title>Online-electronic-shop</title>
+
+    
+  </head>
+
+  <body>
+
+<!--header section-->
+
+<header class="header">
+
+<!--Navigation bar-->
+
+<div id="navbar"></div>
+<script>
+    fetch('navbar.html')
+     .then(response => response.text())
+     .then(data => {
+         document.getElementById('navbar').innerHTML = data;
+
+         // إعادة تفعيل زر الـ Burger Menu
+         const menuToggle = document.querySelector('.menu-toggle');
+         const menu = document.querySelector('.menu');
+         if (menuToggle) {
+             menuToggle.addEventListener('click', () => {
+                 menu.classList.toggle('active');
+             });
+         }
+     });
+     </script>
+
+</header>
+
+<!--End of header-->
+
+<main class="main">
+
+<!--start of display and search section-->
+
+<section class="display flex align-2">
+
+<h1 class="lato text-white d-head">Super Electronics</h1>
+<h3 class="catamaran text-white mt-3 d-body">Best gadets, best value, excellent service</h3>
+<div class="inputcont text-center mt-4">
+<select class="select input-item" name="select">
+  <option value="Desktop">Desktops</option>
+  <option value="Laptops">Laptops</option>
+  <option value="Smartphones">PC Parts</option>
+</select>
+<input type="text" placeholder="What do you search for?" class="lato input-item mt-2">
+<a href="Search.html" class="searchbtn eclipse-bg text-white px-3 py-2">Search</a>
+</div>
+</section>
+
+<!--end of display and search section-->
+
+<!--start of img-carousel-1-->
+<section class="img-carousel-1 py-4">
+  <div class="title width-70 mt-3 sec-title">
+  <h3 class="lato cabaret-bg text-center text-white py-1 hot-ad mb-2">your Favorite PC</h3>
+  </div>
+  
+  
+  
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+  
+        <div class="ad-cont width-70">
+  
+        <div class="ad-item d-md-flex d-block">
+        <div class="img-item">
+        <img src="./images/e9beca1f-2600-4ec7-8faa-46286ea9b687.webp" alt="samsung" class="d-img">
+        </div>
+  
+        <div class="text-item ml-3">
+          <h2 class="text-title lato">Guide to Choosing the Right Computer Based on Your Needs
+          </h2>
+          <p class="text-justify text-body catamaran">
+            We help you choose the right device for you by answering our questions.
+            Start answering questions now
+          </p>
+          <h4 class="lato t-des"></h4>
+          <h4 class="lato t-des"></h4>
+          <a href="questionUser.html">
+          <button class="price cabaret-bg w-25 text-white mt-3 lato">Start now</button>
+        </a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+
+
+<br>
+<br>
+
+<section class="img-carousel-1 py-4">
+<div class="title width-70 mt-3 sec-title">
+<h3 class="lato cabaret-bg text-center text-white py-1 hot-ad mb-2">Hot Ads</h3>
+</div>
+
+
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+
+      <div class="ad-cont width-70">
+
+      <div class="ad-item d-md-flex d-block">
+      <div class="img-item">
+      <img src="./images/desktop-5.jpeg" alt="samsung" class="d-img">
+      </div>
+
+      <div class="text-item ml-3">
+        <h2 class="text-title lato">Acer Nitro Gaming Desktop - Power Meets Precision
+        </h2>
+        <p class="text-justify text-body catamaran">
+          The Acer Nitro Gaming Desktop is designed for gamers seeking high performance and style.
+        </p>
+        <h4 class="lato t-des"></h4>
+        <h4 class="lato t-des"></h4>
+        <button class="price cabaret-bg w-25 text-white mt-3 lato">750$</button><button class="lato detail cabaret-bg w-50 text-white mt-3">Purchase Details</button>
+      </div>
+
+      </div>
+
+      </div>
+
+    </div>
+    <div class="carousel-item">
+      <div class="ad-cont width-70">
+
+      <div class="ad-item d-md-flex d-block">
+      <div class="img-item">
+      <img src="images/hp-desktop-1.jpg" alt="samsung" class="d-img">
+      </div>
+
+      <div class="text-item ml-3">
+        <h2 class="text-title lato">Acer all in one desktop</h2>
+        <p class="text-justify text-body catamaran">A desktop that is super user friendly. User can use it for all kind of purpose. From programming to playing games, This PC is all a person needs. It comes with 2 years of warranty and free service.</p>
+       
+        <button class="price cabaret-bg w-25 text-white mt-3 lato">750$</button><button class="lato detail cabaret-bg w-50 text-white mt-3">Purchase Details</button>
+      </div>
+
+      </div>
+
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="ad-cont width-70">
+
+      <div class="ad-item d-md-flex d-block">
+      <div class="img-item">
+      <img src="images/laptop-1.jpeg" alt="samsung" class="d-img">
+      </div>
+
+      <div class="text-item ml-3">
+        <h2 class="text-title lato mt-2">Moto Razor Blade with super processor </h2>
+        <p class="text-justify text-body catamaran">It is a phone for professional. It is easy to use and has all the feature that a person needs. It has a stylish display, a super thin body and a processor that can compete with a laptop.</p>
+       
+        <button class="price cabaret-bg w-25 text-white mt-3 lato">750$</button><button class="lato detail cabaret-bg w-50 text-white mt-3">Purchase Details</button>
+      </div>
+
+      </div>
+
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon bg-danger p-3" aria-hidden="true"></span>
+    <span class="sr-only ">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon bg-danger p-3" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</section>
+
+
+<!--end of img-carousel-1 -->
+
+<!-- start of item-list -->
+
+<section class="desktop-sec bg-light py-4">
+
+<div class="sec-title d-flex justify-content-start align-items-center desktop-cont m-auto">
+  <i style="color: #dc3545;" class="fas fa-desktop fa-2x mr-4 defgrey opacity"></i>
+ <a style="color: #dc3545; text-decoration: none;" href="categories.html">View More Desktops</a>
+</div>
+
+<hr>
+
+
+<div  class="carousel slide" data-ride="carousel" data-interval="3000">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="desktop-cont row m-auto">
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/desktop-1.jpeg" alt="desktop" class="desktop mt-2">
+      <h3 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h3>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/desktop-2.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title text-left mt-2">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1 defgrey">
+      <i class="far fa-plus-square"></i>
+      <p class="item-price cabaret-color lato ">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/desktop-3.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/desktop-4.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+  </div>
+  </div>
+
+    </div>
+    <div class="carousel-item">
+      <div class="desktop-cont row m-auto">
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/desktop-1.jpeg" alt="desktop" class="desktop mt-2">
+      <h3 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h3>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/desktop-2.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title text-left mt-2">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1 defgrey">
+      <i class="far fa-plus-square"></i>
+      <p class="item-price cabaret-color lato ">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/desktop-3.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/desktop-4.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      </div>
+
+    </div>
+    <div class="carousel-item">
+      <div class="desktop-cont row m-auto">
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/desktop-1.jpeg" alt="desktop" class="desktop mt-2">
+      <h3 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h3>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+  <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/desktop-2.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title text-left mt-2">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1 defgrey">
+      <i class="far fa-plus-square"></i>
+      <p class="item-price cabaret-color lato ">764$</p>
+      </div>
+      </div>
+      </div>
+
+<div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/desktop-3.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+<div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/desktop-4.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      </div>
+
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span aria-hidden="true"><i class="fas fa-chevron-circle-left fa-2x cabaret-color"></i></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span aria-hidden="true"><i class="fas fa-chevron-circle-right fa-2x cabaret-color"></i></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+</section>
+
+<!--end of item-list -->
+
+<!-- start of item-list-2 -->
+
+<section class="desktop-sec bg-light py-4">
+
+<div class="sec-title d-flex justify-content-start align-items-center desktop-cont m-auto">
+  <i style="color: #dc3545;" class="fas fa-laptop fa-2x mr-4 defgrey opacity"></i>
+  <a style="color: #dc3545; text-decoration: none;" href="categories.html">View More Laptops</a>
+</div>
+
+<hr>
+
+
+<div  class="carousel slide" data-ride="carousel" data-interval="3000">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="desktop-cont row m-auto">
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/laptop-1.jpeg" alt="desktop" class="desktop mt-2">
+      <h3 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h3>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/laptop-2.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title text-left mt-2">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1 defgrey">
+      <i class="far fa-plus-square"></i>
+      <p class="item-price cabaret-color lato ">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/laptop-3.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/laptop-4.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+  </div>
+  </div>
+
+    </div>
+    <div class="carousel-item">
+      <div class="desktop-cont row m-auto">
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/laptop-1.jpeg" alt="desktop" class="desktop mt-2">
+      <h3 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h3>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/laptop-2.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title text-left mt-2">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1 defgrey">
+      <i class="far fa-plus-square"></i>
+      <p class="item-price cabaret-color lato ">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/laptop-3.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/laptop-4.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      </div>
+
+    </div>
+    <div class="carousel-item">
+      <div class="desktop-cont row m-auto">
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/laptop-1.jpeg" alt="desktop" class="desktop mt-2">
+      <h3 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h3>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+  <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/laptop-2.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title text-left mt-2">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1 defgrey">
+      <i class="far fa-plus-square"></i>
+      <p class="item-price cabaret-color lato ">764$</p>
+      </div>
+      </div>
+      </div>
+
+<div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/laptop-3.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+<div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/laptop-4.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      </div>
+
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span aria-hidden="true"><i class="fas fa-chevron-circle-left fa-2x cabaret-color"></i></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span aria-hidden="true"><i class="fas fa-chevron-circle-right fa-2x cabaret-color"></i></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+</section>
+
+<!--end of item-list-2 -->
+
+<!-- start of item-list-3 -->
+<section class="desktop-sec bg-light py-4">
+
+<div class="sec-title d-flex justify-content-start align-items-center desktop-cont m-auto">
+  <a style="color: #dc3545; text-decoration: none;" href="categories.html">View More PC Parts</a>
+</div>
+
+<hr>
+
+
+<div  class="carousel slide" data-ride="carousel" data-interval="3000">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="desktop-cont row m-auto">
+
+        <div class="col-lg-3 col-md-6">
+          <div class="similar-item bg-white px-3 py-2 text-center">
+          <img src="./images/IntelCorei9-11900K.jpg" alt="CPU" class="desktop mt-2">
+          <h3 class="lato desk-title mt-2 text-left">Intel Core i9-11900K</h3>
+          <h5 class="type text-left cabaret-color">New</h5>
+          <p class="location text-left catamaran mb-1">Helsinki, Finland</p>
+          <p class="description text-left">High-performance CPU for gaming and productivity.</p>
+          <div class="price-tag flex align-1">
+          <i class="far fa-plus-square defgrey"></i>
+          <p class="item-price cabaret-color lato">$549</p>
+          </div>
+          </div>
+          </div>
+    
+          <div class="col-lg-3 col-md-6">
+          <div class="similar-item bg-white px-3 py-2 text-center">
+          <img src="./images/NVIDIARTX3080.jpg" alt="GPU" class="desktop mt-2">
+          <h3 class="lato desk-title text-left mt-2">NVIDIA RTX 3080</h3>
+          <h5 class="type text-left cabaret-color">New</h5>
+          <p class="location text-left catamaran mb-1">Espoo, Finland</p>
+          <p class="description text-left">Top-tier graphics card for 4K gaming and rendering.</p>
+          <div class="price-tag flex align-1 defgrey">
+          <i class="far fa-plus-square"></i>
+          <p class="item-price cabaret-color lato">$1,199</p>
+          </div>
+          </div>
+          </div>
+    
+          <div class="col-lg-3 col-md-6">
+          <div class="similar-item bg-white px-3 py-2 text-center">
+          <img src="./images/ASUSROGSTRIXZ590-E.jpg" alt="Motherboard" class="desktop mt-2">
+          <h3 class="lato desk-title mt-2 text-left">ASUS ROG STRIX Z590-E</h3>
+          <h5 class="type text-left cabaret-color">New</h5>
+          <p class="location text-left catamaran mb-1">Tampere, Finland</p>
+          <p class="description text-left">High-performance motherboard with advanced features.</p>
+          <div class="price-tag flex align-1">
+          <i class="far fa-plus-square defgrey"></i>
+          <p class="item-price cabaret-color lato">$399</p>
+          </div>
+          </div>
+          </div>
+    
+          <div class="col-lg-3 col-md-6">
+          <div class="similar-item bg-white px-3 py-2 text-center">
+          <img src="./images/CorsairVengeance32GB.jpg" alt="RAM" class="desktop mt-2">
+          <h3 class="lato desk-title mt-2 text-left">Corsair Vengeance 32GB</h3>
+          <h5 class="type text-left cabaret-color">New</h5>
+          <p class="location text-left catamaran mb-1">Oulu, Finland</p>
+          <p class="description text-left">High-speed RAM for smooth multitasking and gaming.</p>
+          <div class="price-tag flex align-1">
+          <i class="far fa-plus-square defgrey"></i>
+          <p class="item-price cabaret-color lato">$199</p>
+          </div>
+          </div>
+          </div>
+    
+  </div>
+  </div>
+
+    </div>
+    <div class="carousel-item">
+      <div class="desktop-cont row m-auto">
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/phone-1.jpeg" alt="desktop" class="desktop mt-2">
+      <h3 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h3>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/phone-2.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title text-left mt-2">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1 defgrey">
+      <i class="far fa-plus-square"></i>
+      <p class="item-price cabaret-color lato ">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/phone-3.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/phone-4.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      </div>
+
+    </div>
+    <div class="carousel-item">
+      <div class="desktop-cont row m-auto">
+
+      <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/phone-1.jpeg" alt="desktop" class="desktop mt-2">
+      <h3 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h3>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+  <div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/phone-2.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title text-left mt-2">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1 defgrey">
+      <i class="far fa-plus-square"></i>
+      <p class="item-price cabaret-color lato ">764$</p>
+      </div>
+      </div>
+      </div>
+
+<div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/phone-3.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+<div class="col-lg-3 col-md-6">
+      <div class="similar-item bg-white px-3 py-2 text-center">
+      <img src="images/phone-4.jpeg" alt="desktop" class="desktop mt-2">
+      <h4 class="lato desk-title mt-2 text-left">Lenevo LEGION Y25 25</h4>
+      <h5 class="type text-left cabaret-color">Used</h5>
+      <p class="location text-left catamaran mb-1">Vantaa,Finland</p>
+      <div class="price-tag flex align-1">
+      <i class="far fa-plus-square defgrey"></i>
+      <p class="item-price cabaret-color lato">764$</p>
+      </div>
+      </div>
+      </div>
+
+      </div>
+
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span aria-hidden="true"><i class="fas fa-chevron-circle-left fa-2x cabaret-color"></i></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span aria-hidden="true"><i class="fas fa-chevron-circle-right fa-2x cabaret-color"></i></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+</section>
+<!-- end of item-3 -->
+</main>
+
+
+<!-- start of footer-->
+
+<div id="footer-container"></div>
+<script>
+  // Load footer using JavaScript
+  fetch('footer.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('footer-container').innerHTML = data;
+    });
+</script>
+
+
+  <script>
+      function toggleNav() {
+          const navLinks = document.querySelector('.nav-links');
+          navLinks.classList.toggle('active');
+      }
+  </script>
+
+
+
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>

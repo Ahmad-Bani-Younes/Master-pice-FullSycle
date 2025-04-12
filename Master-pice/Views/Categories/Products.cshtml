@@ -1,0 +1,173 @@
+﻿@model List<Master_pice.ViewModel.ProductViewModel>
+
+@{
+    ViewData["Title"] = "Products";
+    int currentPage = ViewBag.CurrentPage as int? ?? 1;
+    int totalPages = ViewBag.TotalPages as int? ?? 1;
+}
+
+@section StylesProduct
+{
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/styleIndex.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/product.css">
+
+}
+
+
+<section class="display flex align-2">
+
+    <h1 class="lato text-white d-head">Super Electronics</h1>
+    <h3 class="catamaran text-white mt-3 d-body">Best gadets, best value, excellent service</h3>
+   
+</section>
+<br />
+<br />
+
+<div class="inputcont text-center mt-5">
+    <div class="d-flex justify-content-center align-items-center" style="gap: 10px;">
+        <input id="searchInput" type="text"
+               value="@ViewBag.Type"
+               placeholder="What do you search for?"
+               class="form-control"
+               style="width: 400px; height: 50px; font-size: 18px; border-radius: 8px;" />
+
+       
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        let typingTimer;
+        const delay = 1500; 
+        const input = document.getElementById("searchInput");
+
+        input.addEventListener("keyup", function () {
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(function () {
+                const query = input.value;
+                if (query.length > 0) {
+                    window.location.href = `/Categories/Index?search=${encodeURIComponent(query)}`;
+                }
+            }, delay);
+        });
+    </script>
+}
+
+<br />
+<br />
+<!-- Container -->
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Filters</h3>
+        <hr>
+
+        <!-- Filter Header -->
+        <div class="filter-header">
+            <h4>Filters</h4>
+            <button class="clear-filters">Clear All</button>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-section">
+            <h4>Category</h4>
+            <label><input type="checkbox" value="Custom PCs"> Custom PCs</label>
+            <label><input type="checkbox" value="MSI All-in-One PCs"> MSI All-in-One PCs</label>
+            <label><input type="checkbox" value="HP/Compaq PCs"> HP/Compaq PCs</label>
+        </div>
+
+        <!-- Price Filter -->
+        <div class="filter-section">
+            <h4>Price</h4>
+            <label><input type="checkbox" value="JD200 - JD350"> JD200 - JD350</label>
+            <label><input type="checkbox" value="JD350 - JD499"> JD350 - JD499</label>
+            <label><input type="checkbox" value="JD500 - JD750"> JD500 - JD750</label>
+        </div>
+
+        <!-- Color Filter -->
+        <div class="filter-section">
+            <h4>Color</h4>
+            <div class="color-options">
+                <div class="color-red" data-color="red"></div>
+                <div class="color-black" data-color="black"></div>
+            </div>
+        </div>
+
+        <!-- Brands Filter -->
+        <div class="filter-section">
+            <h4>Brands</h4>
+            <label><input type="checkbox" value="MSI"> MSI</label>
+            <label><input type="checkbox" value="Gigabyte"> Gigabyte</label>
+            <label><input type="checkbox" value="Adata"> Adata</label>
+        </div>
+
+        <button class="apply-filters-btn">Apply Filters</button>
+    </div>
+
+
+    <!-- Products -->
+    <div class="products">
+        @foreach (var item in Model)
+        {
+            <div class="product-card">
+                <img src="~/uploads/@item.ImageURL" alt="Product Image">
+                <h4>@item.Name</h4>
+                <p>@item.Description</p>
+                <div class="price">$@item.Price</div>
+
+                <div class="d-flex justify-content-center gap-2 mt-2">
+                    <!-- View Details Button -->
+                    <a href="@Url.Action("Details", "Product", new { id = item.ID, type = item.Type.ToLower() })"
+                       class="btn btn-danger btn-sm px-2 py-1"
+                       style="font-size: 12px; width: 90px;">
+                        View
+                    </a>
+
+                    <!-- Add to Cart Form -->
+                    <form asp-action="AddToCart" asp-controller="Categories" method="post">
+                        <input type="hidden" name="ProductId" value="@item.ID" />
+                        <input type="hidden" name="Type" value="@item.Type.ToLower()" />
+                        <input type="hidden" name="Quantity" value="1" />
+                        <button type="submit"
+                                class="btn btn-outline-danger btn-sm px-2 py-1"
+                                style="font-size: 12px; width: 90px;">
+                            Add
+                        </button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+
+</div>
+<br>
+<div class="pagination-container">
+    <div class="pagination">
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            <a href="@Url.Action("Index", "Product", new { page = i })"
+               class="@(i == currentPage ? "btn btn-danger mx-1" : "btn btn-outline-danger mx-1")">
+                @i
+            </a>
+        }
+    </div>
+</div>
+<br>
+
+
+
+@* <div class="pagination" style="margin-top: 30px; text-align:center;"> *@
+@*     @for (int i = 1; i <= totalPages; i++) *@
+@*     { *@
+@*         <a href="@Url.Action("Index", "Product", new { page = i })" *@
+@*            class="@(i == currentPage ? "btn btn-danger mx-1" : "btn btn-outline-danger mx-1")"> *@
+@*             @i *@
+@*         </a> *@
+@*     } *@
+@* </div> *@

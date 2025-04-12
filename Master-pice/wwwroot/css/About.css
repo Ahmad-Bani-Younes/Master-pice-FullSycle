@@ -1,0 +1,230 @@
+﻿/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    padding: 50px;
+}
+
+/* Section Styling */
+.section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+    animation: slideIn 1.5s ease-out;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.section-text {
+    width: 50%;
+    padding-right: 20px;
+    font-size: 1.2rem;
+}
+
+    .section-text h3 {
+        font-size: 2rem;
+        color: #b43e57;
+        margin-bottom: 15px;
+    }
+
+    .section-text p {
+        color: black;
+    }
+
+.section-image {
+    width: 45%;
+}
+
+    .section-image img {
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(236, 0, 0, 0.2);
+    }
+
+/* Footer Section */
+
+
+@keyframes footerSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .section-text {
+        width: 100%;
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .section-image {
+        width: 100%;
+    }
+
+    .footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-logo img {
+        width: 100px;
+    }
+
+    .section-reverse {
+        flex-direction: column;
+    }
+}
+
+/* Custom Section Layout for Image-Text Switch */
+.section-reverse {
+    flex-direction: row-reverse;
+}
+
+
+/* Review Section Styling */
+.review-section {
+    background-color: #b43e57;
+    padding: 50px 0;
+    text-align: center;
+    animation: fadeIn 1.5s ease-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.review-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.review-text {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #555;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+
+
+
+
+/* Button */
+.btn-review {
+    background-color: #b43e57;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-review:hover {
+        background-color: #ed6988;
+    }
+
+
+
+/* Footer Section */
+.footer-Section {
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.footer-card {
+    width: 30%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(254, 1, 1, 0.1);
+    transition: transform 0.3s ease;
+}
+
+    .footer-card:hover {
+        transform: scale(1.05);
+    }
+
+    .footer-card h5 {
+        color: #b43e57;
+        margin-bottom: 10px;
+    }
+
+    .footer-card p {
+        color: black;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-section {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .footer-card {
+        width: 80%;
+    }
+
+    .section-reverse {
+        flex-direction: column;
+    }
+}
+.container {
+    /* display: flex
+; */
+    max-width: 1200px;
+    margin: 20px auto;
+    gap: 20px;
+}

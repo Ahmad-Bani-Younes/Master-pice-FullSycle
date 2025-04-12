@@ -1,0 +1,205 @@
+﻿.body {
+    background: white;
+    transition: all .5s;
+    padding: 1px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.veen {
+    width: 55%;
+    margin: 100px auto;
+    background: #b43e57;
+    min-height: 400px;
+    display: table;
+    position: relative;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
+}
+
+    .veen > div {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        color: white;
+    }
+
+    .veen button {
+        background: transparent;
+        background-image: linear-gradient(90deg, #b43e57, #b43e57);
+        display: inline-block;
+        padding: 10px 30px;
+        border: 3px solid #fff;
+        border-radius: 50px;
+        background-clip: padding-box;
+        position: relative;
+        color: #FFF;
+        box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
+        transition: all .25s;
+    }
+
+        .veen button.dark {
+            border-color: #b43e57;
+            background: #b43e57;
+        }
+
+    .veen .move button.dark {
+        border-color: #b43e57;
+        background: #b43e57;
+    }
+
+    .veen .splits p {
+        font-size: 18px;
+    }
+
+    .veen button:active {
+        box-shadow: none;
+    }
+
+    .veen button:focus {
+        outline: none;
+    }
+
+    .veen > .wrapper {
+        position: absolute;
+        width: 40%;
+        height: 100%;
+        top: 0%;
+        left: 5%;
+        background: #fff;
+        box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
+        transition: all .5s;
+        color: #303030;
+        overflow: hidden;
+    }
+
+    .veen .wrapper > form {
+        padding: 15px 30px 30px;
+        width: 100%;
+        transition: all .5s;
+        background: #fff;
+    }
+
+    .veen .wrapper #login {
+        padding-top: 20%;
+        visibility: visible;
+        width: 108%;
+        position: absolute;
+        left: -3%;
+    }
+
+    .veen .wrapper #register {
+        transform: translateY(-80%) translateX(100%);
+        visibility: hidden;
+    }
+
+    .veen .wrapper.move #register {
+        transform: translateY(-80%) translateX(0%);
+        visibility: visible;
+        transform: translateY(-80%) translateX(0%);
+        visibility: visible;
+        position: absolute;
+        top: 73%;
+        left: -4%;
+        width: 108%;
+    }
+
+    .veen .wrapper.move #login {
+        transform: translateX(-100%);
+        visibility: hidden;
+    }
+
+    .veen .wrapper h3 {
+        margin-bottom: 25px;
+    }
+
+    .veen .wrapper input {
+        height: 40px;
+        padding: 5px 15px;
+        width: 100%;
+        border: solid 1px #999;
+    }
+
+        .veen .wrapper input:focus {
+            outline: none;
+            border-color: #b43e57;
+        }
+
+    .veen > .wrapper.move {
+        left: 45%;
+    }
+
+        .veen > .wrapper.move input:focus {
+            border-color: #b43e57;
+        }
+
+    /* تحسين تصميم الحقول */
+    .veen .wrapper input {
+        height: 35px;
+        padding: 5px 10px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        background-color: #f9f9f9;
+    }
+
+        .veen .wrapper input:focus {
+            outline: none;
+            border-color: #b43e57;
+            box-shadow: 0 0 4px rgba(255, 73, 49, 0.5);
+        }
+
+    /* تحسين تصميم الليبل */
+    .veen .wrapper label {
+        position: absolute;
+        top: -8px;
+        left: 10px;
+        font-size: 12px;
+        background-color: #fff;
+        padding: 0 5px;
+        color: #666;
+        transition: color 0.3s ease;
+    }
+
+    .veen .wrapper input:focus + label {
+        color: #ff4931;
+    }
+
+    /* تحسين تصميم الزر */
+    .veen .wrapper button {
+        display: inline-block;
+        width: 100%;
+        padding: 10px;
+        background: #b43e57;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+        .veen .wrapper button:hover {
+            background: linear-gradient(90deg, #ff4931, #b43e57);
+            transform: scale(1.02);
+        }
+
+        .veen .wrapper button:active {
+            transform: scale(0.98);
+        }
+
+    /* تحسين المسافات بين الحقول */
+    .veen .wrapper > form > div {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .veen .wrapper h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #303030;
+    }

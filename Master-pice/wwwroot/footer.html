@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Footer</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+     background-color: #f8f9fc;
+      color: black;
+    }
+
+    /* Footer Styles */
+    .footer {
+      background-color: #b43e57;
+      color: #fff;
+      padding: 30px 20px;
+    }
+
+    .footer .newsletter {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .footer .newsletter h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .footer .newsletter p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .footer .newsletter-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .footer .newsletter-form input[type="email"] {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      width: 300px;
+      margin-right: 10px;
+      font-size: 14px;
+    }
+
+    .footer .newsletter-form button {
+      padding: 10px 20px;
+      border: none;
+      background-color: white;
+      color: #b43e57;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .footer .footer-links {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .footer .footer-section {
+      flex: 1 1 200px;
+      margin: 10px;
+    }
+
+    .footer .footer-section h4 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .footer .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer .footer-section ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer .footer-section ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .footer .footer-section ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .footer .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #333;
+      padding-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer .social-icons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .footer .social-icons a {
+      color: #fff;
+      font-size: 18px;
+      text-decoration: none;
+    }
+
+    .footer .payment-icons img {
+      height: 25px;
+      margin-right: 10px;
+    }
+
+    .footer .copyright {
+      font-size: 12px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .footer .footer-links {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer .footer-section {
+        text-align: center;
+      }
+
+      .footer .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <!-- Newsletter Section -->
+    <div class="newsletter">
+      <h2>Sign Up To Our Newsletter.</h2>
+      <p>Be the first to hear about the latest offers.</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="Your Email">
+        <button>Subscribe</button>
+      </div>
+    </div>
+
+    <!-- Footer Links -->
+    <div class="footer-links">
+      <!-- Information Section -->
+      <div class="footer-section">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Orders and Returns</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#">Newsletter Subscription</a></li>
+        </ul>
+      </div>
+
+      <!-- PC Parts Section -->
+      <div class="footer-section">
+        <h4>PC Parts</h4>
+        <ul>
+          <li><a href="#">CPUs</a></li>
+          <li><a href="#">Hard Drives (Internal)</a></li>
+          <li><a href="#">Graphic Cards</a></li>
+          <li><a href="#">Keyboards / Mice</a></li>
+          <li><a href="#">Cases / Power Supplies / Cooling</a></li>
+          <li><a href="#">RAM (Memory)</a></li>
+          <li><a href="#">Motherboards</a></li>
+        </ul>
+      </div>
+
+      <!-- Desktop PCs Section -->
+      <div class="footer-section">
+        <h4>Desktop PCs</h4>
+        <ul>
+          <li><a href="#">Custom PCs</a></li>
+          <li><a href="#">MSI All-In-One PCs</a></li>
+          <li><a href="#">HP/Compaq PCs</a></li>
+          <li><a href="#">ASUS PCs</a></li>
+          <li><a href="#">Tecs PCs</a></li>
+        </ul>
+      </div>
+
+      <!-- Laptops Section -->
+      <div class="footer-section">
+        <h4>Laptops</h4>
+        <ul>
+          <li><a href="#">Everyday Use Notebooks</a></li>
+          <li><a href="#">MSI Workstation Series</a></li>
+          <li><a href="#">MSI Prestige Series</a></li>
+          <li><a href="#">Netbooks</a></li>
+          <li><a href="#">Infinity Gaming Notebooks</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="footer-section">
+        <h4>Address</h4>
+        <p>Phones: (+962) 0797030415</p>
+        <p>Email: <a href="mailto:shop@email.com">shop@email.com</a></p>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="payment-icons">
+        <img src="paypal.png" alt="PayPal">
+        <img src="visa.png" alt="Visa">
+        <img src="mastercard.png" alt="MasterCard">
+      </div>
+      <div class="copyright">
+        <p>Copyright © 2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Font Awesome for Social Icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+</html>
+
+

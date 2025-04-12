@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <link rel="stylesheet" href="~/css/Navbar.css" />
+    <link rel="stylesheet" href="~/css/footer.css" />
+    @RenderSection("StylesIndex", required: false)
+    @RenderSection("StylesAbout", required: false)
+    @RenderSection("StylesContact", required: false)
+    @RenderSection("StylesLogin", required: false)
+    @RenderSection("StylesProfile", required: false)
+    @RenderSection("StylesProduct", required: false)
+    @RenderSection("StylesProductDet", required: false)
+    @RenderSection("StylesCart", required: false)
+    @RenderSection("StylesProductList", required: false)
+
+</head>
+<body>
+
+    @{
+        var isLoggedIn = Context.Session.GetInt32("UserId") != null;
+        var userName = Context.Session.GetString("UserName");
+        var userImage = Context.Session.GetString("UserImage") ?? "https://via.placeholder.com/40";
+    }
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <img width="200px" height="100px" src="~/images/logo7.png" alt="">
+        </div>
+
+        <ul class="menu">
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li><a asp-controller="Home" asp-action="About">About Us</a></li>
+            <li><a asp-controller="Home" asp-action="ContactUs">Contact Us</a></li>
+            <li><a asp-controller="Categories" asp-action="Products">Categories</a></li>
+
+            @if (isLoggedIn)
+            {
+                <li><a asp-controller="Authintication" asp-action="Logout">Logout</a></li>
+            }
+            else
+            {
+                <li><a asp-controller="Authintication" asp-action="Login">Sign-In</a></li>
+                <li><a asp-controller="Authintication" asp-action="Register">Sign-Up</a></li>
+            }
+        </ul>
+
+        <div class="icons">
+            @* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"> *@
+            @*     <circle cx="11" cy="11" r="8"></circle> *@
+            @*     <line x1="21" y1="21" x2="16.65" y2="16.65"></line> *@
+            @* </svg> *@
+
+            <a asp-action="Cart" asp-controller="Product" style="position: relative; display: inline-block;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     class="feather feather-shopping-cart" style="width: 24px; height: 24px;">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+
+                @if (Context.Session.GetInt32("UserId") != null)
+                {
+                    <span id="cart-count"
+                          style="position: absolute; top: -8px; right: -8px; background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px;">
+                        0
+                    </span>
+                }
+            </a>
+
+
+
+
+          
+
+
+            @if (isLoggedIn)
+            {
+                <a asp-controller="Authintication" asp-action="Profile">
+                    <img src="~/uploads/@userImage" alt="profile" class="profile-img" />
+                </a>
+            }
+        </div>
+
+        <div class="menu-toggle">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+
+    <script>
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menu = document.querySelector('.menu');
+
+        menuToggle.addEventListener('click', () => {
+          menu.classList.toggle('active');
+        });
+    </script>
+
+
+
+    <div class="">
+        <main role="main" class="">
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- Newsletter Section -->
+        <div class="newsletter">
+            <h2>Sign Up To Our Newsletter.</h2>
+            <p>Be the first to hear about the latest offers.</p>
+            <div class="newsletter-form">
+                <input type="email" placeholder="Your Email">
+                <button>Subscribe</button>
+            </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="footer-links">
+            <!-- Information Section -->
+            <div class="footer-section">
+                <h4>Information</h4>
+                <ul>
+                    <li><a asp-controller="Home" asp-action="About">About Us</a></li>
+                    <li><a asp-controller="Home" asp-action="PrivacyPolicy">Privacy Policy</a></li>
+                    <li><a asp-controller="Order" asp-action="Returns">Orders and Returns</a></li>
+                    <li><a asp-controller="Home" asp-action="ContactUs">Contact Us</a></li>
+                    <li><a asp-controller="Newsletter" asp-action="Subscribe">Newsletter Subscription</a></li>
+                </ul>
+
+            </div>
+
+            <!-- PC Parts Section -->
+            <div class="footer-section">
+                <h4>PC Parts</h4>
+                <ul>
+                    <li><a asp-controller="Category" asp-action="CategoryProducts" asp-route-name="CPUs">CPUs</a></li>
+                    <li><a asp-controller="Category" asp-action="CategoryProducts" asp-route-name="Hard Drives (Internal)">Hard Drives (Internal)</a></li>
+                    <li><a asp-controller="Category" asp-action="CategoryProducts" asp-route-name="Graphic Cards">Graphic Cards</a></li>
+                    <li><a asp-controller="Category" asp-action="CategoryProducts" asp-route-name="Keyboards / Mice">Keyboards / Mice</a></li>
+                    <li><a asp-controller="Category" asp-action="CategoryProducts" asp-route-name="Cases / Power Supplies / Cooling">Cases / Power Supplies / Cooling</a></li>
+                    <li><a asp-controller="Category" asp-action="CategoryProducts" asp-route-name="RAM (Memory)">RAM (Memory)</a></li>
+                    <li><a asp-controller="Category" asp-action="CategoryProducts" asp-route-name="Motherboards">Motherboards</a></li>
+                </ul>
+
+            </div>
+
+            <!-- Desktop PCs Section -->
+            <div class="footer-section">
+                <h4>Desktop PCs</h4>
+                <ul>
+                    <li><a asp-controller="PC" asp-action="PcModels" asp-route-name="Custom PCs">Custom PCs</a></li>
+                    <li><a asp-controller="PC" asp-action="PcModels" asp-route-name="MSI All-In-One PCs">MSI All-In-One PCs</a></li>
+                    <li><a asp-controller="PC" asp-action="PcModels" asp-route-name="HP/Compaq PCs">HP/Compaq PCs</a></li>
+                    <li><a asp-controller="PC" asp-action="PcModels" asp-route-name="ASUS PCs">ASUS PCs</a></li>
+                    <li><a asp-controller="PC" asp-action="PcModels" asp-route-name="Tecs PCs">Tecs PCs</a></li>
+                </ul>
+
+            </div>
+
+            <!-- Laptops Section -->
+            <div class="footer-section">
+                <h4>Laptops</h4>
+                <ul>
+                    <li><a asp-controller="Notebook" asp-action="NotebookModels" asp-route-name="Everyday Use Notebooks">Everyday Use Notebooks</a></li>
+                    <li><a asp-controller="Notebook" asp-action="NotebookModels" asp-route-name="MSI Workstation Series">MSI Workstation Series</a></li>
+                    <li><a asp-controller="Notebook" asp-action="NotebookModels" asp-route-name="MSI Prestige Series">MSI Prestige Series</a></li>
+                    <li><a asp-controller="Notebook" asp-action="NotebookModels" asp-route-name="Netbooks">Netbooks</a></li>
+                    <li><a asp-controller="Notebook" asp-action="NotebookModels" asp-route-name="Infinity Gaming Notebooks">Infinity Gaming Notebooks</a></li>
+                </ul>
+
+            </div>
+
+            <!-- Contact Section -->
+            <div class="footer-section">
+                <h4>Address</h4>
+                <p>Phones: (+962) 0797030415</p>
+                <p>Email: <a href="mailto:shop@email.com">shop@email.com</a></p>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="payment-icons">
+                <img src="~/images/paypal.png" alt="PayPal">
+                <img src="~/images/visa.png" alt="Visa">
+                <img src="~/images/mastercard.png" alt="MasterCard">
+            </div>
+            <div class="copyright">
+                <p>Copyright © 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+   
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+    @if (Context.Session.GetInt32("UserId") != null)
+    {
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                fetch('/Product/GetCartCount')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("cart-count").textContent = data.count;
+                    });
+            });
+        </script>
+    }
+
+
+</body>
+</html>

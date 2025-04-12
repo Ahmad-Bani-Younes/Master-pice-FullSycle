@@ -1,0 +1,204 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Baloo 2", cursive;
+}
+
+section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8f9fc, #e7e9ee); /* خلفية ناعمة */
+}
+
+
+.container {
+    position: relative;
+    width: 1100px;
+    min-height: 550px;
+    display: flex;
+    z-index: 1000;
+    margin: 0 20px;
+}
+
+    .container .contactinfo {
+        position: absolute;
+        top: 20%;
+        width: 350px;
+        height: calc(100% - 40%);
+        z-index: 1;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        background-color: #b43e57;
+        border-radius: 12px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+        .container .contactinfo h2 {
+            text-align: left;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .container .contactinfo .info {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+            .container .contactinfo .info li {
+                list-style: none;
+                display: flex;
+                align-items: center;
+                margin: 20px 0;
+                cursor: pointer;
+            }
+
+                .container .contactinfo .info li span:nth-child(1) {
+                    width: 40px;
+                    min-width: 40px;
+                }
+
+                    .container .contactinfo .info li span:nth-child(1) img {
+                        max-width: 100%;
+                        filter: invert(83%);
+                        opacity: 1.5;
+                    }
+
+                .container .contactinfo .info li span:nth-child(2) {
+                    color: white;
+                    margin-left: 10px;
+                    font-weight: 100;
+                    opacity: 2.5;
+                }
+
+.contactusform {
+    position: absolute;
+    top: 10%;
+    height: calc(100% - 20%);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    padding: 70px 50px 50px 250px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .contactusform h2 {
+        color: #882;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .contactusform .formBox {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding-top: 30px;
+    }
+
+        .contactusform .formBox .inputBox {
+            margin: 0 0 35px 0;
+            width: 100%;
+        }
+
+            .contactusform .formBox .inputBox input,
+            .contactusform .formBox .inputBox textarea {
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+                color: #333;
+                border: none;
+                border-bottom: 1px solid #ccc;
+                outline: none;
+                background-color: #f9f9f9;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+
+            .contactusform .formBox .inputBox textarea {
+                min-height: 120px;
+            }
+
+            .contactusform .formBox .inputBox span {
+                position: absolute;
+                left: 0;
+                padding: 5px 0;
+                font-size: 16px;
+                color: #666;
+                pointer-events: none;
+                transition: 0.3s;
+            }
+
+            .contactusform .formBox .inputBox input:focus ~ span,
+            .contactusform .formBox .inputBox textarea:focus ~ span,
+            .contactusform .formBox .inputBox input:valid ~ span,
+            .contactusform .formBox .inputBox textarea:valid ~ span {
+                transform: translateY(-20px);
+                font-size: 12px;
+                font-weight: 400;
+                color: #b43e57;
+            }
+
+        .contactusform .formBox input[type="submit"] {
+            cursor: pointer;
+            background-color: #b43e57;
+            color: white;
+            border: none;
+            max-width: 150px;
+            padding: 12px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+            .contactusform .formBox input[type="submit"]:hover {
+                background-color: #a53a50;
+            }
+
+.w50 {
+    width: 47%;
+}
+
+.w100 {
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        margin: 20px;
+    }
+
+        .container .contactinfo {
+            position: static;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+
+    .contactusform {
+        position: static;
+        padding: 40px 30px;
+        border-radius: 12px;
+        margin-top: 20px;
+    }
+
+        .contactusform .formBox {
+            flex-direction: column;
+        }
+
+    .w50 {
+        width: 100%;
+    }
+}

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us</title>
+
+<style>
+    
+
+    @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
+
+/* $black: #000;
+$white: #fff;
+$grey: #ccc;
+$lightergrey: #dcdcdc;
+$darkergrey: #333;
+$quiteblue: #882;
+$red: #ff4136; */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Baloo 2", cursive;
+  
+}
+    
+
+.container {
+  .contactinfo {
+    display: flex;
+    top: 0;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #b43e57;
+    h2 {
+      text-align: center;
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .info {
+      position: relative;
+      margin: 20px 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      li {
+        position: relative;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        margin: 20px 0;
+        cursor: pointer;
+        span:nth-child(1) {
+          width: 40px;
+          min-width: 40px;
+          img {
+            max-width: 100%;
+            filter: invert(83%);
+            opacity: 1.5;
+          }
+        }
+        span:nth-child(2) {
+          color: white;
+          margin-left: 10px;
+          font-weight: 100;
+          opacity: 2.5;
+        }
+        &:hover span:nth-child(1) img,
+        &:hover span:nth-child(2) {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .contactusform {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 70px 50px;
+    background-color: white;
+    top: 0;
+    h2 {
+      color: quiteblue;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .formBox {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding-top: 30px;
+      .inputBox {
+        position: relative;
+        margin: 0 0 35px 0;
+        width: 100% !important;
+        input,
+        textarea {
+          width: 100% !important;
+          padding: 5px 0;
+          resize: none;
+          font-size: 18px;
+          font-weight: 300;
+          color: #333;
+          border: none;
+          border-bottom: 1px solid #333;
+          outline: none;
+        }
+        textarea {
+          min-height: 120px;
+        }
+        span {
+          position: absolute;
+          left: 0;
+          padding: 5px 0;
+          font-size: 18px;
+          font-weight: 300;
+          color: #333;
+          transition: 0.3s;
+          pointer-events: none;
+        }
+        input:focus ~ span,
+        textarea:focus ~ span,
+        input:valid ~ span,
+        textarea:valid ~ span {
+          transform: translateY(-20px);
+          font-size: 12px;
+          font-weight: 400;
+          letter-spacing: 1px;
+          color: red;
+        }
+        input[type="submit"] {
+          position: relative;
+          cursor: pointer;
+          background-color: #b43e57;
+          color: white;
+          border: none;
+          max-width: 150px;
+          padding: 12px;
+          &:hover {
+            background-color: dcdcdc;
+          }
+        }
+      }
+      .w50 {
+        width: 47%;
+      }
+      .w100 {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .container {
+    .contactinfo {
+      h2 {
+        text-align: center;
+      }
+      .info {
+        flex-direction: row;
+      }
+      li {
+        span:nth-child(2) {
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    min-height: 100vh;
+    background-color: white;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background-color: dcdcdc;
+    }
+    .container {
+      position: relative;
+      width: 1100px;
+      min-height: 550px;
+      display: flex;
+      z-index: 1000;
+      margin: 0 20px 0 20px;
+      .contactinfo {
+        position: absolute;
+        top: 20%;
+        width: 350px;
+        height: calc(100% - 40%);
+        z-index: 1;
+        box-shadow: 0 30px 30px rgba(0, 0, 0, 0.3);
+        align-items: left;
+        h2 {
+          text-align: left;
+        }
+        .info {
+          flex-direction: column;
+        }
+        li {
+          span:nth-child(2) {
+            margin-right: 0;
+          }
+        }
+      }
+      .contactusform {
+        position: absolute;
+        top: 10%;
+        height: calc(100% - 20%);
+        box-shadow: 0 50px 50px rgba(0, 0, 0, 0.5);
+        margin-left: 150px;
+        padding-left: 250px;
+        .formBox {
+          flex-direction: row;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+</style>
+
+
+</head>
+<body>
+
+<div id="navbar"></div>
+    <script>
+        fetch('navbar.html')
+         .then(response => response.text())
+         .then(data => {
+             document.getElementById('navbar').innerHTML = data;
+
+             // إعادة تفعيل زر الـ Burger Menu
+             const menuToggle = document.querySelector('.menu-toggle');
+             const menu = document.querySelector('.menu');
+             if (menuToggle) {
+                 menuToggle.addEventListener('click', () => {
+                     menu.classList.toggle('active');
+                 });
+             }
+         });
+         </script>
+    <section>
+        <div class="container">
+          <div class="contactinfo">
+            <div>
+              <h2>Contact Us</h2>
+              <ul class="info">
+                <li>
+                  <span>
+                    <img src="https://www.clipartmax.com/png/middle/121-1214856_pro-locator-free-location-icon-vector.png" />
+                  </span>
+                  <span>
+                    1 John Smith Street <br />
+                    Smithville <br />
+                    Smithland
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    <img src="https://p7.hiclipart.com/preview/663/97/225/email-computer-icons-message-bounce-address-email-icon.jpg" />
+                  </span>
+                  <span>
+                    johnsmith@johnsmith.com
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    <img src="https://www.pinclipart.com/picdir/middle/210-2108807_tete-mobile-svg-png-icon-free-download-phone.png" />
+                  </span>
+                  <span>
+                    01234567890
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="contactusform">
+            <h2>Send Us A Message</h2>
+            <div class="formBox">
+              <div class="inputBox w50">
+                <input type="text" name="" required>
+                <span>First Name</span>
+              </div>
+              <div class="inputBox w50">
+                <input type="text" name="" required>
+                <span>Last Name</span>
+              </div>
+              <div class="inputBox w50">
+                <input type="text" name="" required>
+                <span>Email Address</span>
+              </div>
+              <div class="inputBox w100">
+                <textarea name="" required></textarea>
+                <span>Please enter a message</span>
+              </div>
+              <div class="inputBox w50">
+                <input type="submit" value="Send">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <div id="footer-container"></div>
+  <script>
+    // Load footer using JavaScript
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-container').innerHTML = data;
+      });
+  </script>
+    
+</body>
+</html>

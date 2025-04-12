@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+  <link rel="stylesheet" href="loginstyle.css">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
+        <style>
+            .login-text
+            {
+                margin-left: -5%;
+            }
+        </style>
+    </head>
+    <body >
+
+        <div id="navbar"></div>
+        <script>
+            fetch('navbar.html')
+             .then(response => response.text())
+             .then(data => {
+                 document.getElementById('navbar').innerHTML = data;
+    
+                 // إعادة تفعيل زر الـ Burger Menu
+                 const menuToggle = document.querySelector('.menu-toggle');
+                 const menu = document.querySelector('.menu');
+                 if (menuToggle) {
+                     menuToggle.addEventListener('click', () => {
+                         menu.classList.toggle('active');
+                     });
+                 }
+             });
+             </script>
+
+
+        <div class="rahul">
+            <img src="https://thumbs.dreamstime.com/z/technology-electronic-items-several-seen-above-wood-effect-background-171895362.jpg" alt="Background Image">
+        </div>
+        <div class="shift"> 
+            <div class="wrapper login">
+                <div class="container">
+                    <div class="col-left">
+                        <div class="login-text">
+                            <h2>Welcome!</h2>
+                            <p>You do not have<br> an account?</p>
+                            <a style="text-decoration: none;" href="Sign-Up.html" class="btn">Sign Up</a>
+                        </div>
+                    </div>
+                    <div class="col-right">
+                        <div class="login-form">
+                            <h2>Login</h2>
+                            <form action="#">
+                                <p>
+                                    <label>Username/Email address<span>*</span></label>
+                                    <input type="text" placeholder="Username or Email" required>
+                                </p>
+                                <p>
+                                    <label>Password<span>*</span></label>
+                                    <input type="password" placeholder="Password" required>
+                                </p>
+                                <p>
+                                    <input type="submit" value="Sign In">
+                                </p>
+                                <p>
+                                    <a style="text-decoration: none; color: #d35266;" href="forgetPassword.html">Forgot password?</a>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function getyou() {
+                alert("Congratulations! You have logged into the site.");
+            }
+        </script>
+   
+
+<div id="footer-container"></div>
+  <script>
+    // Load footer using JavaScript
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-container').innerHTML = data;
+      });
+  </script>
+</body>
+</html>

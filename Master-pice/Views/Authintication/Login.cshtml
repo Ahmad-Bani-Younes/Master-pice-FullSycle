@@ -1,0 +1,160 @@
+﻿@model Master_pice.ViewModel.LoginViewModel
+
+<h2>Login</h2>
+
+<form asp-action="Login" method="post">
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @{ *@
+@*     ViewData["Title"] = "Login"; *@
+@* } *@
+
+@* @section StylesLogin  *@
+@* { *@
+@*     <link rel="stylesheet" href="~/css/loginstyle.css" /> *@
+@*     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"> *@
+@* } *@
+
+
+
+@* <div id="navbar"></div> *@
+@* <script> *@
+@*     fetch('navbar.html') *@
+@*      .then(response => response.text()) *@
+@*      .then(data => { *@
+@*          document.getElementById('navbar').innerHTML = data; *@
+
+@*          // إعادة تفعيل زر الـ Burger Menu *@
+@*          const menuToggle = document.querySelector('.menu-toggle'); *@
+@*          const menu = document.querySelector('.menu'); *@
+@*          if (menuToggle) { *@
+@*              menuToggle.addEventListener('click', () => { *@
+@*                  menu.classList.toggle('active'); *@
+@*              }); *@
+@*          } *@
+@*      }); *@
+@* </script> *@
+
+
+@* <body> *@
+@*     <div class="body"> *@
+@*         <div class="veen"> *@
+@*             <div class="login-btn splits"> *@
+@*                 <p>Already an user?</p> *@
+@*                 <button class="active">Login</button> *@
+@*             </div> *@
+@*             <div class="rgstr-btn splits"> *@
+@*                 <p>Don't have an account?</p> *@
+@*                 <button>Register</button> *@
+@*             </div> *@
+@*             <div class="wrapper"> *@
+@*                 <form id="login" tabindex="500"> *@
+@*                     <h3>Login</h3> *@
+@*                     <div class="mail"> *@
+@*                         <input type="email" name="email"> *@
+@*                         <label>Mail or Username</label> *@
+@*                     </div> *@
+@*                     <div class="passwd"> *@
+@*                         <input type="password" name="password"> *@
+@*                         <label>Password</label> *@
+@*                     </div> *@
+@*                     <div class="submit"> *@
+@*                         <button class="dark">Login</button> *@
+@*                         <br> *@
+@*                         <br> *@
+@*                         <a style="text-decoration: none; color: #b43e57;" href="forgetPassword.html">Forget Password?</a> *@
+@*                     </div> *@
+@*                 </form> *@
+@*                 <form id="register" tabindex="502"> *@
+@*                     <h3>Register</h3> *@
+@*                     <div class="name"> *@
+@*                         <input type="text" name="fullname"> *@
+@*                         <label>Full Name</label> *@
+@*                     </div> *@
+@*                     <div class="mail"> *@
+@*                         <input type="email" name="email"> *@
+@*                         <label>Mail</label> *@
+@*                     </div> *@
+@*                     <div class="uid"> *@
+@*                         <input type="text" name="username"> *@
+@*                         <label>Username</label> *@
+@*                     </div> *@
+@*                     <div class="passwd"> *@
+@*                         <input type="password" name="password"> *@
+@*                         <label>Password</label> *@
+@*                     </div> *@
+@*                     <div class="submit"> *@
+@*                         <button class="dark">Register</button> *@
+@*                     </div> *@
+@*                 </form> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+
+
+@*     <div id="footer-container"></div> *@
+@*     <script> *@
+@*         // Load footer using JavaScript *@
+@*         fetch('footer.html') *@
+@*           .then(response => response.text()) *@
+@*           .then(data => { *@
+@*             document.getElementById('footer-container').innerHTML = data; *@
+@*           }); *@
+@*     </script> *@
+
+@*     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+@*     <script> *@
+@*         $(document).ready(function () { *@
+@*             $(".veen .rgstr-btn button").click(function () { *@
+@*                 $('.veen .wrapper').addClass('move'); *@
+@*                 $(".veen .login-btn button").removeClass('active'); *@
+@*                 $(this).addClass('active'); *@
+@*             }); *@
+
+@*             $(".veen .login-btn button").click(function () { *@
+@*                 $('.veen .wrapper').removeClass('move'); *@
+@*                 $(".veen .rgstr-btn button").removeClass('active'); *@
+@*                 $(this).addClass('active'); *@
+@*             }); *@
+@*         }); *@
+@*     </script> *@
+@*     </body> *@
+
+
+
+

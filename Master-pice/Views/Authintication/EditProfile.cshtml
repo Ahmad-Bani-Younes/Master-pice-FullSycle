@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "EditProfile";
+}
+@model User
+
+<h2>Edit Profile</h2>
+
+<form asp-action="EditProfile" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="ID" />
+
+
+    <div class="mb-3">
+        <label asp-for="FullName" class="form-label"></label>
+        <input asp-for="FullName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Phone" class="form-label"></label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <img src="~/uploads/@Model.ProfileImage" alt="Current Profile Image" class="rounded-circle" width="120" height="120" style="object-fit: cover;" />
+        <br />
+        <label class="form-label">Upload New Profile Image</label>
+        <input type="file" name="NewProfileImage" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">New Password</label>
+        <input asp-for="Password" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Changes</button>
+</form>
+
+

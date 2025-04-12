@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: black;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            padding: 50px;
+        }
+
+        /* Section Styling */
+        .section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            animation: slideIn 1.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .section-text {
+            width: 50%;
+            padding-right: 20px;
+            font-size: 1.2rem;
+        }
+
+        .section-text h3 {
+            font-size: 2rem;
+            color:#b43e57;
+            margin-bottom: 15px;
+        }
+
+        .section-text p {
+            color: black;
+        }
+
+        .section-image {
+            width: 45%;
+        }
+
+        .section-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(236, 0, 0, 0.2);
+        }
+
+        /* Footer Section */
+       
+
+        @keyframes footerSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+       
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .section-text {
+                width: 100%;
+                padding-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .section-image {
+                width: 100%;
+            }
+
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-logo img {
+                width: 100px;
+            }
+            .section-reverse {
+    flex-direction: column;
+}
+        }
+
+        /* Custom Section Layout for Image-Text Switch */
+        .section-reverse {
+            flex-direction: row-reverse;
+        }
+
+
+                /* Review Section Styling */
+        .review-section {
+            background-color: #b43e57;
+            padding: 50px 0;
+            text-align: center;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .review-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+       
+
+       
+
+        /* Button */
+        .btn-review {
+            background-color: #b43e57;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-review:hover {
+            background-color: #ed6988;
+        }
+
+
+
+         /* Footer Section */
+         .footer-Section {
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 50px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .footer-card {
+            width: 30%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(254, 1, 1, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .footer-card:hover {
+            transform: scale(1.05);
+        }
+
+        .footer-card h5 {
+            color: #b43e57;
+            margin-bottom: 10px;
+        }
+
+        .footer-card p {
+            color: black;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .footer-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-card {
+                width: 80%;
+            }
+            .section-reverse 
+            {
+    flex-direction: column;
+          }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="navbar"></div>
+    <script>
+        fetch('navbar.html')
+         .then(response => response.text())
+         .then(data => {
+             document.getElementById('navbar').innerHTML = data;
+
+             // إعادة تفعيل زر الـ Burger Menu
+             const menuToggle = document.querySelector('.menu-toggle');
+             const menu = document.querySelector('.menu');
+             if (menuToggle) {
+                 menuToggle.addEventListener('click', () => {
+                     menu.classList.toggle('active');
+                 });
+             }
+         });
+         </script>
+    <div class="container">
+        <!-- Now You're In Safe Hands -->
+        <div class="section">
+            <div class="section-text">
+                <h3>Now You're In Safe Hands</h3>
+                <p>Experience a 40% boost in computing from last generation. MSI developed the high-performance Intel Core™ i7 processor with the ultimate computing power to bring you an unparalleled gaming experience.</p>
+                <p><strong>*Performance compared to i7-9700K. Specs vary by model.</strong></p>
+            </div>
+            <div class="section-image">
+                <img src="images/th.jpeg" alt="Computer Image 1">
+            </div>
+        </div>
+
+        <!-- The Highest Quality of Products -->
+        <div class="section section-reverse">
+            <div class="section-text">
+                <h3>The Highest Quality of Products</h3>
+                <p>We guarantee the highest quality of the products we sell. Several decades of successful operation and millions of happy customers have led us to focus on quality control. That’s why, all items we sell pass through quality control so no characteristics mismatch can escape the eye of our professionals.</p>
+            </div>
+            <div class="section-image">
+                <img src="images/download.jpeg" alt="Computer Image 2">
+            </div>
+        </div>
+
+        <!-- We Deliver to Any Regions -->
+        <div class="section">
+            <div class="section-text">
+                <h3>We Deliver to Any Regions</h3>
+                <p>We deliver our goods all across Jordan. No matter where you live, your order will be shipped in time and delivered right to your door or to any other location you have stored. The packages are highly secured and come with the state-of-the-art products will be handed to you in prime condition.</p>
+            </div>
+            <div class="section-image">
+                <img src="images/download (1).jpeg" alt="Computer Image 3">
+            </div>
+        </div>
+
+        <!-- Review Section -->
+        <div class="review-section">
+            <div class="review-container">
+                <div class="review-text" id="review-text">
+                    "My first order arrived today in perfect condition. From the time I sent a question about the item to making the purchase, to the shipping and now the delivery, your company, Teacs, has stayed in touch. Such great service. I look forward to shopping on your site in the future and would highly recommend it."
+                </div>
+                <button class="btn-review">Leave Us A Review</button>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer-Section">
+            <div class="footer-card">
+                <h5>Product Support</h5>
+                <p>Up to 3 years on-site warranty available for your peace of mind.</p>
+            </div>
+            <div class="footer-card">
+                <h5>Personal Account</h5>
+                <p>With big discounts, free delivery, and a dedicated support specialist.</p>
+            </div>
+            <div class="footer-card">
+                <h5>Amazing Savings</h5>
+                <p>Up to 70% off new products, you can be sure of the best price.</p>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    
+
+
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript for Slider Effect -->
+    <script>
+        const reviewText = [
+            `"My first order arrived today in perfect condition. From the time I sent a question about the item to making the purchase, to the shipping and now the delivery, your company, Teacs, has stayed in touch. Such great service. I look forward to shopping on your site in the future and would highly recommend it."`,
+            `"Absolutely fantastic service! I placed my order and received it the very next day. The product was well-packaged, and the customer support was incredible. I will definitely be shopping here again!"`,
+            `"I am so impressed with the speed of delivery and the quality of the product. I had a minor issue with my order, but it was resolved quickly by the amazing support team. Highly recommended!"`,
+        ];
+
+        let currentReview = 0;
+
+        const reviewElement = document.getElementById("review-text");
+
+        function changeReview() {
+            currentReview = (currentReview + 1) % reviewText.length;
+            reviewElement.textContent = reviewText[currentReview];
+        }
+
+        setInterval(changeReview, 5000);  // Change review every 5 seconds
+    </script>
+
+
+
+
+
+<div id="footer-container"></div>
+<script>
+  // Load footer using JavaScript
+  fetch('footer.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('footer-container').innerHTML = data;
+    });
+</script>
+
+
+  <script>
+      function toggleNav() {
+          const navLinks = document.querySelector('.nav-links');
+          navLinks.classList.toggle('active');
+      }
+  </script>
+
+</body>
+</html>
