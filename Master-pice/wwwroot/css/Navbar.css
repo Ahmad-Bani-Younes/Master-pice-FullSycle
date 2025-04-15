@@ -51,6 +51,8 @@ body {
     .navbar .icons {
         display: flex;
         align-items: center;
+        position: relative;
+        right: 0% !important;
     }
 
         .navbar .icons img,
@@ -114,3 +116,11 @@ body {
     .menu-toggle {
         display: flex;
     }
+
+    .navbar .icons {
+        display: flex;
+        align-items: center;
+        position: relative;
+        right: 0% !important;
+    }
+

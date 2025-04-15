@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Master_pice.ViewModel;
 
 namespace Master_pice.Models
 {
@@ -34,5 +35,8 @@ namespace Master_pice.Models
         public DbSet<UserAnswer> UserAnswers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<Master_pice.ViewModel.ProductViewModel> ProductViewModel { get; set; } = default!;
+
     }
 }

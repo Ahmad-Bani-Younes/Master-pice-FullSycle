@@ -106,6 +106,38 @@ namespace Master_pice.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Master_pice.Models.ContactMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactMessages");
+                });
+
             modelBuilder.Entity("Master_pice.Models.Favorite", b =>
                 {
                     b.Property<int>("ID")
@@ -149,6 +181,10 @@ namespace Master_pice.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LaptopID"));
+
+                    b.Property<string>("AdditionalImageURLs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -232,6 +268,10 @@ namespace Master_pice.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PCID"));
 
+                    b.Property<string>("AdditionalImageURLs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Brand")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -278,6 +318,10 @@ namespace Master_pice.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PartID"));
+
+                    b.Property<string>("AdditionalImageURLs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -528,6 +572,68 @@ namespace Master_pice.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("UserAnswers");
+                });
+
+            modelBuilder.Entity("Master_pice.ViewModel.ProductViewModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.PrimitiveCollection<string>("AdditionalImageURLs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GPU")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Processor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RAM")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ScreenSize")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Storage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ProductViewModel");
                 });
 
             modelBuilder.Entity("Master_pice.Models.Cart", b =>

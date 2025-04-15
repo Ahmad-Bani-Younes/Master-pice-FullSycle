@@ -91,8 +91,64 @@ namespace Master_pice.Controllers
 
         public IActionResult ContactUs()
         {
-            return View();
+            var viewModel = new ContactMessageViewModel();
+
+            int? userId = HttpContext.Session.GetInt32("UserId");
+
+
+            if (userId != null)
+            {
+                var user = _context.Users.FirstOrDefault(u => u.ID == userId);
+
+                if (user != null)
+                {
+                    var fullNameParts = user.FullName.Split(' ', 2);
+                    viewModel.FirstName = fullNameParts[0];
+                    viewModel.LastName = fullNameParts.Length > 1 ? fullNameParts[1] : "";
+                    viewModel.Email = user.Email;
+                }
+            }
+
+            return View(viewModel);
+
         }
+
+
+
+
+
+
+        [HttpPost]
+        public IActionResult SendMessage(ContactMessageViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var message = new ContactMessage
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Message = model.Message
+                };
+
+                _context.ContactMessages.Add(message);
+                _context.SaveChanges();
+
+                TempData["Success"] = "Your message has been sent successfully!";
+                return RedirectToAction("ContactUs");
+            }
+
+            return View("ContactUs", model);
+        }
+
+
+
+
+
+
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

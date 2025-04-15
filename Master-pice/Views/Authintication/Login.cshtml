@@ -1,160 +1,79 @@
 ﻿@model Master_pice.ViewModel.LoginViewModel
 
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/newLogin/css/style.css">
+</head>
+<body>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">Login</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-10">
+                    <div class="wrap d-md-flex">
+                        <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+                            <div class="text w-100">
+                                <h2>Welcome to login</h2>
+                                <p>Don't have an account?</p>
+                                <a href="#" class="btn btn-white btn-outline-white">Sign Up</a>
+                            </div>
+                        </div>
+                        <div class="login-wrap p-4 p-lg-5">
+                            <div class="d-flex">
+                                <div class="w-100">
+                                    <h3 class="mb-4">Sign In</h3>
+                                </div>
+                            </div>
+                            <form asp-action="Login" method="post">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Email" class="label">Email</label>
+                                    <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
 
-<form asp-action="Login" method="post">
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
+                                <div class="form-group mb-3">
+                                    <label asp-for="Password" class="label">Password</label>
+                                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
 
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" type="password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+                                </div>
 
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+                                <div class="form-group d-md-flex">
+                                    <div class="w-50 text-left">
+                                        <label class="checkbox-wrap checkbox-primary mb-0">
+                                            Remember Me
+                                            <input type="checkbox" checked>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="w-50 text-md-right">
+                                        <a href="#">Forgot Password</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@* @{ *@
-@*     ViewData["Title"] = "Login"; *@
-@* } *@
-
-@* @section StylesLogin  *@
-@* { *@
-@*     <link rel="stylesheet" href="~/css/loginstyle.css" /> *@
-@*     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"> *@
-@* } *@
-
-
-
-@* <div id="navbar"></div> *@
-@* <script> *@
-@*     fetch('navbar.html') *@
-@*      .then(response => response.text()) *@
-@*      .then(data => { *@
-@*          document.getElementById('navbar').innerHTML = data; *@
-
-@*          // إعادة تفعيل زر الـ Burger Menu *@
-@*          const menuToggle = document.querySelector('.menu-toggle'); *@
-@*          const menu = document.querySelector('.menu'); *@
-@*          if (menuToggle) { *@
-@*              menuToggle.addEventListener('click', () => { *@
-@*                  menu.classList.toggle('active'); *@
-@*              }); *@
-@*          } *@
-@*      }); *@
-@* </script> *@
-
-
-@* <body> *@
-@*     <div class="body"> *@
-@*         <div class="veen"> *@
-@*             <div class="login-btn splits"> *@
-@*                 <p>Already an user?</p> *@
-@*                 <button class="active">Login</button> *@
-@*             </div> *@
-@*             <div class="rgstr-btn splits"> *@
-@*                 <p>Don't have an account?</p> *@
-@*                 <button>Register</button> *@
-@*             </div> *@
-@*             <div class="wrapper"> *@
-@*                 <form id="login" tabindex="500"> *@
-@*                     <h3>Login</h3> *@
-@*                     <div class="mail"> *@
-@*                         <input type="email" name="email"> *@
-@*                         <label>Mail or Username</label> *@
-@*                     </div> *@
-@*                     <div class="passwd"> *@
-@*                         <input type="password" name="password"> *@
-@*                         <label>Password</label> *@
-@*                     </div> *@
-@*                     <div class="submit"> *@
-@*                         <button class="dark">Login</button> *@
-@*                         <br> *@
-@*                         <br> *@
-@*                         <a style="text-decoration: none; color: #b43e57;" href="forgetPassword.html">Forget Password?</a> *@
-@*                     </div> *@
-@*                 </form> *@
-@*                 <form id="register" tabindex="502"> *@
-@*                     <h3>Register</h3> *@
-@*                     <div class="name"> *@
-@*                         <input type="text" name="fullname"> *@
-@*                         <label>Full Name</label> *@
-@*                     </div> *@
-@*                     <div class="mail"> *@
-@*                         <input type="email" name="email"> *@
-@*                         <label>Mail</label> *@
-@*                     </div> *@
-@*                     <div class="uid"> *@
-@*                         <input type="text" name="username"> *@
-@*                         <label>Username</label> *@
-@*                     </div> *@
-@*                     <div class="passwd"> *@
-@*                         <input type="password" name="password"> *@
-@*                         <label>Password</label> *@
-@*                     </div> *@
-@*                     <div class="submit"> *@
-@*                         <button class="dark">Register</button> *@
-@*                     </div> *@
-@*                 </form> *@
-@*             </div> *@
-@*         </div> *@
-@*     </div> *@
-
-
-@*     <div id="footer-container"></div> *@
-@*     <script> *@
-@*         // Load footer using JavaScript *@
-@*         fetch('footer.html') *@
-@*           .then(response => response.text()) *@
-@*           .then(data => { *@
-@*             document.getElementById('footer-container').innerHTML = data; *@
-@*           }); *@
-@*     </script> *@
-
-@*     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
-@*     <script> *@
-@*         $(document).ready(function () { *@
-@*             $(".veen .rgstr-btn button").click(function () { *@
-@*                 $('.veen .wrapper').addClass('move'); *@
-@*                 $(".veen .login-btn button").removeClass('active'); *@
-@*                 $(this).addClass('active'); *@
-@*             }); *@
-
-@*             $(".veen .login-btn button").click(function () { *@
-@*                 $('.veen .wrapper').removeClass('move'); *@
-@*                 $(".veen .rgstr-btn button").removeClass('active'); *@
-@*                 $(this).addClass('active'); *@
-@*             }); *@
-@*         }); *@
-@*     </script> *@
-@*     </body> *@
-
-
-
-
+    <script src="~/newLogin/js/jquery.min.js"></script>
+    <script src="~/newLogin/js/popper.js"></script>
+    <script src="~/newLogin/js/bootstrap.min.js"></script>
+    <script src="~/newLogin/js/main.js"></script>
+</body>
+</html>

@@ -1,27 +1,5 @@
 ﻿@model dynamic
 
-
-@* @{ *@
-@*     ViewData["Title"] = "Product Details"; *@
-
-@*     string name = Model is Master_pice.Models.PC pc ? pc.Brand + " " + pc.Processor : *@
-@*                   Model is Master_pice.Models.Laptop laptop ? laptop.Brand + " " + laptop.Model : *@
-@*                   Model is Master_pice.Models.PCPart part ? part.Model : "Unknown Product"; *@
-
-@*     string image = Model.ImageURL ?? "no-image.png"; *@
-
-@*     string description = Model is Master_pice.Models.PC pcDesc ? pcDesc.Description : *@
-@*                          Model is Master_pice.Models.Laptop lapDesc ? lapDesc.Description : *@
-@*                          "No description available"; *@
-
-@*     decimal price = Model.Price; *@
-
-
-
-
-@* } *@
-
-
 @{
     ViewData["Title"] = "Product Details";
 
@@ -45,6 +23,13 @@
     int productId = Model is Master_pice.Models.PC pcId ? pcId.PCID :
                     Model is Master_pice.Models.Laptop lapId ? lapId.LaptopID :
                     Model is Master_pice.Models.PCPart partId ? partId.PartID : 0;
+
+    // Split AdditionalImageURLs by comma and check if there are any additional images
+    // var additionalImages = Model.AdditionalImageURLs?.Split(',') ?? new string[] { };
+
+}
+@{
+    var additionalImages = (Model.AdditionalImageURLs ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
 }
 
 
@@ -58,12 +43,28 @@
     <!-- Left side -->
     <div class="img-card">
         <img src="~/uploads/@image" alt="@name" id="featured-image">
+        
+        <!-- Display additional images if they exist -->
         <div class="small-Card">
-            <img src="~/uploads/@image" class="small-Img" />
-            <img src="~/uploads/@image" class="small-Img" />
-            <img src="~/uploads/@image" class="small-Img" />
-            <img src="~/uploads/@image" class="small-Img" />
+            @if (additionalImages.Length > 0)
+            {
+                foreach (var img in additionalImages)
+                {
+                    var cleanImg = img.Trim();
+                    <img src="~/uploads/@cleanImg" class="small-Img" />
+                }
+           
+            }
+            else
+            {
+                <!-- Fallback to main image -->
+                <img src="@image" class="small-Img" />
+                <img src="@image" class="small-Img" />
+                <img src="@image" class="small-Img" />
+                <img src="@image" class="small-Img" />
+            }
         </div>
+
     </div>
 
     <!-- Right side -->
@@ -98,7 +99,6 @@
                 <p class="price">On Sale from <span>$@price</span></p>
 
                 <div class="actions">
-                   
                     <form method="post" asp-action="AddToCart" asp-controller="Product">
                         <input type="hidden" name="ProductId" value="@productId" />
                         <input type="hidden" name="Type" value="@type" />
@@ -109,9 +109,6 @@
                             <button class="btn paypal">PayPal</button>
                         </div>
                     </form>
-
-                  
-                    
                 </div>
             </div>
         </div>

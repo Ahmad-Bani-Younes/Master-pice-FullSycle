@@ -1,0 +1,158 @@
+﻿/* Background Gradient */
+
+
+/* Card and Sidebar Styles */
+/*.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+    .card a {
+        color: white;
+        text-decoration: none;
+    }
+
+.list-group-item {
+    background-color: #d35266;
+    color: white;
+}*/
+
+/* Card Hover Animation */
+
+/* Main Content */
+/*.card-body {
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: #d35266;
+    font-size: 1.8rem;
+    font-weight: 600;
+}*/
+
+/* Save Button */
+/*.btn-primary {
+    background-color: #d35266;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #d35266;
+    }*/
+
+/* Features Section */
+/*.card.p-4 {
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+
+.col-md-4 {
+    margin-bottom: 20px;
+}
+
+.row.text-center {
+    margin-top: 40px;
+}
+
+.card h5 {
+    color: #d35266;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #555;
+}*/
+
+
+
+/* Background Gradient */
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Card and Sidebar Styles */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+    .card a {
+        color: white;
+        text-decoration: none;
+    }
+
+.list-group-item {
+    background-color: #d35266;
+    color: white;
+}
+
+/* Card Hover Animation */
+
+/* Main Content */
+.card-body {
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: #d35266; /* Match the uploaded color */
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* Save Button */
+.btn-primary {
+    background-color: #d35266; /* Match the uploaded color */
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #d35266; /* Hover color stays the same */
+    }
+
+/* Features Section */
+.card.p-4 {
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.col-md-4 {
+    margin-bottom: 20px;
+}
+
+.row.text-center {
+    margin-top: 40px;
+}
+
+.card h5 {
+    color: #d35266; /* Match the uploaded color */
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #555;
+}
+
+/* Profile Image styling */
+.img-fluid {
+    max-width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}

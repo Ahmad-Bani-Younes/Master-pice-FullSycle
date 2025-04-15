@@ -42,6 +42,12 @@
         </div>
     </section>
 
+    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index"
+       class="btn btn-danger" style="padding: 10px 20px; font-size: 16px;">
+        Go To Admin Panel
+    </a>
+
+
     <!--end of display and search section-->
     <!--start of img-carousel-1-->
     <section class="img-carousel-1 py-4">
@@ -103,7 +109,7 @@
                         <div class="ad-cont width-70">
                             <div class="ad-item d-md-flex d-block">
                                 <div class="img-item">
-                                    <img src="@ad.ImageURL" alt="pc" class="d-img" />
+                                    <img src="~/uploads/@ad.ImageURL" alt="pc" class="d-img" />
                                 </div>
                                 <div class="text-item ml-3">
                                     <h2 class="text-title lato">@ad.Brand @ad.Processor</h2>
@@ -246,7 +252,7 @@
                         <div class="ad-cont width-70">
                             <div class="ad-item d-md-flex d-block">
                                 <div class="img-item">
-                                    <img src="@pc.ImageURL" alt="desktop" class="d-img" />
+                                    <img src="~/uploads/@pc.ImageURL" alt="desktop" class="d-img" />
                                 </div>
                                 <div class="text-item ml-3">
                                     <h2 class="text-title lato">@pc.Brand @pc.Processor</h2>
@@ -311,7 +317,7 @@
                         <div class="ad-cont width-70">
                             <div class="ad-item d-md-flex d-block">
                                 <div class="img-item">
-                                    <img src="@laptop.ImageURL" alt="laptop" class="d-img" />
+                                    <img src="~/uploads/@laptop.ImageURL" alt="laptop" class="d-img" />
                                 </div>
                                 <div class="text-item ml-3">
                                     <h2 class="text-title lato">@laptop.Brand @laptop.Model</h2>
@@ -375,7 +381,7 @@
                         <div class="ad-cont width-70">
                             <div class="ad-item d-md-flex d-block">
                                 <div class="img-item">
-                                    <img src="@part.ImageURL" alt="part" class="d-img" />
+                                    <img src="~/uploads/@part.ImageURL" alt="part" class="d-img" />
                                 </div>
                                 <div class="text-item ml-3">
                                     <h2 class="text-title lato">@part.Brand @part.Model</h2>

@@ -1,4 +1,5 @@
-﻿
+﻿@model Master_pice.ViewModel.ContactMessageViewModel
+
 @{
     ViewData["Title"] = "ContactUs";
 }
@@ -7,23 +8,6 @@
     <link rel="stylesheet" href="~/css/Contact.css" />
 }
 
-<div id="navbar"></div>
-<script>
-    fetch('navbar.html')
-     .then(response => response.text())
-     .then(data => {
-         document.getElementById('navbar').innerHTML = data;
-
-         // إعادة تفعيل زر الـ Burger Menu
-         const menuToggle = document.querySelector('.menu-toggle');
-         const menu = document.querySelector('.menu');
-         if (menuToggle) {
-             menuToggle.addEventListener('click', () => {
-                 menu.classList.toggle('active');
-             });
-         }
-     });
-</script>
 <section>
     <div class="container">
         <div class="contactinfo">
@@ -59,40 +43,42 @@
                 </ul>
             </div>
         </div>
+
         <div class="contactusform">
             <h2>Send Us A Message</h2>
-            <div class="formBox">
-                <div class="inputBox w50">
-                    <input type="text" name="" required>
-                    <span>First Name</span>
+
+            <form asp-action="SendMessage" asp-controller="Home" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="formBox">
+                    <div class="inputBox w50">
+                        <input asp-for="FirstName" required />
+                        <span>First Name</span>
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="inputBox w50">
+                        <input asp-for="LastName" required />
+                        <span>Last Name</span>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="inputBox w50">
+                        <input asp-for="Email" required />
+                        <span>Email Address</span>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="inputBox w100">
+                        <textarea asp-for="Message" required></textarea>
+                        <span>Please enter a message</span>
+                        <span asp-validation-for="Message" class="text-danger"></span>
+                    </div>
+                    <div class="inputBox w50">
+                        <input type="submit" value="Send" />
+                    </div>
                 </div>
-                <div class="inputBox w50">
-                    <input type="text" name="" required>
-                    <span>Last Name</span>
-                </div>
-                <div class="inputBox w50">
-                    <input type="text" name="" required>
-                    <span>Email Address</span>
-                </div>
-                <div class="inputBox w100">
-                    <textarea name="" required></textarea>
-                    <span>Please enter a message</span>
-                </div>
-                <div class="inputBox w50">
-                    <input type="submit" value="Send">
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </section>
 
-
-<div id="footer-container"></div>
-<script>
-    // Load footer using JavaScript
-    fetch('footer.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('footer-container').innerHTML = data;
-      });
-</script>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

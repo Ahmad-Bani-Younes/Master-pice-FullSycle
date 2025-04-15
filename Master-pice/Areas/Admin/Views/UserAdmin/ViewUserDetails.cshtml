@@ -1,0 +1,46 @@
+﻿@model Master_pice.Models.User
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<h2 class="text-primary">User Details</h2>
+
+<div class="mb-3">
+    <label class="form-label">Full Name</label>
+    <input type="text" class="form-control" value="@Model.FullName" readonly />
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Email</label>
+    <input type="email" class="form-control" value="@Model.Email" readonly />
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Phone</label>
+    <input type="text" class="form-control" value="@Model.Phone" readonly />
+</div>
+
+<div class="mb-3">
+    <label class="form-label">User Type</label>
+    <input type="text" class="form-control" value="@Model.UserType" readonly />
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Profile Image</label><br />
+    @if (!string.IsNullOrWhiteSpace(Model.ProfileImage))
+    {
+        <img src="~/uploads/@Model.ProfileImage" alt="Profile Image" width="100" />
+    }
+    else
+    {
+        <i class="fas fa-user-circle" style="font-size: 60px; color: #007bff;"></i>
+    }
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Created At</label>
+    <input type="text" class="form-control" value="@Model.CreatedAt.ToString("yyyy-MM-dd")" readonly />
+</div>
+
+<a href="@Url.Action("ViewAllUsers", "UserAdmin", new { area = "Admin" })" class="btn btn-primary">Back to Users</a>

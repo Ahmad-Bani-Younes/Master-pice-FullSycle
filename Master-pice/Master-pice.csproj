@@ -21,4 +21,21 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\newLogin\.DS_Store" />
+    <None Include="wwwroot\newLogin\css\.DS_Store" />
+    <None Include="wwwroot\newLogin\css\bootstrap\.DS_Store" />
+    <None Include="wwwroot\newLogin\css\bootstrap\mixins\.DS_Store" />
+    <None Include="wwwroot\newLogin\fonts\.DS_Store" />
+    <None Include="wwwroot\newLogin\images\.DS_Store" />
+    <None Include="wwwroot\newLogin\js\.DS_Store" />
+    <None Include="wwwroot\newLogin\scss\.DS_Store" />
+    <None Include="wwwroot\newLogin\scss\bootstrap\.DS_Store" />
+  </ItemGroup>
+
 </Project>
