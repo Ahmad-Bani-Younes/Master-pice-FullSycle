@@ -113,15 +113,15 @@ body {
   }
   
   /* Styling for display */
-  
-  .display {
-    background: linear-gradient(180deg, rgba(211, 82, 102, 1) 0%, rgba(199, 43, 67, 0.8995973389355743) 47%, rgba(211, 82, 102, 0.3617822128851541) 101%), url("~/images/big-display.jpg");
+
+.display {
+    background: linear-gradient(180deg, rgba(211, 82, 102, -6) -30%, rgba(199, 43, 67, 0.899597) 47%, rgba(211, 82, 102, -4.638218) 101%), url(~/images/big-display.jpg);
     height: 70vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-  }
+}
   
   .inputcont {
     width: 80%;

@@ -117,42 +117,59 @@ namespace Master_pice.Controllers
 
 
         [HttpPost]
-        public IActionResult AddToCart(int ProductId, string Type, int Quantity)
+        public IActionResult AddToCart(CartItemViewModel model)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
 
             if (userId == null)
-                return RedirectToAction("Login", "Authintication");
-
-            var existing = _context.Cart.FirstOrDefault(c =>
-                c.UserID == userId &&
-                c.ProductId == ProductId &&
-                c.Type == Type);
-
-            if (existing != null)
             {
-                existing.Quantity += Quantity;
+                // 🟠 المستخدم غير مسجل: خزّن في الكوكيز
+                var cookieData = Request.Cookies["Cart"];
+                List<CartItemViewModel> cart = string.IsNullOrEmpty(cookieData)
+                    ? new List<CartItemViewModel>()
+                    : System.Text.Json.JsonSerializer.Deserialize<List<CartItemViewModel>>(cookieData) ?? new List<CartItemViewModel>();
+
+                var existing = cart.FirstOrDefault(c => c.ProductId == model.ProductId && c.Type.ToLower() == model.Type.ToLower());
+                if (existing != null)
+                    existing.Quantity += model.Quantity;
+                else
+                    cart.Add(model);
+
+                var options = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays(3),
+                    IsEssential = true,
+                    HttpOnly = false // لأنك ممكن تحتاج تعدل عليه من js
+                };
+
+                Response.Cookies.Append("Cart", System.Text.Json.JsonSerializer.Serialize(cart), options);
+
+                return RedirectToAction("Cart", "Product"); // أفضل يرجع على Cart
+            }
+
+            // ✅ المستخدم مسجل: خزّن في قاعدة البيانات
+            var dbCart = _context.Cart.FirstOrDefault(c =>
+                c.UserID == userId &&
+                c.ProductId == model.ProductId &&
+                c.Type.ToLower() == model.Type.ToLower());
+
+            if (dbCart != null)
+            {
+                dbCart.Quantity += model.Quantity;
             }
             else
             {
                 _context.Cart.Add(new Cart
                 {
                     UserID = userId.Value,
-                    ProductId = ProductId,
-                    Type = Type,
-                    Quantity = Quantity
+                    ProductId = model.ProductId,
+                    Type = model.Type,
+                    Quantity = model.Quantity
                 });
             }
 
             _context.SaveChanges();
-
-            return Type.ToLower() switch
-            {
-                "pc" => RedirectToAction("PCs", new { type = "PC" }),
-                "laptop" => RedirectToAction("Laptops", new { type = "Laptop" }),
-                "pcpart" => RedirectToAction("PCParts", new { type = "PCPart" }),
-                _ => RedirectToAction("Products", new { type = "All" })
-            };
+            return RedirectToAction("Cart", "Product");
         }
 
 

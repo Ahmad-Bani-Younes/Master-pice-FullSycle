@@ -16,45 +16,45 @@
 }
 
 
-<section class="display flex align-2">
+@* <section class="display flex align-2"> *@
 
-    <h1 class="lato text-white d-head">Super Electronics</h1>
-    <h3 class="catamaran text-white mt-3 d-body">Best gadets, best value, excellent service</h3>
+@*     <h1 class="lato text-white d-head">Super Electronics</h1> *@
+@*     <h3 class="catamaran text-white mt-3 d-body">Best gadets, best value, excellent service</h3> *@
    
-</section>
-<br />
-<br />
+@* </section> *@
+@* <br /> *@
+@* <br /> *@
 
-<div class="inputcont text-center mt-5">
-    <div class="d-flex justify-content-center align-items-center" style="gap: 10px;">
-        <input id="searchInput" type="text"
-               value="@ViewBag.Type"
-               placeholder="What do you search for?"
-               class="form-control"
-               style="width: 400px; height: 50px; font-size: 18px; border-radius: 8px;" />
+@* <div class="inputcont text-center mt-5"> *@
+@*     <div class="d-flex justify-content-center align-items-center" style="gap: 10px;"> *@
+@*         <input id="searchInput" type="text" *@
+@*                value="@ViewBag.Type" *@
+@*                placeholder="What do you search for?" *@
+@*                class="form-control" *@
+@*                style="width: 400px; height: 50px; font-size: 18px; border-radius: 8px;" /> *@
 
        
-    </div>
-</div>
+@*     </div> *@
+@* </div> *@
 
 
-@section Scripts {
-    <script>
-        let typingTimer;
-        const delay = 1500; 
-        const input = document.getElementById("searchInput");
+@* @section Scripts { *@
+@*     <script> *@
+@*         let typingTimer; *@
+@*         const delay = 1500;  *@
+@*         const input = document.getElementById("searchInput"); *@
 
-        input.addEventListener("keyup", function () {
-            clearTimeout(typingTimer);
-            typingTimer = setTimeout(function () {
-                const query = input.value;
-                if (query.length > 0) {
-                    window.location.href = `/Categories/Index?search=${encodeURIComponent(query)}`;
-                }
-            }, delay);
-        });
-    </script>
-}
+@*         input.addEventListener("keyup", function () { *@
+@*             clearTimeout(typingTimer); *@
+@*             typingTimer = setTimeout(function () { *@
+@*                 const query = input.value; *@
+@*                 if (query.length > 0) { *@
+@*                     window.location.href = `/Categories/Index?search=${encodeURIComponent(query)}`; *@
+@*                 } *@
+@*             }, delay); *@
+@*         }); *@
+@*     </script> *@
+@* } *@
 
 <br />
 <br />
@@ -122,7 +122,7 @@
                     <!-- View Details Button -->
                     <a href="@Url.Action("Details", "Product", new { id = item.ID, type = item.Type.ToLower() })"
                        class="btn btn-danger btn-sm px-2 py-1"
-                       style="font-size: 12px; width: 90px;">
+                       style="font-size: 12px; width: 120px;">
                         View
                     </a>
 
@@ -134,7 +134,7 @@
                         <button type="submit"
                                 class="btn btn-outline-danger btn-sm px-2 py-1"
                                 style="font-size: 12px; width: 90px;">
-                            Add
+                            Add to cart
                         </button>
                     </form>
                 </div>

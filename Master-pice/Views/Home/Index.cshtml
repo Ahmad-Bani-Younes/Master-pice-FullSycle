@@ -10,6 +10,24 @@
 
 }
 
+<style>
+    .inputcont {
+        width: 80%;
+        position: relative;
+        left: 27%;
+    }
+
+  
+    .display {
+        background: linear-gradient(180deg, rgba(211, 82, 102, -4) -30%, rgba(194, 43, 67, 0.899597) 47%, rgba(211, 82, -32, -42.638218) 101%), url(~/images/big-display.jpg);
+        height: 70vh;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+</style>
+
 @section StylesIndex {
     <link rel="stylesheet" href="~/css/styleIndex.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -25,27 +43,32 @@
 
 <main class="main">
 
-    <!--start of display and search section-->
+    <section class="display position-relative p-0 m-0" style="height: 100vh; overflow: hidden;">
+        <video autoplay muted loop playsinline
+               class="position-absolute w-100 h-100"
+               style="object-fit: cover; z-index: -1; filter: none !important;">
+            <source src="~/Video/7576801-uhd_2160_3840_30fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
 
-    <section class="display flex align-2">
+        <div class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="background: transparent !important;">
+            <h1 id="animatedText" class="text-white text-center font-weight-bold" style="font-size: 2.5rem; white-space: nowrap; text-shadow: 0 0 5px rgba(0,0,0,0.5);"></h1>
 
-        <h1 class="lato text-white d-head">Super Electronics</h1>
-        <h3 class="catamaran text-white mt-3 d-body">Best gadets, best value, excellent service</h3>
-        <div class="inputcont text-center mt-4">
-            <select class="select input-item" name="select">
-                <option value="Desktop">Desktops</option>
-                <option value="Laptops">Laptops</option>
-                <option value="Smartphones">PC Parts</option>
-            </select>
-            <input type="text" placeholder="What do you search for?" class="lato input-item mt-2">
-            <a href="Search.html" class="searchbtn eclipse-bg text-white px-3 py-2">Search</a>
+            <div class="inputcont text-center mt-4 d-flex">
+                <input type="text" placeholder="What do you search for?" class="form-control rounded-pill mr-2" style="max-width: 300px;">
+                <a href="Search.html" class="btn btn-light rounded-pill">Search</a>
+            </div>
         </div>
     </section>
 
-    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index"
-       class="btn btn-danger" style="padding: 10px 20px; font-size: 16px;">
-        Go To Admin Panel
-    </a>
+
+
+    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" 
+        class="btn btn-danger" style="padding: 10px 20px; font-size: 16px;"> 
+         Go To Admin Panel 
+     </a>
+
+
 
 
     <!--end of display and search section-->
@@ -70,7 +93,7 @@
 
                             <div class="text-item ml-3">
                                 <h2 class="text-title lato">
-                                    Guide to Choosing the Right Computer Based on Your Needs
+                                    Answer a few fun questions and let our smart system match you with the perfect PC tailored to your needs.
                                 </h2>
                                 <p class="text-justify text-body catamaran">
                                     We help you choose the right device for you by answering our questions.
@@ -78,13 +101,14 @@
                                 </p>
                                 <h4 class="lato t-des"></h4>
                                 <h4 class="lato t-des"></h4>
-                                <a href="questionUser.html">
+                                <a href="@Url.Action("Step", "RecommendationController1")">
                                     <button class="price cabaret-bg w-25 text-white mt-3 lato">Start now</button>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
     </section>
 
@@ -441,3 +465,25 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script>
+    const text ="Best gadgets, best value, excellent service";
+    const target = document.getElementById("animatedText");
+    let index = 0;
+
+    function typeChar() {
+        if (index < text.length) {
+            target.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(typeChar, 70);
+        } else {
+            // إعادة تعيين بعد انتهاء الكتابة
+            setTimeout(() => {
+                target.innerHTML = "";
+                index = 0;
+                typeChar();
+            }, 1000); // مهلة بسيطة قبل إعادة الكتابة (اختياري)
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", typeChar);
+</script>

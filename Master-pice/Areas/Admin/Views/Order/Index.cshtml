@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+@model List<Master_pice.Models.Order>
+
+<h2>Orders Management</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>User</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderID</td>
+                <td>@order.User?.FullName</td>
+                <td>JD @order.TotalPrice</td>
+                <td>@order.OrderStatus</td>
+                <td>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>
+                    @if (order.OrderStatus == "Pending")
+                    {
+                        <form asp-action="UpdateStatus" asp-controller="Order" asp-area="Admin" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@order.OrderID" />
+                            <input type="hidden" name="status" value="Processing" />
+                            <button class="btn btn-warning btn-sm" type="submit">Mark as Processing</button>
+                        </form>
+                    }
+                    else if (order.OrderStatus == "Processing")
+                    {
+                        <form asp-action="UpdateStatus" asp-controller="Order" asp-area="Admin" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@order.OrderID" />
+                            <input type="hidden" name="status" value="Delivered" />
+                            <button class="btn btn-success btn-sm" type="submit">Mark as Delivered</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-success">Delivered</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -5,9 +5,17 @@
     decimal subtotal = 0;
     var userId = ViewBag.UserId as int? ?? 0;
 }
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 @section StylesCart {
     <link rel="stylesheet" href="~/css/CartStyle.css" />
+}
+
+@if (TempData["EmptyCart"] != null)
+{
+    <div class="alert alert-warning text-center">
+        @TempData["EmptyCart"]
+    </div>
 }
 
 <div class="container">
@@ -36,27 +44,32 @@
                             <span class="text-muted">@item.Type</span>
                         </td>
                         <td>@($"JD{item.Price:0.00}")</td>
-                        <td>
-                            @if (userId != 0)
-                            {
-                                <form asp-action="UpdateQuantity" asp-controller="Product" method="post">
-                                    <input type="hidden" name="ProductId" value="@item.ProductId" />
-                                    <input type="hidden" name="Type" value="@item.Type" />
-                                    <input type="number" name="Quantity" class="quantity-select" value="@item.Quantity" min="1" max="20"
-                                           onchange="this.form.submit()" />
-                                </form>
-                            }
-                            else
-                            {
-                                <input type="number" class="quantity-select" value="@item.Quantity" disabled />
-                            }
-                        </td>
+                       <td>
+    @if (userId != 0)
+    {
+        <form asp-action="UpdateQuantity" asp-controller="Product" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="ProductId" value="@item.ProductId" />
+            <input type="hidden" name="Type" value="@item.Type" />
+            <input type="number" name="Quantity" class="quantity-select" value="@item.Quantity" min="1" max="20"
+                   onchange="this.form.submit()" />
+        </form>
+    }
+    else
+    {
+        <input type="number" class="quantity-select" value="@item.Quantity" min="1" max="20"
+               onchange="updateQuantityGuest(@item.ProductId, '@item.Type', this)" />
+    }
+</td>
+
 
                         <td>@($"JD{itemTotal:0.00}")</td>
                         <td>
                             @if (userId != 0)
                             {
                                 <form asp-action="RemoveFromCart" asp-controller="Product" method="post">
+                                    @Html.AntiForgeryToken()
+
                                     <input type="hidden" name="ProductId" value="@item.ProductId" />
                                     <input type="hidden" name="Type" value="@item.Type" />
                                     <button type="submit" class="remove-item">✖</button>
@@ -75,6 +88,8 @@
 
         <div class="cart-buttons">
             <form asp-controller="Categories" asp-action="Products" method="get" style="display:inline-block;">
+                @Html.AntiForgeryToken()
+
                 <button type="submit"
                         style="background-color: #d35266; color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer;">
                     Continue Shopping
@@ -84,6 +99,8 @@
             @if (userId != 0)
             {
                 <form asp-action="ClearCart" asp-controller="Product" method="post" style="display:inline-block;">
+                    @Html.AntiForgeryToken()
+
                     <button type="submit"
                             style="background-color: #d35266; color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer;">
                         Clear Shopping Cart
@@ -92,11 +109,16 @@
             }
             else
             {
-                <button onclick="clearCart()"
-                        style="background-color: #d35266; color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer;">
-                    Clear Shopping Cart
-                </button>
+                <div style="display:inline-block;">
+                    <input type="hidden" id="tokenInput" value="@ViewBag.Token" />
+                    <button onclick="clearCart()"
+                            style="background-color: #d35266; color: white; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer;">
+                        Clear Shopping Cart
+                    </button>
+                </div>
             }
+
+
         </div>
 
 
@@ -125,8 +147,8 @@
         <br />
         
         <div class="checkout-buttons">
-            <a asp-action="Checkout"
-               asp-controller="Payment"
+            <a asp-action="CheckOut"
+               asp-controller="Product"
                style="background-color: #d35266; color: white; padding: 10px 20px; border-radius: 8px; border: none; text-decoration: none; display: inline-block;">
                 Proceed to Checkout
             </a>
@@ -134,3 +156,81 @@
 
     </div>
 </div>
+<script>
+function clearCart() {
+    const tokenInput = document.getElementById('tokenInput');
+    if (!tokenInput) {
+        alert("Token not found.");
+        return;
+    }
+
+    fetch('/Product/ClearCart', {
+        method: 'POST',
+        headers: {
+            'RequestVerificationToken': tokenInput.value
+        }
+    })
+    .then(response => {
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else {
+            location.reload();
+        }
+    })
+    .catch(error => {
+        console.error('Error clearing cart:', error);
+    });
+}
+
+</script>
+<script>
+    function removeFromCart(productId, type) {
+        if (!confirm("Are you sure you want to remove this item?")) return;
+
+        fetch('/Product/RemoveFromCartGuest', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId, type })
+        })
+        .then(response => {
+            location.reload();
+        })
+        .catch(error => {
+            console.error('Error removing item from cart:', error);
+        });
+    }
+</script>
+<script>
+    function updateQuantityGuest(productId, type, input) {
+        const newQty = parseInt(input.value);
+        if (isNaN(newQty) || newQty < 1) {
+            alert("Invalid quantity");
+            return;
+        }
+
+        const cartCookie = getCookie("Cart");
+        if (!cartCookie) return;
+
+        const cart = JSON.parse(decodeURIComponent(cartCookie));
+        const updatedCart = cart.map(item => {
+            if (item.ProductId === productId && item.Type.toLowerCase() === type.toLowerCase()) {
+                item.Quantity = newQty;
+            }
+            return item;
+        });
+
+        document.cookie = "Cart=" + encodeURIComponent(JSON.stringify(updatedCart)) + "; path=/; max-age=259200";
+        location.reload();
+    }
+
+    function getCookie(name) {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            const [key, val] = cookie.trim().split('=');
+            if (key === name) return val;
+        }
+        return null;
+    }
+</script>

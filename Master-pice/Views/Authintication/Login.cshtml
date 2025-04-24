@@ -3,6 +3,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        #bgVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            opacity: 0.3; /* شفافية خفيفة حتى المحتوى يبين فوقه */
+        }
+
+        body {
+            background: transparent !important;
+        }
+
+   
+
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
@@ -11,13 +30,17 @@
     <link rel="stylesheet" href="~/newLogin/css/style.css">
 </head>
 <body>
+    <video autoplay muted loop id="bgVideo">
+        <source src="~/Video/4496268-hd_1920_1080_25fps.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
     <section class="ftco-section">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6 text-center mb-5">
-                    <h2 class="heading-section">Login</h2>
-                </div>
-            </div>
+            @* <div class="row justify-content-center"> *@
+            @*     <div class="col-md-6 text-center mb-5"> *@
+            @*         <h2 class="heading-section">Login</h2> *@
+            @*     </div> *@
+            @* </div> *@
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
                     <div class="wrap d-md-flex">
@@ -25,7 +48,7 @@
                             <div class="text w-100">
                                 <h2>Welcome to login</h2>
                                 <p>Don't have an account?</p>
-                                <a href="#" class="btn btn-white btn-outline-white">Sign Up</a>
+                                <a href="@Url.Action("Register", "Authintication")" class="btn btn-white btn-outline-white">Sign Up</a>
                             </div>
                         </div>
                         <div class="login-wrap p-4 p-lg-5">
@@ -60,7 +83,7 @@
                                         </label>
                                     </div>
                                     <div class="w-50 text-md-right">
-                                        <a href="#">Forgot Password</a>
+                                        <a href="@Url.Action("ForgetPassword", "Authintication")">Forgot Password</a>
                                     </div>
                                 </div>
                             </form>

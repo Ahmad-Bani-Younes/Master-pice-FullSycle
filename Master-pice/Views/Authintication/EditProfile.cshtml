@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="styles.css">
 
-<h2 class="text-danger">Edit Profile</h2>
+@* <h2 class="text-danger">Edit Profile</h2> *@
 
 <div class="container mt-5">
     <div class="row">
@@ -14,21 +14,24 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Profile</h5>
+                    @* <h5 class="card-title">Profile</h5> *@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            <a asp-controller="Authintication" asp-action="Profile">Account Information</a>
+                            <a asp-action="Profile" asp-controller="Authintication" style="color:#b43e57;font-size:20px;" class="text-decoration-none">Account Information</a>
                         </li>
                         <li class="list-group-item">
-                            <a asp-controller="User" asp-action="MyOrders">My Orders</a>
+                            <a asp-action="MyOrders" asp-controller="Authintication" style="color:#b43e57;font-size:20px;" class="text-decoration-none">My Orders</a>
                         </li>
                         <li class="list-group-item">
-                            <a asp-controller="User" asp-action="MyWishList">My Wish List</a>
+                            <a asp-action="MyWishList" asp-controller="User" style="color:#b43e57;font-size:20px;" class="text-decoration-none">My Wish List</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-action="EditProfile" asp-controller="Authintication" style="color:#b43e57;font-size:20px;" class="text-decoration-none">Edit Profile</a>
                         </li>
                     </ul>
-
                 </div>
             </div>
+
         </div>
 
         <!-- Main Content -->
@@ -56,10 +59,10 @@
                             <label class="form-label">Upload New Profile Image</label>
                             <input type="file" name="NewProfileImage" class="form-control" />
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">New Password</label>
-                            <input asp-for="Password" class="form-control" />
-                        </div>
+                        @* <div class="mb-3"> *@
+                        @*     <label class="form-label">New Password</label> *@
+                        @*     <input asp-for="Password" class="form-control" /> *@
+                        @* </div> *@
                         <button type="submit" class="btn btn-danger">Save Changes</button>
                     </form>
                 </div>

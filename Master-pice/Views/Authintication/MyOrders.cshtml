@@ -1,0 +1,93 @@
+﻿@model List<Master_pice.ViewModel.OrderWithPaymentViewModel>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+@section StylesMyOrder {
+    <link rel="stylesheet" href="~/css/my-orders.css" />
+}
+
+<div class="container mt-5">
+ 
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    @* <h5 class="card-title">Profile</h5> *@
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a asp-action="Profile" asp-controller="Authintication" style="color:#b43e57;font-size:20px;" class="text-decoration-none">Account Information</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-action="MyOrders" asp-controller="Authintication" style="color:#b43e57;font-size:20px;" class="text-decoration-none">My Orders</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-action="MyWishList" asp-controller="User" style="color:#b43e57;font-size:20px;" class="text-decoration-none">My Wish List</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-action="EditProfile" asp-controller="Authintication" style="color:#b43e57;font-size:20px;" class="text-decoration-none">Edit Profile</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- Orders Section -->
+        <div class="col-md-9">
+            <div class="filter d-flex align-items-center mb-4" style="gap: 10px;">
+                <select id="order-filter" class="form-control shadow-sm" style="width: 200px; border-radius: 30px; border: 1px solid #ccc;">
+                    <option>Last 5 orders</option>
+                    <option>Last 10 orders</option>
+                    <option>All orders</option>
+                </select>
+            </div>
+
+            @foreach (var order in Model)
+            {
+                string lowerStatus = order.OrderStatus?.ToLower() ?? "";
+                string statusClass = lowerStatus switch
+                {
+                    "processing" or "pending" => "badge bg-primary",
+                    "shipped" => "badge bg-success",
+                    "delivered" => "badge bg-secondary",
+                    "cancelled" => "badge bg-danger",
+                    _ => "badge bg-warning"
+                };
+
+                bool isCancelable = (DateTime.Now - order.CreatedAt).TotalHours < 24;
+
+                <div class="order-card">
+                    <div class="order-details">
+                        <h3 class="mb-0">Order #@order.OrderID</h3>
+                        <p>Placed on @order.CreatedAt.ToString("dd MMM yyyy HH:mm")</p>
+                        <p><strong>Total Paid:</strong> @order.TotalPrice.ToString("C")</p>
+                        <p><strong>Payment:</strong> @order.PaymentMethod</p>
+                    </div>
+
+                    <div class="order-status d-flex justify-content-end align-items-center flex-wrap gap-2">
+                        <span class="@statusClass"
+                              style="font-size: 0.9rem; padding: 7px 15px; border-radius: 20px;">
+                            @order.OrderStatus
+                        </span>
+
+                        @if (lowerStatus != "cancelled" && lowerStatus != "delivered" && lowerStatus != "processing")
+                        {
+                            <form asp-action="CancelOrder" asp-controller="Authintication" method="post" class="m-0">
+                                <input type="hidden" name="orderId" value="@order.OrderID" />
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm px-4 py-2 shadow-sm rounded-pill text-white"
+                                        style="min-width: 130px; font-weight: bold;"
+                                @(isCancelable ? "" : "disabled")>
+                                    Cancel Order
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

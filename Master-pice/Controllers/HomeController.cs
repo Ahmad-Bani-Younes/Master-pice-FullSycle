@@ -1,4 +1,4 @@
-using Master_pice.Models;
+﻿using Master_pice.Models;
 using Master_pice.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -18,6 +18,23 @@ namespace Master_pice.Controllers
 
         public IActionResult Index(int page = 1)
         {
+            // ✅ تفعيل Remember Me من الكوكي إذا ما في Session
+            if (HttpContext.Session.GetInt32("UserId") == null)
+            {
+                var rememberedUserId = Request.Cookies["RememberMe_UserId"];
+                if (!string.IsNullOrEmpty(rememberedUserId))
+                {
+                    var user = _context.Users.FirstOrDefault(u => u.ID == int.Parse(rememberedUserId));
+                    if (user != null)
+                    {
+                        HttpContext.Session.SetInt32("UserId", user.ID);
+                        HttpContext.Session.SetString("UserName", user.FullName);
+                        HttpContext.Session.SetString("UserType", user.UserType);
+                        HttpContext.Session.SetString("UserImage", user.ProfileImage ?? "");
+                    }
+                }
+            }
+
             int pageSize = 20;
 
             ViewBag.HotAds = _context.PCs
@@ -40,7 +57,6 @@ namespace Master_pice.Controllers
                 .Take(8)
                 .ToList();
 
-       
             var allProducts = _context.PCs
                 .Select(p => new ProductViewModel
                 {
@@ -64,7 +80,7 @@ namespace Master_pice.Controllers
                 {
                     ID = part.PartID,
                     Name = part.Model,
-                    Description = "", 
+                    Description = "",
                     Price = part.Price,
                     ImageURL = part.ImageURL,
                     Type = "pcpart"
@@ -79,6 +95,8 @@ namespace Master_pice.Controllers
 
             ViewBag.TotalPages = (int)Math.Ceiling((double)totalProducts / pageSize);
             ViewBag.CurrentPage = page;
+
+
 
             return View(products);
         }

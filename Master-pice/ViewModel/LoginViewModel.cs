@@ -9,5 +9,7 @@ namespace Master_pice.ViewModel
 
         [Required, DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
     }
 }

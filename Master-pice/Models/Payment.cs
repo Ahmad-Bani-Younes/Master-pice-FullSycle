@@ -13,6 +13,9 @@
         public string PaymentMethod { get; set; }
         public decimal Amount { get; set; }
         public bool IsPaid { get; set; }
+
+        public string? ReceiptImage { get; set; }
+
         public DateTime PaymentDate { get; set; } = DateTime.Now;
     }
 

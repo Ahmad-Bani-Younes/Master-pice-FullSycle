@@ -1,0 +1,40 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Recommended Product";
+}
+@if (ViewBag.RawReply != null)
+{
+    <div class="alert alert-secondary mt-3">
+        <strong>Raw Reply:</strong> @ViewBag.RawReply
+    </div>
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-success">✅ Recommended Product for You</h2>
+
+    @if (Model != null)
+    {
+        <div class="card shadow border-0 mx-auto" style="max-width: 500px;">
+            <img src="@Model.ImageURL" class="card-img-top" alt="Product Image" style="height: 250px; object-fit: cover;" />
+
+            <div class="card-body">
+                <h4 class="card-title text-primary">@Model.Brand @Model.Model</h4>
+                <p class="card-text">@Model.Description</p>
+
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item"><strong>Type:</strong> @Model.Type</li>
+                    <li class="list-group-item"><strong>Price:</strong> $@Model.Price</li>
+                </ul>
+
+                <a href="/Shop/Details?id=@Model?.Model" class="btn btn-outline-success w-100">View More</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            No recommended product was found.
+        </div>
+    }
+</div>

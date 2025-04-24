@@ -27,6 +27,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\contact-form-19\.DS_Store" />
+    <None Include="wwwroot\contact-form-19\css\.DS_Store" />
+    <None Include="wwwroot\contact-form-19\fonts\.DS_Store" />
+    <None Include="wwwroot\contact-form-19\images\.DS_Store" />
+    <None Include="wwwroot\contact-form-19\scss\.DS_Store" />
     <None Include="wwwroot\newLogin\.DS_Store" />
     <None Include="wwwroot\newLogin\css\.DS_Store" />
     <None Include="wwwroot\newLogin\css\bootstrap\.DS_Store" />

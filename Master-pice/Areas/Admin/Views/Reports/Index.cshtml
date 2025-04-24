@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+}
+
+<div class="container mt-4">
+    <h3 class="mb-4">📊 System Reports</h3>
+
+    <!-- 🔹 Statistics Cards -->
+    <div class="row">
+        @{
+            var cards = new[] {
+        new { Title = "Total Users", Count = ViewBag.Users },
+        new { Title = "Total Products", Count = ViewBag.Products },
+        new { Title = "Completed Orders", Count = ViewBag.Completed },
+        new { Title = "Cancelled Orders", Count = ViewBag.Cancelled },
+        new { Title = "Processing Orders", Count = ViewBag.Processing }
+        };
+        }
+
+        @foreach (var card in cards)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card text-white" style="background-color: #007bff;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fs-5">@card.Title</h5>
+                        <p class="card-text display-6 fw-bold">@card.Count</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- 🔹 Chart -->
+    <div class="my-5">
+        <h5 class="mb-3">Order Statistics</h5>
+        <canvas id="ordersChart"></canvas>
+    </div>
+
+    <!-- 🔹 Actions -->
+    <div class="mt-4">
+        <a href="/Reports/DownloadReport" class="btn btn-danger">📥 Download PDF Report</a>
+        <button onclick="window.print()" class="btn btn-secondary ms-2">🖨️ Print Page</button>
+    </div>
+</div>
+
+
+<!-- 🔹 Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('ordersChart').getContext('2d');
+    var ordersChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Completed', 'Cancelled', 'Processing'],
+            datasets: [{
+                label: 'Number of Orders',
+                data: [@ViewBag.Completed, @ViewBag.Cancelled, @ViewBag.Processing],
+                backgroundColor: '#007bff'
+            }]
+        }
+    });
+</script>

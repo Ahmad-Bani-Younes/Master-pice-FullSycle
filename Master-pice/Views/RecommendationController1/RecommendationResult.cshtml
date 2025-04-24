@@ -1,0 +1,58 @@
+﻿@model Master_pice.ViewModel.RecommendationViewModel
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+
+<div class="container mt-5">
+    <h2 class="text-center text-success mb-4">🎯 Your Best Match</h2>
+
+    <div class="card shadow-lg border-0">
+        <div class="card-body">
+
+            @{
+                dynamic device = Model.RecommendedDevice;
+                var isLaptop = device is Master_pice.Models.Laptop;
+                string modelName = isLaptop ? device.Model : ""; // تجنب الخطأ لو ما فيه Model
+            }
+
+            <h4 class="card-title mb-3 text-primary">
+                @(isLaptop ? "Laptop" : "PC"): @device.Brand @modelName
+            </h4>
+
+            <ul class="list-group list-group-flush mb-3">
+                <li class="list-group-item"><strong>Processor:</strong> @device.Processor</li>
+                <li class="list-group-item"><strong>RAM:</strong> @device.RAM</li>
+                <li class="list-group-item"><strong>Storage:</strong> @device.Storage</li>
+                <li class="list-group-item"><strong>GPU:</strong> @device.GPU</li>
+                <li class="list-group-item"><strong>Price:</strong> JD @device.Price</li>
+                <li class="list-group-item"><strong>Description:</strong> @device.Description</li>
+            </ul>
+
+            <div class="mb-4">
+                <p><strong>🎯 Match Accuracy:</strong> @ViewBag.MatchPercentage%</p>
+                <div class="progress" style="height: 20px;">
+                    <div class="progress-bar bg-success" role="progressbar"
+                         style="width: @ViewBag.MatchPercentage%;" aria-valuenow="@ViewBag.MatchPercentage"
+                         aria-valuemin="0" aria-valuemax="100">
+                        @ViewBag.MatchPercentage%
+                    </div>
+                </div>
+            </div>
+
+            @if (device != null)
+            {
+                <div class="mt-4">
+                    <h5 class="text-success">📊 Why we chose this device:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">✅ Strong GPU for high-performance tasks</li>
+                        <li class="list-group-item">✅ Sufficient RAM and storage for your needs</li>
+                        <li class="list-group-item">✅ Matches your preferred price range</li>
+                        <li class="list-group-item">✅ Useful features like touchscreen or backlit keyboard</li>
+                    </ul>
+                </div>
+            }
+
+            <a href="@Url.Action("Step", "RecommendationController1")" class="btn btn-outline-primary mt-4 fs-5 w-100">
+                🔁 Start Over the Wizard
+            </a>
+        </div>
+    </div>
+</div>
