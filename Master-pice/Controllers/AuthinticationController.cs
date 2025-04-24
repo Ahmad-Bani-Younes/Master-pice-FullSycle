@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
 using System.Net;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Master_pice.Controllers
 {
@@ -17,15 +18,22 @@ namespace Master_pice.Controllers
             _context = context;
         }
 
+        [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            var model = new RegisterViewModel
+            {
+                RegionOptions = GetJordanRegions()
+            };
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Register(RegisterViewModel model)
         {
+            model.RegionOptions = GetJordanRegions(); // ✅ إعادة تعبئة المناطق في POST
+
             if (ModelState.IsValid)
             {
                 if (_context.Users.Any(u => u.Email == model.Email))
@@ -58,7 +66,8 @@ namespace Master_pice.Controllers
                     Phone = model.Phone,
                     UserType = model.UserType,
                     ProfileImage = imageName,
-                    CreatedAt = DateTime.Now
+                    CreatedAt = DateTime.Now,
+                    Region = model.Region // ✅ إضافة المنطقة
                 };
 
                 _context.Users.Add(user);
@@ -69,6 +78,26 @@ namespace Master_pice.Controllers
 
             return View(model);
         }
+
+        private List<SelectListItem> GetJordanRegions()
+        {
+            return new List<SelectListItem>
+    {
+        new("Amman", "Amman"),
+        new("Zarqa", "Zarqa"),
+        new("Irbid", "Irbid"),
+        new("Balqa", "Balqa"),
+        new("Aqaba", "Aqaba"),
+        new("Ma'an", "Ma'an"),
+        new("Karak", "Karak"),
+        new("Tafilah", "Tafilah"),
+        new("Madaba", "Madaba"),
+        new("Ajloun", "Ajloun"),
+        new("Jerash", "Jerash"),
+        new("Mafraq", "Mafraq")
+    };
+        }
+
 
         public IActionResult Login() => View();
 
@@ -218,6 +247,8 @@ namespace Master_pice.Controllers
             user.FullName = model.FullName;
             user.Email = model.Email;
             user.Phone = model.Phone;
+            user.Region = model.Region;
+
 
             if (!string.IsNullOrEmpty(model.Password))
             {

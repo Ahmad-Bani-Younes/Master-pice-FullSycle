@@ -54,6 +54,25 @@
                             <input asp-for="Phone" class="form-control" />
                         </div>
                         <div class="mb-3">
+                            <label asp-for="Region" class="form-label">Region</label>
+                            <select asp-for="Region" class="form-control">
+                                <option value="">Select Region</option>
+                                <option>Amman</option>
+                                <option>Zarqa</option>
+                                <option>Irbid</option>
+                                <option>Balqa</option>
+                                <option>Madaba</option>
+                                <option>Karak</option>
+                                <option>Ma'an</option>
+                                <option>Tafilah</option>
+                                <option>Jerash</option>
+                                <option>Ajloun</option>
+                                <option>Aqaba</option>
+                                <option>Mafraq</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
                             <img src="~/uploads/@Model.ProfileImage" alt="Current Profile Image" class="rounded-circle" width="120" height="120" style="object-fit: cover;" />
                             <br />
                             <label class="form-label">Upload New Profile Image</label>

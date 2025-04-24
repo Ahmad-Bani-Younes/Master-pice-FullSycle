@@ -34,5 +34,13 @@ namespace Master_pice.Areas.Admin.Controllers
             return View(user);  // تمرير البيانات إلى الفيو
         }
 
+
+        [HttpGet]
+        public IActionResult ViewMessageContactUS()
+        {
+            var messages = _context.ContactMessages.OrderByDescending(m => m.SentAt).ToList();
+            return View(messages);
+        }
+
     }
 }

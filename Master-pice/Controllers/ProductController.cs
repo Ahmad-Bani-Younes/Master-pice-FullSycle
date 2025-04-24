@@ -251,6 +251,21 @@ public class ProductController : Controller
 
             ViewBag.UserId = 0; // المستخدم مش مسجل
         }
+        decimal shipping = 3.0m;
+
+        if (userId != null)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.ID == userId);
+            if (user?.Region?.Trim().ToLower() == "irbid")
+            {
+                shipping = 2.0m;
+            }
+        }
+
+        ViewBag.Shipping = shipping;
+        ViewBag.Subtotal = cartItems.Sum(i => i.Price * i.Quantity);
+        ViewBag.Total = ViewBag.Subtotal + shipping;
+
 
         return View(cartItems);
     }
@@ -447,19 +462,16 @@ public class ProductController : Controller
         if (userId == null)
             return RedirectToAction("Login", "Authintication");
 
-        // جلب السلة
         var rawCart = _context.Cart
             .Where(c => c.UserID == userId)
             .ToList();
 
-        // 🛑 تحقق إذا السلة فاضية
         if (rawCart == null || !rawCart.Any())
         {
             TempData["EmptyCart"] = "Your cart is empty. Please add items before proceeding to checkout.";
-            return RedirectToAction("Cart", "Product"); // أو ارجعه لصفحة السلة Cart
+            return RedirectToAction("Cart", "Product");
         }
 
-        // جلب المنتجات حسب النوع
         var cartItems = new List<dynamic>();
 
         foreach (var item in rawCart)
@@ -483,35 +495,42 @@ public class ProductController : Controller
         }
 
         ViewBag.Cart = cartItems;
-        decimal total = 0;
+
+        decimal subtotal = 0;
 
         foreach (var i in cartItems)
         {
-            object product = i.Product;
-
-            if (product is PC pc)
-                total += pc.Price * i.Quantity;
-            else if (product is Laptop laptop)
-                total += laptop.Price * i.Quantity;
-            else if (product is PCPart part)
-                total += part.Price * i.Quantity;
+            if (i.Product is PC pc)
+                subtotal += pc.Price * i.Quantity;
+            else if (i.Product is Laptop laptop)
+                subtotal += laptop.Price * i.Quantity;
+            else if (i.Product is PCPart part)
+                subtotal += part.Price * i.Quantity;
         }
-
-        ViewBag.Total = total;
 
         var user = _context.Users.FirstOrDefault(u => u.ID == userId);
         if (user == null)
             return RedirectToAction("Login", "Authintication");
+
+        decimal shipping = user?.Region?.Trim().ToLower() == "irbid" ? 2.0m : 3.0m;
+        decimal total = subtotal + shipping;
+
+        // تمرير البيانات للفيو
+        ViewBag.Subtotal = subtotal;
+        ViewBag.Shipping = shipping;
+        ViewBag.Total = total;
 
         var model = new CheckoutViewModel
         {
             FullName = user.FullName,
             Email = user.Email,
             Phone = user.Phone,
+            Region = user.Region
         };
 
         return View(model);
     }
+
 
     [HttpPost]
     public IActionResult RemoveFromCartGuest([FromBody] CartItemViewModel model)

@@ -1,0 +1,49 @@
+﻿@model Master_pice.ViewModel.RecommendationViewModel
+@{
+    ViewData["Title"] = "AI Recommendation";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-5 rounded-4 bg-light">
+
+        <h2 class="text-success text-center mb-4">🎯 أفضل جهاز مقترح</h2>
+
+        @if (Model.RecommendedDevice is Master_pice.Models.Laptop laptop)
+        {
+            <div class="alert alert-info p-4 rounded-3 shadow-sm">
+                <h4 class="text-primary">Laptop: <strong>@laptop.Brand - @laptop.Model</strong></h4>
+                <hr />
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Processor:</strong> @laptop.Processor</li>
+                    <li class="list-group-item"><strong>RAM:</strong> @laptop.RAM</li>
+                    <li class="list-group-item"><strong>Storage:</strong> @laptop.Storage</li>
+                    <li class="list-group-item"><strong>GPU:</strong> @laptop.GPU</li>
+                    <li class="list-group-item"><strong>Screen Size:</strong> @laptop.ScreenSize</li>
+                    <li class="list-group-item"><strong>Price:</strong> JD @laptop.Price</li>
+                    <li class="list-group-item"><strong>Description:</strong> @laptop.Description</li>
+                </ul>
+            </div>
+        }
+        else if (Model.RecommendedDevice is Master_pice.Models.PC pc)
+        {
+            <div class="alert alert-warning p-4 rounded-3 shadow-sm">
+                <h4 class="text-dark">PC: <strong>@pc.Brand</strong></h4>
+                <hr />
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Processor:</strong> @pc.Processor</li>
+                    <li class="list-group-item"><strong>RAM:</strong> @pc.RAM</li>
+                    <li class="list-group-item"><strong>Storage:</strong> @pc.Storage</li>
+                    <li class="list-group-item"><strong>GPU:</strong> @pc.GPU</li>
+                    <li class="list-group-item"><strong>Price:</strong> JD @pc.Price</li>
+                    <li class="list-group-item"><strong>Description:</strong> @pc.Description</li>
+                </ul>
+            </div>
+        }
+
+        <div class="text-center mt-4">
+            <a href="@Url.Action("AiWizard", "Ai")" class="btn btn-outline-primary btn-lg px-5">🔁 ابدأ من جديد</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "ViewAboutContent";
+}
+
+@model List<AboutContent>
+
+<h2>Manage About Us Sections</h2>
+<a class="btn btn-success mb-3" asp-action="CreateAboutContent">+ Add New Section</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td><img src="~/uploads/@s.ImageUrl" width="100" /></td>
+                <td>@s.Title</td>
+                <td>@s.Description</td>
+                <td>@s.CreatedAt.ToShortDateString()</td>
+                <td>
+                    <a class="btn btn-warning" asp-action="EditAboutContent" asp-route-id="@s.Id">Edit</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@s.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

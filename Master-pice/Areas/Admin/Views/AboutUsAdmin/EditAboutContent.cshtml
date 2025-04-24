@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "EditAboutContent";
+}
+
+@model AboutContent
+<h2>@(Model.Id == 0 ? "Add" : "Edit") Section</h2>
+
+<form asp-action="@(Model.Id == 0 ? "CreateAboutContent" : "EditAboutContent")" method="post" enctype="multipart/form-data">
+    @if (Model.Id != 0)
+    {
+        <input type="hidden" asp-for="Id" />
+    }
+    <div class="form-group">
+        <label>Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Image</label>
+        <input type="file" name="Image" class="form-control" />
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="~/uploads/@Model.ImageUrl" width="100" class="mt-2" />
+        }
+    </div>
+    <button class="btn btn-primary mt-3" type="submit">Save</button>
+</form>
+

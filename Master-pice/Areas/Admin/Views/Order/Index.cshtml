@@ -1,9 +1,4 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-}
-
-@model List<Master_pice.Models.Order>
+﻿@model List<Master_pice.ViewModel.OrderWithPaymentViewModel>
 
 <h2>Orders Management</h2>
 
@@ -14,40 +9,67 @@
             <th>User</th>
             <th>Total</th>
             <th>Status</th>
+            <th>Payment Method</th>
             <th>Created</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var order in Model)
+        @foreach (var item in Model)
         {
+            var order = item.Order;
             <tr>
                 <td>@order.OrderID</td>
                 <td>@order.User?.FullName</td>
                 <td>JD @order.TotalPrice</td>
-                <td>@order.OrderStatus</td>
-                <td>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
                 <td>
                     @if (order.OrderStatus == "Pending")
                     {
-                        <form asp-action="UpdateStatus" asp-controller="Order" asp-area="Admin" method="post" class="d-inline">
-                            <input type="hidden" name="id" value="@order.OrderID" />
-                            <input type="hidden" name="status" value="Processing" />
-                            <button class="btn btn-warning btn-sm" type="submit">Mark as Processing</button>
-                        </form>
+                        <span class="badge bg-warning text-dark">@order.OrderStatus</span>
                     }
                     else if (order.OrderStatus == "Processing")
                     {
-                        <form asp-action="UpdateStatus" asp-controller="Order" asp-area="Admin" method="post" class="d-inline">
-                            <input type="hidden" name="id" value="@order.OrderID" />
-                            <input type="hidden" name="status" value="Delivered" />
-                            <button class="btn btn-success btn-sm" type="submit">Mark as Delivered</button>
-                        </form>
+                        <span class="badge bg-info text-dark">@order.OrderStatus</span>
+                    }
+                    else if (order.OrderStatus == "Delivered")
+                    {
+                        <span class="badge bg-success">@order.OrderStatus</span>
+                    }
+                    else if (order.OrderStatus == "Cancelled")
+                    {
+                        <span class="badge bg-danger">@order.OrderStatus</span>
                     }
                     else
                     {
-                        <span class="text-success">Delivered</span>
+                        <span class="badge bg-secondary">@order.OrderStatus</span>
                     }
+                </td>
+
+                <td>@item.PaymentMethod</td>
+                <td>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>
+                    @* @if (order.OrderStatus == "Pending") *@
+                    @* { *@
+                    @*     <form asp-action="UpdateStatus" asp-controller="Order" asp-area="Admin" method="post" class="d-inline"> *@
+                    @*         <input type="hidden" name="id" value="@order.OrderID" /> *@
+                    @*         <input type="hidden" name="status" value="Processing" /> *@
+                    @*         <button class="btn btn-warning btn-sm" type="submit">Mark as Processing</button> *@
+                    @*     </form> *@
+                    @* } *@
+                    @* else if (order.OrderStatus == "Processing") *@
+                    @* { *@
+                    @*     <form asp-action="UpdateStatus" asp-controller="Order" asp-area="Admin" method="post" class="d-inline"> *@
+                    @*         <input type="hidden" name="id" value="@order.OrderID" /> *@
+                    @*         <input type="hidden" name="status" value="Delivered" /> *@
+                    @*         <button class="btn btn-success btn-sm" type="submit">Mark as Delivered</button> *@
+                    @*     </form> *@
+                    @* } *@
+                    @* else *@
+                    @* { *@
+                    @*     <span class="text-success">Delivered</span> *@
+                    @* } *@
+
+                    <a asp-action="DetailsOrderAdmin" asp-controller="Order" asp-area="Admin" asp-route-id="@order.OrderID" class="btn btn-info btn-sm ms-1">View</a>
                 </td>
             </tr>
         }

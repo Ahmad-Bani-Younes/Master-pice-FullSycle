@@ -1,0 +1,81 @@
+﻿@model List<Master_pice.Models.ChatMessage>
+@{
+    ViewData["Title"] = "Chat";
+    var userId = ViewBag.UserId;
+    var userFullName = ViewBag.FullName as string ?? "User";
+
+}
+
+<style>
+    .chat-box {
+        height: 500px;
+        overflow-y: auto;
+        background: #f1f1f1;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .chat-msg {
+        margin-bottom: 15px;
+        max-width: 70%;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .chat-left {
+        background-color: #d1e7dd;
+        text-align: left;
+        margin-right: auto;
+    }
+
+    .chat-right {
+        background-color: #cff4fc;
+        text-align: right;
+        margin-left: auto;
+    }
+
+    .chat-time {
+        font-size: 0.8rem;
+        color: #666;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+
+<h3 class="mb-4">💬 Chat with User</h3>
+
+<div class="chat-box mb-3">
+    @foreach (var msg in Model)
+    {
+        var isAdmin = msg.SenderType == "Admin";
+
+        <div class="d-flex mb-3 @(isAdmin ? "justify-content-start" : "justify-content-end")">
+            <div class="p-3 shadow-sm rounded @(isAdmin ? "bg-success-subtle text-start" : "bg-info-subtle text-end")" style="max-width: 75%;">
+                <div class="fw-bold mb-1">@((isAdmin ? "Admin" : ViewBag.FullName))</div>
+
+                @if (!string.IsNullOrEmpty(msg.Message) && msg.Message != "[Image]")
+                {
+                    <div class="mb-1">@msg.Message</div>
+                }
+
+                @if (!string.IsNullOrEmpty(msg.ImagePath))
+                {
+                    <div class="mt-2">
+                        <img src="~/uploads/chat/@msg.ImagePath" class="img-thumbnail" style="max-width: 250px;" />
+                    </div>
+                }
+
+                <div class="text-muted mt-2 small">@msg.SentAt.ToString("dd/MM/yyyy HH:mm")</div>
+            </div>
+        </div>
+    }
+
+</div>
+
+<form asp-action="SendMessageUser" method="post" enctype="multipart/form-data" class="d-flex gap-2 align-items-center">
+    <input type="hidden" name="userId" value="@ViewBag.UserId" />
+    <input type="text" name="message" class="form-control" placeholder="Write your message..." />
+    <input type="file" name="image" accept="image/*" class="form-control" style="max-width: 250px;" />
+    <button class="btn btn-primary" type="submit">Send</button>
+</form>
+<br />

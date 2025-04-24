@@ -1,0 +1,30 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Contact Messages";
+}
+
+<h3>📬 Contact Messages</h3>
+
+<table class="table table-bordered mt-4">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Last Message</th>
+            <th>Time</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var chat in Model)
+        {
+            <tr>
+                <td>@chat.UserName</td>
+                <td>@chat.LastMessage</td>
+                <td>@chat.LastTime.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>
+                    <a asp-action="ChatWithUser" asp-route-userId="@chat.UserId" class="btn btn-sm btn-primary">Open Chat</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

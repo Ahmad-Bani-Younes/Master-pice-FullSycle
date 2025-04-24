@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace Master_pice.ViewModel
 {
@@ -22,5 +23,11 @@ namespace Master_pice.ViewModel
 
         [Display(Name = "Profile Image")]
         public IFormFile ProfileImage { get; set; }
+
+        [Required]
+        public string Region { get; set; }
+
+        public List<SelectListItem> RegionOptions { get; set; } = new List<SelectListItem>();
+
     }
 }

@@ -73,13 +73,35 @@
 </head>
 <body>
 
+   
+
     <!-- Sidebar -->
     <div class="sidebar">
         <h2 class="text-white text-center">Admin Panel</h2>
         <a href="/Admin/Dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         <a href="@Url.Action("Index", "ProductAdmin")"><i class="fas fa-cogs"></i> Products</a>
         <a href="@Url.Action("Index", "Order")"><i class="fas fa-box"></i> Orders</a>
+        @inject Master_pice.Models.AppDbContext _context
+        @{
+            int pendingCount = _context.Orders
+            .Count(o => o.OrderStatus == "Pending" || o.OrderStatus == "Processing");
+        }
+        <a asp-area="Admin" asp-controller="Order" asp-action="PendingOrders">
+            <i class="fas fa-box"></i> Pending Orders
+            <span class="badge bg-danger ms-2">@pendingCount</span>
+        </a>
+
         <a href="@Url.Action("ViewAllUsers", "UserAdmin")"><i class="fas fa-users"></i> Clients</a>
+        <a class="nav-link" asp-area="Admin" asp-controller="UserAdmin" asp-action="ViewMessageContactUS">
+            <i class="fas fa-box"></i> Contact Messages
+        </a>
+
+        <a class="nav-link" asp-area="Admin" asp-controller="Chat" asp-action="ChatAdmin">
+            <i class="bi bi-chat-dots"></i> Admin Chat
+        </a>
+        <a class="nav-link" asp-area="Admin" asp-controller="AboutUsAdmin" asp-action="ViewAboutContent">
+            <i class="fas fa-info-circle"></i> Manage About Us
+        </a>
         <a href="@Url.Action("Index", "Reports")"><i class="fas fa-chart-line"></i> Reports</a>
         <a href="/Admin/Settings"><i class="fas fa-cogs"></i> Settings</a>
         <a href="/Account/Logout"><i class="fas fa-sign-out-alt"></i> Logout</a>

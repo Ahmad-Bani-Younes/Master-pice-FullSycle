@@ -103,6 +103,7 @@
 
             @if (isLoggedIn)
             {
+                <li><a asp-controller="UserChat" asp-action="ChatWithAdmin"> Chat with Admin</a></li>
                 <li><a asp-controller="Authintication" asp-action="Logout">Logout</a></li>
             }
             else

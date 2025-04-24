@@ -201,45 +201,75 @@ public IActionResult ShowResult()
     object bestDevice = null;
     int bestScore = -1;
     int maxPossibleScore = 0;
+            int GetScore(dynamic device, Dictionary<int, string> answers)
+            {
+                double totalScore = 0;
 
-    int GetScore(dynamic device)
+                foreach (var (qid, answer) in answers)
+                {
+                    string a = answer.ToLower();
+
+                    switch (qid)
+                    {
+                        case 12: // نظام التشغيل
+                            if (a.Contains("mac") && device.Processor.ToLower().Contains("m1")) totalScore += 3;
+                            if (a.Contains("windows") && device.Processor.ToLower().Contains("intel")) totalScore += 2;
+                            if (a.Contains("linux") && device.Description.ToLower().Contains("linux")) totalScore += 2;
+                            break;
+
+                        case 13: // السعر
+                            if (a.Contains("less") && device.Price <= 350) totalScore += 3;
+                            else if (a.Contains("350") && device.Price > 350 && device.Price <= 500) totalScore += 2.5;
+                            else if (a.Contains("500") && device.Price > 500 && device.Price <= 750) totalScore += 2;
+                            else if (a.Contains("750") && device.Price > 750) totalScore += 1;
+                            break;
+
+                        case 15: // الأداء أو الجرافيكس
+                            if (a.Contains("gaming") && device.GPU.ToLower().Contains("rtx")) totalScore += 3;
+                            else if (a.Contains("multimedia") && device.GPU.ToLower().Contains("gtx")) totalScore += 2;
+                            break;
+
+                        case 16: // الرام
+                            if (a.Contains("32") && device.RAM.Contains("32")) totalScore += 3;
+                            else if (a.Contains("16") && device.RAM.Contains("16")) totalScore += 2.5;
+                            else if (a.Contains("8") && device.RAM.Contains("8")) totalScore += 1.5;
+                            break;
+
+                        case 17: // التخزين
+                            if (a.Contains("1tb") && device.Storage.ToLower().Contains("1tb")) totalScore += 2.5;
+                            else if (a.Contains("512") && device.Storage.ToLower().Contains("512")) totalScore += 2;
+                            else if (a.Contains("256") && device.Storage.ToLower().Contains("256")) totalScore += 1;
+                            break;
+
+                        case 18: // الشاشة
+                            if (a.Contains("touch") && device.Description.ToLower().Contains("touchscreen")) totalScore += 2;
+                            if (a.Contains("oled") && device.Description.ToLower().Contains("oled")) totalScore += 1.5;
+                            break;
+
+                        case 19: // الوزن أو الاستخدام
+                            if (a.Contains("lightweight") && device.Description.ToLower().Contains("lightweight")) totalScore += 2;
+                            if (a.Contains("portable") && device.Description.ToLower().Contains("compact")) totalScore += 1.5;
+                            break;
+
+                        case 20: // لوحة مفاتيح
+                            if (a.Contains("backlit") && device.Description.ToLower().Contains("backlit")) totalScore += 1;
+                            break;
+
+                        case 21: // الاستخدام مع القلم
+                            if (a.Contains("pen") && device.Description.ToLower().Contains("pen")) totalScore += 1.5;
+                            break;
+                    }
+                }
+
+                return (int)Math.Round(totalScore * 10); // نضرب بعشرة حتى نحصل على سكور مقارب لنسبة
+            }
+
+
+
+            foreach (var l in allLaptops)
     {
-        double performanceScore = 0;
-        double specsScore = 0;
-        double featuresScore = 0;
-        double priceScore = 0;
-
-        if (device.GPU.ToLower().Contains("rtx")) performanceScore += 0.5;
-        if (device.Description.ToLower().Contains("cooling")) performanceScore += 0.2;
-        if (device.Processor.ToLower().Contains("i7") || device.Processor.ToLower().Contains("ryzen 7")) performanceScore += 0.3;
-
-        if (device.RAM.ToLower().Contains("16")) specsScore += 0.4;
-        if (device.Storage.ToLower().Contains("1tb")) specsScore += 0.4;
-        else if (device.Storage.ToLower().Contains("512")) specsScore += 0.3;
-        else if (device.Storage.ToLower().Contains("256")) specsScore += 0.2;
-
-        if (device.Description.ToLower().Contains("touchscreen")) featuresScore += 0.3;
-        if (device.Description.ToLower().Contains("backlit")) featuresScore += 0.2;
-        if (device.Description.ToLower().Contains("pen")) featuresScore += 0.2;
-        if (device.Description.ToLower().Contains("lightweight")) featuresScore += 0.3;
-
-        if (int.TryParse(device.Price.ToString(), out int price))
-        {
-            if (price <= 350) priceScore = 1.0;
-            else if (price <= 500) priceScore = 0.8;
-            else if (price <= 750) priceScore = 0.5;
-            else priceScore = 0.3;
-        }
-
-        maxPossibleScore = 100;
-        double weighted = performanceScore * 40 + specsScore * 30 + featuresScore * 20 + priceScore * 10;
-        return (int)Math.Round(weighted);
-    }
-
-    foreach (var l in allLaptops)
-    {
-        int s = GetScore(l);
-        if (s > bestScore)
+                int s = GetScore(l, answers);
+                if (s > bestScore)
         {
             bestScore = s;
             bestDevice = l;
@@ -248,8 +278,8 @@ public IActionResult ShowResult()
 
     foreach (var p in allPCs)
     {
-        int s = GetScore(p);
-        if (s > bestScore)
+                int s = GetScore(p, answers);
+                if (s > bestScore)
         {
             bestScore = s;
             bestDevice = p;

@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "ViewMessageContactUS";
+}
+
+@model List<Master_pice.Models.ContactMessage>
+
+<h2>📬 Contact Messages</h2>
+
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Sender</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Sent At</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var msg in Model)
+        {
+            <tr>
+                <td>@msg.Id</td>
+                <td>@msg.FirstName @msg.LastName</td>
+                <td>@msg.Email</td>
+                <td>@msg.Message</td>
+                <td>@msg.SentAt.ToString("dd/MM/yyyy HH:mm")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

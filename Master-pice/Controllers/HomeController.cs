@@ -104,8 +104,10 @@ namespace Master_pice.Controllers
 
         public IActionResult About()
         {
-            return View();
+            var sections = _context.AboutContents.OrderBy(x => x.CreatedAt).ToList();
+            return View(sections);
         }
+
 
         public IActionResult ContactUs()
         {

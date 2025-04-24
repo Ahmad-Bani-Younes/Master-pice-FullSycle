@@ -26,6 +26,8 @@ namespace Master_pice.Models
         public string ProfileImage { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public string Region { get; set; }
+
     }
 
 }

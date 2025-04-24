@@ -96,6 +96,14 @@
                                     <input asp-for="ProfileImage" type="file" class="form-control" />
                                     <span asp-validation-for="ProfileImage" class="text-danger"></span>
                                 </div>
+                                <div class="form-group mb-3">
+                                    <label asp-for="Region" class="label">Select Your Region</label>
+                                    <select asp-for="Region" asp-items="Model.RegionOptions" class="form-control">
+                                        <option value="">-- Choose Region --</option>
+                                    </select>
+                                    <span asp-validation-for="Region" class="text-danger"></span>
+                                </div>
+
 
                                 <div class="form-group">
                                     <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>

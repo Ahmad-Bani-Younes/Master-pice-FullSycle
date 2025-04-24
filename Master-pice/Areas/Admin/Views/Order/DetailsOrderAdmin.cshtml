@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "DetailsOrderAdmin";
+    var method = ViewBag.PaymentMethod as string;
+    var receipt = ViewBag.ReceiptImage as string;
+    var isPaid = ViewBag.IsPaid as bool?;
+    var amount = ViewBag.Amount as decimal?;
+    var paymentDate = ViewBag.PaymentDate as DateTime?;
+}
+
+<h2>Order Details - #@Model.OrderID</h2>
+
+<div class="card shadow p-4 mt-4">
+    <h5 class="mb-3">🧑 User Info</h5>
+    <p><strong>Name:</strong> @Model.User?.FullName</p>
+    <p><strong>Email:</strong> @Model.User?.Email</p>
+    <p><strong>Phone:</strong> @Model.User?.Phone</p>
+
+    <h5 class="mt-4 mb-3">🧾 Order Info</h5>
+    <p><strong>Total:</strong> JD @Model.TotalPrice</p>
+    <p><strong>Status:</strong> @Model.OrderStatus</p>
+    <p><strong>Created:</strong> @Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</p>
+
+    @if (!string.IsNullOrEmpty(method))
+    {
+        <h5 class="mt-4 mb-3">💳 Payment Info</h5>
+        <p><strong>Method:</strong> @method</p>
+        <p><strong>Amount:</strong> JD @amount</p>
+        <p><strong>Date:</strong> @paymentDate?.ToString("dd/MM/yyyy HH:mm")</p>
+
+        @if (method?.ToLower().Trim() == "orangemoney" && !string.IsNullOrEmpty(receipt))
+        {
+            <p><strong>Receipt:</strong></p>
+            <img src="~/uploads/receipts/@receipt" alt="Receipt" class="img-thumbnail" style="max-width: 300px;" />
+        }
+    }
+
+    <a asp-action="Index" asp-controller="Order" asp-area="Admin" class="btn btn-secondary mt-4">⬅ Back to Orders</a>
+</div>

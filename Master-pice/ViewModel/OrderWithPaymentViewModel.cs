@@ -1,4 +1,6 @@
-﻿namespace Master_pice.ViewModel
+﻿using Master_pice.Models;
+
+namespace Master_pice.ViewModel
 {
     public class OrderWithPaymentViewModel
     {
@@ -7,6 +9,7 @@
         public string OrderStatus { get; set; }
         public DateTime CreatedAt { get; set; }
         public string PaymentMethod { get; set; }
+        public Order Order { get; set; }
     }
 
 }
