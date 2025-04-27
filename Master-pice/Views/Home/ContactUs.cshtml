@@ -24,21 +24,34 @@
             background: transparent !important;
         }
 
-     
+        .dropdown-menu {
+            background-color: white;
+            color: black;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+        }
+
+
+        .dropdown-item {
+            color: #007bff;
+            cursor: pointer;
+        }
 
     </style>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="~/contact-form-19/fonts/icomoon/style.css">
     <link rel="stylesheet" href="~/contact-form-19/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/contact-form-19/css/style.css">
 
     @* <title>Contact Form #9</title> *@
 </head>
 <body>
+
+   
+
 
     <!-- Background Video -->
     <video autoplay muted loop id="bgVideo">
@@ -109,7 +122,20 @@
 </body>
 </html>
 
-
+<script>
+    setTimeout(function () {
+        var success = document.getElementById('successMessage');
+        var error = document.getElementById('errorMessage');
+        if (success) {
+            success.classList.remove('show');
+            success.classList.add('hide');
+        }
+        if (error) {
+            error.classList.remove('show');
+            error.classList.add('hide');
+        }
+    }, 3000); // 3000 ميلي ثانية = 3 ثواني
+</script>
 
 
 

@@ -1,38 +1,40 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "ViewAboutContent";
 }
 
 @model List<AboutContent>
 
-<h2>Manage About Us Sections</h2>
-<a class="btn btn-success mb-3" asp-action="CreateAboutContent">+ Add New Section</a>
+<h2 class="text-center mb-4 fw-bold">Manage About Us Sections</h2>
 
-<table class="table table-bordered">
-    <thead>
+<div class="d-flex justify-content-end mb-3">
+    <a class="btn btn-primary" asp-action="CreateAboutContent">+ Add New Section</a>
+</div>
+
+<table class="table table-hover table-striped table-bordered shadow-sm">
+    <thead class="table-dark">
         <tr>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Created At</th>
-            <th>Actions</th>
+            <th scope="col">Image</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Created At</th>
+            <th scope="col" class="text-center">Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var s in Model)
         {
             <tr>
-                <td><img src="~/uploads/@s.ImageUrl" width="100" /></td>
-                <td>@s.Title</td>
-                <td>@s.Description</td>
-                <td>@s.CreatedAt.ToShortDateString()</td>
-                <td>
-                    <a class="btn btn-warning" asp-action="EditAboutContent" asp-route-id="@s.Id">Edit</a>
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@s.Id">Delete</a>
+                <td class="text-center">
+                    <img src="~/uploads/@s.ImageUrl" width="100" class="rounded shadow-sm" />
+                </td>
+                <td class="align-middle">@s.Title</td>
+                <td class="align-middle">@s.Description</td>
+                <td class="align-middle">@s.CreatedAt.ToShortDateString()</td>
+                <td class="text-center align-middle">
+                    <a class="btn btn-sm btn-warning me-2" asp-action="EditAboutContent" asp-route-id="@s.Id">Edit</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@s.Id">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-

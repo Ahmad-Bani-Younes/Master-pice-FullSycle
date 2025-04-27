@@ -8,7 +8,20 @@
 <link rel="stylesheet" href="styles.css">
 
 @* <h2 class="text-danger">My Profile</h2> *@
-
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 <div class="container mt-5">
     <div class="row">
         <!-- Sidebar -->
@@ -90,3 +103,17 @@
         </div>
     </div>
 </div>
+<script>
+    setTimeout(function () {
+        var success = document.getElementById('successMessage');
+        var error = document.getElementById('errorMessage');
+        if (success) {
+            success.classList.remove('show');
+            success.classList.add('hide');
+        }
+        if (error) {
+            error.classList.remove('show');
+            error.classList.add('hide');
+        }
+    }, 3000); // 3000 ميلي ثانية = 3 ثواني
+</script>

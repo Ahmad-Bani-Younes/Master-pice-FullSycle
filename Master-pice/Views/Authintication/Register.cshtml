@@ -14,118 +14,122 @@
             object-fit: cover;
             opacity: 0.3;
         }
-
         body {
             background: transparent !important;
         }
-
-      
-
     </style>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/newLogin/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 <body>
+
     <!-- Background Video -->
     <video autoplay muted loop id="bgVideo">
         <source src="~/Video/4496268-hd_1920_1080_25fps.mp4" type="video/mp4">
         Your browser does not support HTML5 video.
     </video>
 
-    <section class="ftco-section">
+    <section class="ftco-section animate__animated animate__fadeIn animate__faster">
         <div class="container">
-            @* <div class="row justify-content-center"> *@
-            @*     <div class="col-md-6 text-center mb-5"> *@
-            @*         <h2 class="heading-section">Register</h2> *@
-            @*     </div> *@
-            @* </div> *@
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
-                    <div class="wrap d-md-flex">
-                        <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+                    <div class="wrap d-md-flex animate__animated animate__fadeInUp animate__delay-1s animate__faster">
+
+                        <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last animate__animated animate__fadeInLeft animate__delay-1s animate__faster">
                             <div class="text w-100">
-                                <h2>Welcome to Register</h2>
-                                <p>Already have an account?</p>
-                                <a href="@Url.Action("Login", "Authintication")" class="btn btn-white btn-outline-white">Login</a>
+                                <h2 class="animate__animated animate__fadeInDown animate__delay-1s animate__faster">Welcome to Register</h2>
+                                <p class="animate__animated animate__fadeIn animate__delay-2s animate__faster">Already have an account?</p>
+                                <a href="@Url.Action("Login", "Authintication")" class="btn btn-white btn-outline-white animate__animated animate__fadeInUp animate__delay-2s animate__faster">Login</a>
                             </div>
                         </div>
-                        <div class="login-wrap p-4 p-lg-5">
+
+                        <div class="login-wrap p-4 p-lg-5 animate__animated animate__fadeInRight animate__delay-1s animate__faster">
                             <div class="d-flex">
                                 <div class="w-100">
-                                    <h3 class="mb-4">Create Account</h3>
+                                    <h3 class="mb-4 animate__animated animate__fadeInDown animate__delay-1s animate__faster">Create Account</h3>
                                 </div>
                             </div>
 
                             <form asp-action="Register" method="post" enctype="multipart/form-data">
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 animate__animated animate__fadeIn animate__delay-2s animate__faster">
                                     <label asp-for="FullName" class="label">Full Name</label>
-                                    <input asp-for="FullName" class="form-control" />
+                                    <input asp-for="FullName" id="FullName" class="form-control" />
                                     <span asp-validation-for="FullName" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 animate__animated animate__fadeIn animate__delay-2s animate__faster">
                                     <label asp-for="Email" class="label">Email</label>
-                                    <input asp-for="Email" class="form-control" />
+                                    <input asp-for="Email" id="Email" class="form-control" />
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 animate__animated animate__fadeIn animate__delay-2s animate__faster">
                                     <label asp-for="Phone" class="label">Phone</label>
-                                    <input asp-for="Phone" class="form-control" />
+                                    <input asp-for="Phone" id="Phone" class="form-control" />
                                 </div>
 
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 animate__animated animate__fadeIn animate__delay-2s animate__faster">
                                     <label asp-for="Password" class="label">Password</label>
-                                    <input asp-for="Password" type="password" class="form-control" />
+                                    <input asp-for="Password" id="Password" type="password" class="form-control" />
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-group mb-3">
+                                <div class="progress mt-2" style="height: 8px;">
+                                    <div id="password-strength-bar" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                                </div>
+                                <small id="password-strength-text" class="form-text text-muted"></small>
+
+                                <div class="form-group mb-3 animate__animated animate__fadeIn animate__delay-2s animate__faster">
                                     <label asp-for="ConfirmPassword" class="label">Confirm Password</label>
-                                    <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                                    <input asp-for="ConfirmPassword" id="ConfirmPassword" type="password" class="form-control" />
                                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-group mb-3">
-                                    <label asp-for="ProfileImage" class="label">Profile Image</label>
-                                    <input asp-for="ProfileImage" type="file" class="form-control" />
-                                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
-                                </div>
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 animate__animated animate__fadeIn animate__delay-2s animate__faster">
                                     <label asp-for="Region" class="label">Select Your Region</label>
-                                    <select asp-for="Region" asp-items="Model.RegionOptions" class="form-control">
+                                    <select asp-for="Region" asp-items="Model.RegionOptions" id="Region" class="form-control">
                                         <option value="">-- Choose Region --</option>
                                     </select>
                                     <span asp-validation-for="Region" class="text-danger"></span>
                                 </div>
 
+                                <div class="form-group mb-3 animate__animated animate__fadeIn animate__delay-2s animate__faster">
+                                    <label asp-for="ProfileImage" class="label">Profile Image</label>
+                                    <input asp-for="ProfileImage" type="file" class="form-control" />
+                                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                                </div>
 
-                                <div class="form-group">
-                                    <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
+                                <div class="form-group animate__animated animate__fadeIn animate__delay-3s animate__faster">
+                                    <button type="button" onclick="validateRegisterForm()" class="form-control btn btn-primary submit px-3">Register</button>
                                 </div>
                             </form>
 
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- تأكد أنك حاطط مكتبة Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
     <script src="~/newLogin/js/jquery.min.js"></script>
     <script src="~/newLogin/js/popper.js"></script>
     <script src="~/newLogin/js/bootstrap.min.js"></script>
     <script src="~/newLogin/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/register-validation.js"></script>
 
-    @section Scripts {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
-    }
+
+
 </body>
 </html>

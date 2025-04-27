@@ -42,5 +42,12 @@ namespace Master_pice.Areas.Admin.Controllers
             return View(messages);
         }
 
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Authintication", new { area = "" });
+        }
+
     }
 }

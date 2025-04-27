@@ -10,6 +10,11 @@ public class ProductController : Controller
     private readonly AppDbContext _context;
     private readonly IAntiforgery _antiforgery;
 
+    [TempData]
+    public string? SuccessMessage { get; set; }
+
+    [TempData]
+    public string? ErrorMessage { get; set; }
 
     public ProductController(AppDbContext context, IAntiforgery antiforgery)
     {
@@ -149,6 +154,7 @@ public class ProductController : Controller
 
     public IActionResult Cart()
     {
+
         int? userId = HttpContext.Session.GetInt32("UserId");
         List<CartItemViewModel> cartItems = new();
 

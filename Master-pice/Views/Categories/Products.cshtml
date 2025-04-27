@@ -6,168 +6,204 @@
     int totalPages = ViewBag.TotalPages as int? ?? 1;
 }
 
-@section StylesProduct
-{
+<style>
+    .sidebar {
+        width: 106%;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        
+    }
+
+    .colors{
+        background-color: #d35266
+    }
+
+    .dropdown-menu {
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+    }
+
+
+    .dropdown-item {
+        color: #007bff;
+        cursor: pointer;
+    }
+
+
+</style>
+
+@section StylesProduct {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/styleIndex.css">
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/product.css">
-
 }
 
-
-@* <section class="display flex align-2"> *@
-
-@*     <h1 class="lato text-white d-head">Super Electronics</h1> *@
-@*     <h3 class="catamaran text-white mt-3 d-body">Best gadets, best value, excellent service</h3> *@
-   
-@* </section> *@
-@* <br /> *@
-@* <br /> *@
-
-@* <div class="inputcont text-center mt-5"> *@
-@*     <div class="d-flex justify-content-center align-items-center" style="gap: 10px;"> *@
-@*         <input id="searchInput" type="text" *@
-@*                value="@ViewBag.Type" *@
-@*                placeholder="What do you search for?" *@
-@*                class="form-control" *@
-@*                style="width: 400px; height: 50px; font-size: 18px; border-radius: 8px;" /> *@
-
-       
-@*     </div> *@
-@* </div> *@
-
-
-@* @section Scripts { *@
-@*     <script> *@
-@*         let typingTimer; *@
-@*         const delay = 1500;  *@
-@*         const input = document.getElementById("searchInput"); *@
-
-@*         input.addEventListener("keyup", function () { *@
-@*             clearTimeout(typingTimer); *@
-@*             typingTimer = setTimeout(function () { *@
-@*                 const query = input.value; *@
-@*                 if (query.length > 0) { *@
-@*                     window.location.href = `/Categories/Index?search=${encodeURIComponent(query)}`; *@
-@*                 } *@
-@*             }, delay); *@
-@*         }); *@
-@*     </script> *@
-@* } *@
-
 <br />
 <br />
-<!-- Container -->
+
+
+
 <div class="container">
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h3>Filters</h3>
-        <hr>
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <form id="filterForm" method="get" action="/Categories/Products">
+                <div class="sidebar bg-white shadow-sm rounded p-3">
+                    <h4>Filters</h4>
+                    <hr />
 
-        <!-- Filter Header -->
-        <div class="filter-header">
-            <h4>Filters</h4>
-            <button class="clear-filters">Clear All</button>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <strong>Filters</strong>
+                        <button type="button" class="btn btn-sm btn-light clear-filters">Clear All</button>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="filter-section mb-3">
+                        <h6>Category</h6>
+                        @foreach (var cat in ViewBag.Categories as List<string>)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type" value="@cat" id="cat-@cat"
+                                @(Context.Request.Query["type"].ToString().Contains(cat) ? "checked" : "") />
+                                <label class="form-check-label" for="cat-@cat">@cat</label>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Price -->
+                    <div class="filter-section mb-3">
+                        <h6>Price</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="prices" value="JD200 - JD350" id="p1"
+                            @(Context.Request.Query["prices"].ToString().Contains("JD200 - JD350") ? "checked" : "") />
+                            <label class="form-check-label" for="p1">JD200 - JD350</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="prices" value="JD350 - JD499" id="p2"
+                            @(Context.Request.Query["prices"].ToString().Contains("JD350 - JD499") ? "checked" : "") />
+                            <label class="form-check-label" for="p2">JD350 - JD499</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="prices" value="JD500 - JD750" id="p3"
+                            @(Context.Request.Query["prices"].ToString().Contains("JD500 - JD750") ? "checked" : "") />
+                            <label class="form-check-label" for="p3">JD500 - JD750</label>
+                        </div>
+                    </div>
+
+                    <!-- Brands -->
+                    <div class="filter-section mb-3">
+                        <h6>Brands</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="brands" value="MSI" id="b1"
+                            @(Context.Request.Query["brands"].ToString().Contains("MSI") ? "checked" : "") />
+                            <label class="form-check-label" for="b1">MSI</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="brands" value="Gigabyte" id="b2"
+                            @(Context.Request.Query["brands"].ToString().Contains("Gigabyte") ? "checked" : "") />
+                            <label class="form-check-label" for="b2">Gigabyte</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="brands" value="Adata" id="b3"
+                            @(Context.Request.Query["brands"].ToString().Contains("Adata") ? "checked" : "") />
+                            <label class="form-check-label" for="b3">Adata</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
 
-        <!-- Category Filter -->
-        <div class="filter-section">
-            <h4>Category</h4>
-            <label><input type="checkbox" value="Custom PCs"> Custom PCs</label>
-            <label><input type="checkbox" value="MSI All-in-One PCs"> MSI All-in-One PCs</label>
-            <label><input type="checkbox" value="HP/Compaq PCs"> HP/Compaq PCs</label>
-        </div>
 
-        <!-- Price Filter -->
-        <div class="filter-section">
-            <h4>Price</h4>
-            <label><input type="checkbox" value="JD200 - JD350"> JD200 - JD350</label>
-            <label><input type="checkbox" value="JD350 - JD499"> JD350 - JD499</label>
-            <label><input type="checkbox" value="JD500 - JD750"> JD500 - JD750</label>
-        </div>
 
-        <!-- Color Filter -->
-        <div class="filter-section">
-            <h4>Color</h4>
-            <div class="color-options">
-                <div class="color-red" data-color="red"></div>
-                <div class="color-black" data-color="black"></div>
+        <!-- Products Grid -->
+        <div class="col-md-9">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="product-card p-3 shadow-sm border rounded text-center">
+                            <img src="~/uploads/@item.ImageURL" alt="Product Image"
+                                 class="img-fluid mb-2"
+                                 style="height: 150px; object-fit: contain;" />
+                            <h5 class="fw-bold">@item.Name</h5>
+                            <p class="text-muted" style="min-height: 40px;">@item.Description</p>
+                            <div class="price text-danger fw-semibold mb-2">
+                                $@item.Price.ToString("0.00")
+                            </div>
+
+                            <div class="d-flex flex-column gap-2 mt-2">
+                                <a  href="@Url.Action("Details", "Product", new { id = item.ID, type = item.Type.ToLower() })"
+                                   class="btn btn-danger btn-sm w-100 colors">
+                                    View Details
+                                </a>
+
+                                <form asp-action="AddToCart" asp-controller="Categories" method="post" class="w-100">
+                                    <input type="hidden" name="ProductId" value="@item.ID" />
+                                    <input type="hidden" name="Type" value="@item.Type.ToLower()" />
+                                    <input type="hidden" name="Quantity" value="1" />
+                                    <button type="submit" class="btn btn-danger btn-sm w-100">Add to cart</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                }
             </div>
-        </div>
 
-        <!-- Brands Filter -->
-        <div class="filter-section">
-            <h4>Brands</h4>
-            <label><input type="checkbox" value="MSI"> MSI</label>
-            <label><input type="checkbox" value="Gigabyte"> Gigabyte</label>
-            <label><input type="checkbox" value="Adata"> Adata</label>
-        </div>
-
-        <button class="apply-filters-btn">Apply Filters</button>
-    </div>
-
-
-    <!-- Products -->
-    <div class="products">
-        @foreach (var item in Model)
-        {
-            <div class="product-card">
-                <img src="~/uploads/@item.ImageURL" alt="Product Image">
-                <h4>@item.Name</h4>
-                <p>@item.Description</p>
-                <div class="price">$@item.Price</div>
-
-                <div class="d-flex justify-content-center gap-2 mt-2">
-                    <!-- View Details Button -->
-                    <a href="@Url.Action("Details", "Product", new { id = item.ID, type = item.Type.ToLower() })"
-                       class="btn btn-danger btn-sm px-2 py-1"
-                       style="font-size: 12px; width: 120px;">
-                        View
-                    </a>
-
-                    <!-- Add to Cart Form -->
-                    <form asp-action="AddToCart" asp-controller="Categories" method="post">
-                        <input type="hidden" name="ProductId" value="@item.ID" />
-                        <input type="hidden" name="Type" value="@item.Type.ToLower()" />
-                        <input type="hidden" name="Quantity" value="1" />
-                        <button type="submit"
-                                class="btn btn-outline-danger btn-sm px-2 py-1"
-                                style="font-size: 12px; width: 90px;">
-                            Add to cart
-                        </button>
-                    </form>
+            <!-- Pagination -->
+            <div class="pagination-container text-center mt-4">
+                <div class="pagination d-inline-flex">
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <a href="@Url.Action("Products", "Categories", new { page = i, type = ViewBag.Type })"
+                           class="@(i == ViewBag.CurrentPage ? "btn btn-danger mx-1" : "btn btn-outline-danger mx-1")">
+                            @i
+                        </a>
+                    }
                 </div>
             </div>
-        }
-    </div>
-
-
-
-
-</div>
-<br>
-<div class="pagination-container">
-    <div class="pagination">
-        @for (int i = 1; i <= totalPages; i++)
-        {
-            <a href="@Url.Action("Index", "Product", new { page = i })"
-               class="@(i == currentPage ? "btn btn-danger mx-1" : "btn btn-outline-danger mx-1")">
-                @i
-            </a>
-        }
+        </div>
     </div>
 </div>
-<br>
 
+@section Scripts {
+    <script>
+        // تفعيل التصفية بعد أي تغيير
+        document.querySelectorAll('#filterForm input[type=checkbox], #filterForm input[type=radio]').forEach(el => {
+            el.addEventListener('change', function () {
+                document.getElementById("filterForm").submit();
+            });
+        });
 
+        function selectColor(color) {
+            document.getElementById("selectedColor").value = color;
+            document.getElementById("filterForm").submit();
+        }
 
-@* <div class="pagination" style="margin-top: 30px; text-align:center;"> *@
-@*     @for (int i = 1; i <= totalPages; i++) *@
-@*     { *@
-@*         <a href="@Url.Action("Index", "Product", new { page = i })" *@
-@*            class="@(i == currentPage ? "btn btn-danger mx-1" : "btn btn-outline-danger mx-1")"> *@
-@*             @i *@
-@*         </a> *@
-@*     } *@
-@* </div> *@
+        document.querySelector(".clear-filters").addEventListener("click", function () {
+            document.querySelectorAll("#filterForm input[type=checkbox], #filterForm input[type=radio]").forEach(el => el.checked = false);
+            document.getElementById("filterForm").submit();
+        });
+    </script>
+}
+<script>
+    setTimeout(function () {
+        var success = document.getElementById('successMessage');
+        var error = document.getElementById('errorMessage');
+        if (success) {
+            success.classList.remove('show');
+            success.classList.add('hide');
+        }
+        if (error) {
+            error.classList.remove('show');
+            error.classList.add('hide');
+        }
+    }, 3000); // 3000 ميلي ثانية = 3 ثواني
+</script>

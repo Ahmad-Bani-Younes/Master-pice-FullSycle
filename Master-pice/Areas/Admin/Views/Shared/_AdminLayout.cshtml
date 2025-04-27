@@ -102,9 +102,12 @@
         <a class="nav-link" asp-area="Admin" asp-controller="AboutUsAdmin" asp-action="ViewAboutContent">
             <i class="fas fa-info-circle"></i> Manage About Us
         </a>
-        <a href="@Url.Action("Index", "Reports")"><i class="fas fa-chart-line"></i> Reports</a>
-        <a href="/Admin/Settings"><i class="fas fa-cogs"></i> Settings</a>
-        <a href="/Account/Logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        @* <a href="@Url.Action("Index", "Reports")"><i class="fas fa-chart-line"></i> Reports</a> *@
+        @* <a href="/Admin/Settings"><i class="fas fa-cogs"></i> Settings</a> *@
+        <a asp-controller="UserAdmin" asp-action="Logout" class="btn btn-danger">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+
     </div>
 
     <!-- Main content -->

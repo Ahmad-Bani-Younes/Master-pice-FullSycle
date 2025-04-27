@@ -12,75 +12,92 @@
             min-height: 100%;
             z-index: -1;
             object-fit: cover;
-            opacity: 0.3; /* شفافية خفيفة حتى المحتوى يبين فوقه */
+            opacity: 0.3;
         }
 
         body {
             background: transparent !important;
         }
-
-   
-
     </style>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/newLogin/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 <body>
+
+    @* رسائل تمبديت *@
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="successMessage">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="errorMessage">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
     <video autoplay muted loop id="bgVideo">
         <source src="~/Video/4496268-hd_1920_1080_25fps.mp4" type="video/mp4">
         Your browser does not support HTML5 video.
     </video>
-    <section class="ftco-section">
+
+    <section class="ftco-section animate__animated animate__fadeIn animate__faster">
         <div class="container">
-            @* <div class="row justify-content-center"> *@
-            @*     <div class="col-md-6 text-center mb-5"> *@
-            @*         <h2 class="heading-section">Login</h2> *@
-            @*     </div> *@
-            @* </div> *@
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
-                    <div class="wrap d-md-flex">
-                        <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+                    <div class="wrap d-md-flex animate__animated animate__fadeInUp animate__delay-1s animate__faster">
+
+                        <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last animate__animated animate__fadeInLeft animate__delay-1s animate__faster">
                             <div class="text w-100">
-                                <h2>Welcome to login</h2>
-                                <p>Don't have an account?</p>
-                                <a href="@Url.Action("Register", "Authintication")" class="btn btn-white btn-outline-white">Sign Up</a>
+                                <h2 class="animate__animated animate__fadeInDown animate__delay-1s animate__faster">Welcome to login</h2>
+                                <p class="animate__animated animate__fadeIn animate__delay-2s animate__faster">Don't have an account?</p>
+                                <a href="@Url.Action("Register", "Authintication")" class="btn btn-white btn-outline-white animate__animated animate__fadeInUp animate__delay-2s animate__faster">Sign Up</a>
                             </div>
                         </div>
-                        <div class="login-wrap p-4 p-lg-5">
+
+                        <div class="login-wrap p-4 p-lg-5 animate__animated animate__fadeInRight animate__delay-1s animate__faster">
                             <div class="d-flex">
                                 <div class="w-100">
-                                    <h3 class="mb-4">Sign In</h3>
+                                    <h3 class="mb-4 animate__animated animate__fadeInDown animate__delay-1s animate__faster">Sign In</h3>
                                 </div>
                             </div>
-                            <form asp-action="Login" method="post">
-                                <div class="form-group mb-3">
+
+                            <form asp-action="Login" method="post" id="loginForm">
+                                <div class="form-group mb-3 animate__animated animate__fadeIn animate__delay-2s animate__faster">
                                     <label asp-for="Email" class="label">Email</label>
-                                    <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                                    <input asp-for="Email" id="Email" class="form-control" placeholder="Enter your email" />
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 animate__animated animate__fadeIn animate__delay-2s animate__faster">
                                     <label asp-for="Password" class="label">Password</label>
-                                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                                    <input asp-for="Password" id="Password" type="password" class="form-control" placeholder="Enter your password" />
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-group">
-                                    <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+                                <div class="form-group animate__animated animate__fadeIn animate__delay-2s animate__faster">
+                                    <button type="button" onclick="validateLoginForm()" class="form-control btn btn-primary submit px-3">Sign In</button>
                                 </div>
 
-                                <div class="form-group d-md-flex">
+                                <div class="form-group d-md-flex animate__animated animate__fadeIn animate__delay-2s animate__faster">
                                     <div class="w-50 text-left">
                                         <label class="checkbox-wrap checkbox-primary mb-0">
                                             Remember Me
-                                            <input type="checkbox" checked>
+                                            <input asp-for="RememberMe" id="RememberMe" type="checkbox" />
                                             <span class="checkmark"></span>
                                         </label>
+
                                     </div>
                                     <div class="w-50 text-md-right">
                                         <a href="@Url.Action("ForgetPassword", "Authintication")">Forgot Password</a>
@@ -88,15 +105,77 @@
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- مكتبة Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+
     <script src="~/newLogin/js/jquery.min.js"></script>
     <script src="~/newLogin/js/popper.js"></script>
     <script src="~/newLogin/js/bootstrap.min.js"></script>
     <script src="~/newLogin/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="~/js/login-validation.js"></script>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        @if (TempData["LoginError"] != null)
+        {
+            <text>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Login Failed!',
+                            text: '@TempData["LoginError"]',
+                            background: '#fff',
+                            color: '#333',
+                            showConfirmButton: true,
+                            confirmButtonColor: '#d33',
+                            confirmButtonText: 'Try Again',
+                            customClass: {
+                                popup: 'rounded-4 shadow-lg p-4',
+                                title: 'text-danger fs-4 fw-bold',
+                                content: 'text-dark fs-6'
+                            },
+                            showClass: {
+                                popup: 'animate__animated animate__fadeInDown'
+                            },
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutUp'
+                            }
+                        });
+            </text>
+        }
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const getCookie = (name) => {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            };
+
+            const savedEmail = getCookie('RememberMe_Email');
+            const savedPassword = getCookie('RememberMe_Password');
+
+            if (savedEmail && savedPassword) {
+        document.getElementById('Email').value = decodeURIComponent(savedEmail);
+                        document.getElementById('Password').value = savedPassword;
+                document.getElementById('RememberMe').checked = true;
+            }
+        });
+    </script>
+
 </body>
 </html>

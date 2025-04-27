@@ -7,8 +7,23 @@
 
 }
 
+<style>
+    .dropdown-menu {
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+    }
+
+
+    .dropdown-item {
+        color: #007bff;
+        cursor: pointer;
+    }
+</style>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
 <div class="container mt-5">
     <div class="row">
         <!-- CART -->
@@ -135,7 +150,7 @@
 
                 <hr class="mb-4">
                 <div class="d-grid">
-                    <button class="btn btn-primary btn-lg" type="submit">Checkout</button>
+                    <button class="btn btn-primary btn-lg" type="button" onclick="confirmCheckout()">Checkout</button>
                 </div>
             </form>
 
@@ -146,7 +161,7 @@
 <br />
 @section Scripts {
     <script>
-               function togglePaymentFields() {
+        function togglePaymentFields() {
             const method = document.querySelector('input[name="PaymentMethod"]:checked').value;
             document.getElementById("creditFields").style.display = method === "CreditCard" ? "block" : "none";
             document.getElementById("orangeFields").style.display = method === "OrangeMoney" ? "block" : "none";
@@ -154,7 +169,7 @@
 
         document.addEventListener("DOMContentLoaded", togglePaymentFields);
 
-              function validateCheckoutForm() {
+        function validateCheckoutForm() {
             const method = document.querySelector('input[name="PaymentMethod"]:checked').value;
 
             if (method === "CreditCard") {
@@ -164,24 +179,48 @@
                 const cvv = document.getElementById("cvv").value.trim();
 
                 if (!cardName || !cardNumber || !expiry || !cvv) {
-                    alert("Please fill in all credit card details.");
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Information',
+                        text: 'Please fill in all credit card details.',
+                        background: '#fff',
+                        color: '#2e2e2e'
+                    });
                     return false;
                 }
 
                 if (!/^\d{16}$/.test(cardNumber)) {
-                    alert("Card number must be 16 digits.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid Card Number',
+                        text: 'Card number must be 16 digits.',
+                        background: '#fff',
+                        color: '#2e2e2e'
+                    });
                     return false;
                 }
 
                 if (!/^\d{3,4}$/.test(cvv)) {
-                    alert("CVV must be 3 or 4 digits.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid CVV',
+                        text: 'CVV must be 3 or 4 digits.',
+                        background: '#fff',
+                        color: '#2e2e2e'
+                    });
                     return false;
                 }
 
                 const currentDate = new Date();
                 const selectedDate = new Date(expiry + "-01");
                 if (selectedDate < currentDate) {
-                    alert("Expiry date must be in the future.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Expired Card',
+                        text: 'Expiry date must be in the future.',
+                        background: '#fff',
+                        color: '#2e2e2e'
+                    });
                     return false;
                 }
             }
@@ -189,13 +228,118 @@
             if (method === "OrangeMoney") {
                 const receiptInput = document.querySelector('input[name="OrangeReceipt"]');
                 if (!receiptInput.files.length) {
-                    alert("Please upload the payment receipt.");
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Receipt Required',
+                        text: 'Please upload the payment receipt.',
+                        background: '#fff',
+                        color: '#2e2e2e'
+                    });
                     return false;
                 }
             }
 
             return true;
         }
-
     </script>
+
+
+
+
+
+
 }
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<!-- إضافة مكتبة أنميشن -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>
+                    Swal.fire({
+                        icon: 'success',
+                        title: '✔️ Success',
+                        text: '@TempData["SuccessMessage"]',
+                        background: 'linear-gradient(135deg, #e0ffe0, #ffffff)',
+                        color: '#2e2e2e',
+                        backdrop: `
+                            rgba(0,255,0,0.1)
+                            center
+                            no-repeat
+                        `,
+                        timer: 2500,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        customClass: {
+                            popup: 'rounded-4 shadow-lg',
+                            title: 'fw-bold fs-3 text-success',
+                            content: 'text-dark'
+                        },
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+                    });
+        </text>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <text>
+                    Swal.fire({
+                        icon: 'error',
+                        title: '❌ Error',
+                        text: '@TempData["ErrorMessage"]',
+                        background: 'linear-gradient(135deg, #ffe0e0, #ffffff)',
+                        color: '#2e2e2e',
+                        backdrop: `
+                            rgba(255,0,0,0.1)
+                            center
+                            no-repeat
+                        `,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        customClass: {
+                            popup: 'rounded-4 shadow-lg',
+                            title: 'fw-bold fs-3 text-danger',
+                            content: 'text-dark'
+                        },
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+                    });
+        </text>
+    }
+    });
+</script>
+
+<script>
+    function confirmCheckout() {
+        Swal.fire({
+            title: 'Confirm Order',
+            text: 'Are you sure you want to place this order?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Place Order!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // بعد تأكيده، فحص الفورم
+                if (validateCheckoutForm()) {
+                    document.querySelector('form').submit(); // إرسال الفورم
+                }
+            }
+        });
+    }
+</script>

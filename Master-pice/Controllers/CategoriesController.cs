@@ -9,6 +9,7 @@ namespace Master_pice.Controllers
     {
         private readonly AppDbContext _context;
 
+
         public CategoriesController(AppDbContext context)
         {
             _context = context;
@@ -20,8 +21,10 @@ namespace Master_pice.Controllers
         //    return View("Products");
         //}
 
-        public IActionResult Products(String? type)
+        public IActionResult Products(string? type, int page = 1)
         {
+            int pageSize = 12;
+
             var laptops = _context.Laptops.Select(p => new ProductViewModel
             {
                 ID = p.LaptopID,
@@ -53,12 +56,37 @@ namespace Master_pice.Controllers
             });
 
             var allProducts = laptops.Concat(pcs).Concat(parts).ToList();
+
+            var uniqueCategories = allProducts
+                .Select(p => p.Name.Split(" ")[0])
+                .Distinct()
+                .OrderBy(name => name)
+                .ToList();
+
+            ViewBag.Categories = uniqueCategories;
+
+            if (!string.IsNullOrEmpty(type))
+            {
+                allProducts = allProducts
+                    .Where(p => p.Name.StartsWith(type, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            int totalProducts = allProducts.Count;
+            var pagedProducts = allProducts
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
             ViewBag.Type = type;
-            return View(allProducts);
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalProducts / pageSize);
+            ViewBag.CurrentPage = page;
+
+            return View(pagedProducts);
         }
 
 
-        // ✅ للأجهزة المكتبية
+
         public IActionResult PCs(String? type)
         {
             var products = _context.PCs.Select(p => new ProductViewModel
@@ -72,10 +100,9 @@ namespace Master_pice.Controllers
             }).ToList();
 
             ViewBag.Type = type;
-            return View("ProductList", products); // استخدم نفس View
+            return View("ProductList", products); 
         }
 
-        // ✅ للابتوبات
         public IActionResult Laptops(String? type)
         {
             var products = _context.Laptops.Select(p => new ProductViewModel
@@ -89,10 +116,9 @@ namespace Master_pice.Controllers
             }).ToList();
 
             ViewBag.Type = type;
-            return View("ProductList", products); // نفس View مشترك
+            return View("ProductList", products); 
         }
 
-        // ✅ لقطع الـ PC
         public IActionResult PCParts(String? type)
         {
             var products = _context.PCParts.Select(p => new ProductViewModel
@@ -105,7 +131,7 @@ namespace Master_pice.Controllers
                 Type = "pcpart"
             }).ToList();
             ViewBag.Type = type;
-            return View("ProductList", products); // نفس View مشترك
+            return View("ProductList", products); 
         }
 
 
@@ -123,7 +149,6 @@ namespace Master_pice.Controllers
 
             if (userId == null)
             {
-                // 🟠 المستخدم غير مسجل: خزّن في الكوكيز
                 var cookieData = Request.Cookies["Cart"];
                 List<CartItemViewModel> cart = string.IsNullOrEmpty(cookieData)
                     ? new List<CartItemViewModel>()
@@ -139,15 +164,14 @@ namespace Master_pice.Controllers
                 {
                     Expires = DateTime.Now.AddDays(3),
                     IsEssential = true,
-                    HttpOnly = false // لأنك ممكن تحتاج تعدل عليه من js
+                    HttpOnly = false
                 };
 
                 Response.Cookies.Append("Cart", System.Text.Json.JsonSerializer.Serialize(cart), options);
 
-                return RedirectToAction("Cart", "Product"); // أفضل يرجع على Cart
+                return RedirectToAction("Products", "Categories");
             }
 
-            // ✅ المستخدم مسجل: خزّن في قاعدة البيانات
             var dbCart = _context.Cart.FirstOrDefault(c =>
                 c.UserID == userId &&
                 c.ProductId == model.ProductId &&
@@ -169,7 +193,7 @@ namespace Master_pice.Controllers
             }
 
             _context.SaveChanges();
-            return RedirectToAction("Cart", "Product");
+            return RedirectToAction("Products", "Categories");
         }
 
 

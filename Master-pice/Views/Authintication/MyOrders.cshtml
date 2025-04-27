@@ -39,11 +39,12 @@
         <div class="col-md-9">
             <div class="filter d-flex align-items-center mb-4" style="gap: 10px;">
                 <select id="order-filter" class="form-control shadow-sm" style="width: 200px; border-radius: 30px; border: 1px solid #ccc;">
-                    <option>Last 5 orders</option>
-                    <option>Last 10 orders</option>
-                    <option>All orders</option>
+                    <option value="5" selected>Last 5 orders</option>
+                    <option value="3">Last 3 orders</option>
+                    <option value="all">All orders</option>
                 </select>
             </div>
+
 
             @foreach (var order in Model)
             {
@@ -77,12 +78,10 @@
                         {
                             <form asp-action="CancelOrder" asp-controller="Authintication" method="post" class="m-0">
                                 <input type="hidden" name="orderId" value="@order.OrderID" />
-                                <button type="submit"
-                                        class="btn btn-danger btn-sm px-4 py-2 shadow-sm rounded-pill text-white"
-                                        style="min-width: 130px; font-weight: bold;"
-                                @(isCancelable ? "" : "disabled")>
+                                <button type="button" onclick="confirmCancel(this.form)" class="btn btn-danger btn-sm px-4 py-2 shadow-sm rounded-pill text-white" ...>
                                     Cancel Order
                                 </button>
+
                             </form>
                         }
                     </div>
@@ -91,3 +90,38 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function confirmCancel(form) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to cancel this order?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, cancel it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit(); // إذا وافق، يكمل سبميت للفورم
+            }
+        });
+    }
+</script>
+
+@section Scripts {
+    <script>
+        document.getElementById('order-filter').addEventListener('change', function () {
+            const value = this.value;
+
+            let url = '/Authintication/MyOrders';
+            if (value !== 'all') {
+                url += `?take=${value}`;
+            }
+
+            window.location.href = url;
+        });
+    </script>
+}

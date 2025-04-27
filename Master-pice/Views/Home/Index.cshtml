@@ -26,6 +26,22 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
     }
+
+    .dropdown-menu {
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+    }
+
+ 
+    .dropdown-item {
+        color: #007bff;
+        cursor: pointer;
+    }
+
+
 </style>
 
 @section StylesIndex {
@@ -54,9 +70,11 @@
         <div class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="background: transparent !important;">
             <h1 id="animatedText" class="text-white text-center font-weight-bold" style="font-size: 2.5rem; white-space: nowrap; text-shadow: 0 0 5px rgba(0,0,0,0.5);"></h1>
 
-            <div class="inputcont text-center mt-4 d-flex">
-                <input type="text" placeholder="What do you search for?" class="form-control rounded-pill mr-2" style="max-width: 300px;">
-                <a href="Search.html" class="btn btn-light rounded-pill">Search</a>
+            <div class=" mt-4 d-flex">
+                <form asp-action="Search" asp-controller="Home" method="get" class="d-flex" style="max-width: 500px; margin:auto;">
+                    <input type="text" name="query" class="form-control rounded-pill" placeholder="What do you search for?" style="margin-right: 10px;" required />
+                    <button type="submit" class="btn btn-primary rounded-pill">Search</button>
+                </form>
             </div>
         </div>
     </section>
@@ -73,12 +91,10 @@
 
     <!--end of display and search section-->
     <!--start of img-carousel-1-->
-    <section class="img-carousel-1 py-4">
+    <section class="img-carousel-1 py-4 animate__animated animate__fadeInUp">
         <div class="title width-70 mt-3 sec-title">
-            <h3 class="lato cabaret-bg text-center text-white py-1 hot-ad mb-2">your Favorite PC</h3>
+            <h3 class="lato cabaret-bg text-center text-white py-1 hot-ad mb-2 animate__animated animate__fadeInDown">your Favorite PC</h3>
         </div>
-
-
 
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
             <div class="carousel-inner">
@@ -87,30 +103,41 @@
                     <div class="ad-cont width-70">
 
                         <div class="ad-item d-md-flex d-block">
-                            <div class="img-item">
+                            <div class="img-item animate__animated animate__fadeInLeft">
                                 <img src="~/images/e9beca1f-2600-4ec7-8faa-46286ea9b687.webp" alt="samsung" class="d-img">
                             </div>
 
                             <div class="text-item ml-3">
-                                <h2 class="text-title lato">
+                                <h2 class="text-title lato animate__animated animate__fadeInUp animate__delay-1s">
                                     Answer a few fun questions and let our smart system match you with the perfect PC tailored to your needs.
                                 </h2>
-                                <p class="text-justify text-body catamaran">
+                                <p class="text-justify text-body catamaran animate__animated animate__fadeInUp animate__delay-2s">
                                     We help you choose the right device for you by answering our questions.
                                     Start answering questions now
                                 </p>
                                 <h4 class="lato t-des"></h4>
                                 <h4 class="lato t-des"></h4>
                                 <a href="@Url.Action("Step", "RecommendationController1")">
-                                    <button class="price cabaret-bg w-25 text-white mt-3 lato">Start now</button>
+                                    <button class="price cabaret-bg w-25 text-white mt-3 lato animate__animated animate__pulse animate__delay-3s">
+                                        Start now
+                                    </button>
                                 </a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     </section>
+
+    <!-- مكتبة Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+
+    <!-- لازم تضيف رابط مكتبة animate.css فوق -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
 
 
 
@@ -486,4 +513,18 @@
     }
 
     document.addEventListener("DOMContentLoaded", typeChar);
+</script>
+<script>
+    setTimeout(function () {
+        var success = document.getElementById('successMessage');
+        var error = document.getElementById('errorMessage');
+        if (success) {
+            success.classList.remove('show');
+            success.classList.add('hide');
+        }
+        if (error) {
+            error.classList.remove('show');
+            error.classList.add('hide');
+        }
+    }, 3000); // 3000 ميلي ثانية = 3 ثواني
 </script>

@@ -3,16 +3,16 @@
     Layout = "_AdminLayout";
 }
 
-<nav class="navbar navbar-expand-lg navbar-light main-header">
-    <a class="navbar-brand" href="#">Admin Dashboard</a>
+<!-- Animate.css مكتبة الأنميشن -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+<nav class="navbar navbar-expand-lg navbar-light main-header bg-dark">
+    <a class="navbar-brand text-white" href="#">Admin Dashboard</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">Welcome, Admin</a>
+                <a class="nav-link text-white" href="#">Welcome, Admin</a>
             </li>
-            @*  <li class="nav-item">  
-                 <a class="nav-link" href="/Account/Logout">Logout</a>  
-             </li>  *@
         </ul>
     </div>
 </nav>
@@ -33,7 +33,7 @@
         @foreach (var card in cards)
         {
             <div class="col-md-3 mb-4">
-                <div class="card text-white" style="background-color: #007bff;">
+                <div class="card text-white animate__animated animate__fadeInUp animate__faster" style="background-color: #343a40;">
                     <div class="card-body text-center">
                         <h5 class="card-title fs-5">@card.Title</h5>
                         <p class="card-text display-6 fw-bold">@card.Count</p>
@@ -42,4 +42,42 @@
             </div>
         }
     </div>
+
+   
+
+    <!-- New Section: Activity Feed -->
+    <div class="row mt-5">
+        <h4 class="text-center mb-4 animate__animated animate__fadeInDown">Recent Activities</h4>
+        <div class="col-12">
+            <div class="list-group shadow-sm">
+
+                @if (ViewBag.RecentActivities != null && ViewBag.RecentActivities.Count > 0)
+                {
+                    int delay = 1;
+                    foreach (var activity in ViewBag.RecentActivities)
+                    {
+                        <div class="list-group-item animate__animated animate__fadeInUp animate__delay-@delay">
+                            @activity
+                        </div>
+                        delay++;
+                    }
+                }
+                else
+                {
+                    <div class="list-group-item animate__animated animate__fadeIn">
+                        No recent activities found.
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<!-- Optional: تغيير خلفية الصفحة بدل اللون الأبيض -->
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+</style>
