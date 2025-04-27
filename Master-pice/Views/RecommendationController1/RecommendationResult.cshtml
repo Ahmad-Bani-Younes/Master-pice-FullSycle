@@ -10,7 +10,7 @@
             @{
                 dynamic device = Model.RecommendedDevice;
                 var isLaptop = device is Master_pice.Models.Laptop;
-                string modelName = isLaptop ? device.Model : ""; // تجنب الخطأ لو ما فيه Model
+                string modelName = isLaptop ? device.Model : "";
             }
 
             <h4 class="card-title mb-3 text-primary">
@@ -26,17 +26,6 @@
                 <li class="list-group-item"><strong>Description:</strong> @device.Description</li>
             </ul>
 
-            @* <div class="mb-4"> *@
-            @*     <p><strong>🎯 Match Accuracy:</strong> @ViewBag.MatchPercentage%</p> *@
-            @*     <div class="progress" style="height: 20px;"> *@
-            @*         <div class="progress-bar bg-success" role="progressbar" *@
-            @*              style="width: @ViewBag.MatchPercentage%;" aria-valuenow="@ViewBag.MatchPercentage" *@
-            @*              aria-valuemin="0" aria-valuemax="100"> *@
-            @*             @ViewBag.MatchPercentage% *@
-            @*         </div> *@
-            @*     </div> *@
-            @* </div> *@
-
             @if (device != null)
             {
                 <div class="mt-4">
@@ -49,6 +38,23 @@
                     </ul>
                 </div>
             }
+
+            <div class="d-flex gap-3 mt-4">
+                <form asp-action="AddToCart" asp-controller="Product" method="post" class="w-50">
+                    <input type="hidden" name="ProductId" value="@(isLaptop ? device.LaptopID : device.PCID)" />
+                    <input type="hidden" name="Type" value="@(isLaptop ? "laptop" : "pc")" />
+                    <input type="hidden" name="Quantity" value="1" />
+                    <button type="submit" class="btn btn-primary w-100">🛒 Add to Cart</button>
+                </form>
+
+                <form asp-action="Cart" asp-controller="Product" method="post" class="w-50">
+                    <input type="hidden" name="ProductId" value="@(isLaptop ? device.LaptopID : device.PCID)" />
+                    <input type="hidden" name="Type" value="@(isLaptop ? "laptop" : "pc")" />
+                    <input type="hidden" name="Quantity" value="1" />
+                    <button type="submit" class="btn btn-success w-100">💳 Buy Now</button>
+                </form>
+            </div>
+
 
             <a href="@Url.Action("Step", "RecommendationController1")" class="btn btn-outline-primary mt-4 fs-5 w-100">
                 🔁 Start Over the Wizard
