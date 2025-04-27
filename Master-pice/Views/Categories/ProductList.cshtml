@@ -50,25 +50,25 @@
                         <p class="mb-2" style="min-height: 40px;">@item.Description</p>
                         <h4 class="text-danger fw-bold mb-3">@item.Price<sup>JD</sup></h4>
 
-                        <div class="d-flex justify-content-center gap-2">
-                            <a class="btn btn-danger w-100"
-                               style="min-width: 120px;"
+                        <div class="d-flex flex-column align-items-center gap-2">
+                            <a class="btn btn-danger w-100 px-4"
+                               style="min-width: 160px; background-color:#d35266;"
                                href="@Url.Action("Details", "Product", new { id = item.ID, type = item.Type })">
                                 View
                             </a>
 
-                            <form method="post" asp-controller="Categories" asp-action="AddToCart" style="display:inline;">
+                            <form method="post" asp-controller="Categories" asp-action="AddToCart" style="width: 100%;">
                                 <input type="hidden" name="ProductId" value="@item.ID" />
                                 <input type="hidden" name="Type" value="@item.Type" />
                                 <input type="hidden" name="Quantity" value="1" />
                                 <button type="submit"
-                                        class="btn btn-danger w-100"
-                                        style="min-width: 120px;">
+                                        class="btn btn-danger w-100 px-4"
+                                        style="min-width: 160px;">
                                     Add to Cart
                                 </button>
                             </form>
-
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -46,7 +46,34 @@
     .dropdown-item {
         color: #007bff;
         cursor: pointer;
+
+
     }
+
+
+
+    .small-Card img {
+        width: 198px;
+        height: 148px;
+        border-radius: 4px;
+        cursor: pointer;
+
+
+    }
+
+
+    .small-card {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .small-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        
+
+
 </style>
 
 @section StylesProductDet {
@@ -60,25 +87,35 @@
         <img src="~/uploads/@image" alt="@name" id="featured-image">
         
         <!-- Display additional images if they exist -->
-        <div class="small-Card">
+        <div class="d-flex flex-wrap justify-content-center gap-3">
             @if (additionalImages.Length > 0)
             {
                 foreach (var img in additionalImages)
                 {
                     var cleanImg = img.Trim();
-                    <img src="~/uploads/@cleanImg" class="small-Img" />
+                    <div class="small-card p-2 bg-white rounded shadow-sm" style="width: 210px; height: 160px; overflow: hidden; transition: transform 0.3s;">
+                        <img src="~/uploads/@cleanImg"
+                             alt="Additional Image"
+                             class="img-fluid w-100 h-100"
+                             style="object-fit: cover; border-radius: 8px; cursor: pointer;" />
+                    </div>
                 }
-           
             }
             else
             {
-                <!-- Fallback to main image -->
-                <img src="@image" class="small-Img" />
-                <img src="@image" class="small-Img" />
-                <img src="@image" class="small-Img" />
-                <img src="@image" class="small-Img" />
+                @for (int i = 0; i < 4; i++)
+                {
+                    <div class="small-card p-2 bg-white rounded shadow-sm" style="width: 210px; height: 160px; overflow: hidden; transition: transform 0.3s;">
+                        <img src="@image"
+                             alt="Main Image"
+                             class="img-fluid w-100 h-100"
+                             style="object-fit: cover; border-radius: 8px; cursor: pointer;" />
+                    </div>
+                }
             }
         </div>
+
+
 
     </div>
 

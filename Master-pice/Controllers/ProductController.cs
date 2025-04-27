@@ -462,48 +462,103 @@ public class ProductController : Controller
         return Json(new { count });
     }
 
-    public IActionResult CheckOut()
+    public IActionResult CheckOut(int? productId, string type)
     {
         int? userId = HttpContext.Session.GetInt32("UserId");
         if (userId == null)
-            return RedirectToAction("Login", "Authintication");
-
-        var rawCart = _context.Cart
-            .Where(c => c.UserID == userId)
-            .ToList();
-
-        if (rawCart == null || !rawCart.Any())
         {
-            TempData["EmptyCart"] = "Your cart is empty. Please add items before proceeding to checkout.";
-            return RedirectToAction("Cart", "Product");
+            if (productId != null && !string.IsNullOrEmpty(type))
+            {
+                HttpContext.Session.SetInt32("TempProductId", productId.Value);
+                HttpContext.Session.SetString("TempProductType", type);
+            }
+            return RedirectToAction("Login", "Authintication");
         }
 
-        var cartItems = new List<dynamic>();
-
-        foreach (var item in rawCart)
+        if (productId == null && string.IsNullOrEmpty(type))
         {
-            object product = item.Type switch
+            productId = HttpContext.Session.GetInt32("TempProductId");
+            type = HttpContext.Session.GetString("TempProductType");
+
+            HttpContext.Session.Remove("TempProductId");
+            HttpContext.Session.Remove("TempProductType");
+        }
+
+        List<dynamic> cartItems = new List<dynamic>();
+
+        if (productId != null && !string.IsNullOrEmpty(type))
+        {
+            object product = type switch
             {
-                "pc" => _context.PCs.FirstOrDefault(p => p.PCID == item.ProductId),
-                "laptop" => _context.Laptops.FirstOrDefault(l => l.LaptopID == item.ProductId),
-                _ => _context.PCParts.FirstOrDefault(p => p.PartID == item.ProductId)
+                "pc" => _context.PCs.FirstOrDefault(p => p.PCID == productId),
+                "laptop" => _context.Laptops.FirstOrDefault(l => l.LaptopID == productId),
+                _ => _context.PCParts.FirstOrDefault(p => p.PartID == productId)
             };
 
             if (product != null)
             {
                 cartItems.Add(new
                 {
-                    item.Type,
-                    item.Quantity,
+                    Type = type,
+                    Quantity = 1,
                     Product = product
                 });
+
+                // ✅ هنا حفظنا المنتج مؤقتًا داخل الجلسة عشان لما نروح على PlaceOrder نلاقيه
+                var tempCart = new List<CartItemViewModel>
+            {
+                new CartItemViewModel
+                {
+                    ProductId = productId.Value,
+                    Type = type,
+                    Quantity = 1
+                }
+            };
+                var tempCartJson = System.Text.Json.JsonSerializer.Serialize(tempCart);
+
+                HttpContext.Session.SetString("TempCart", tempCartJson);
             }
+        }
+        else
+        {
+            // ✅ جاي من الكارت العادي
+            var rawCart = _context.Cart
+                .Where(c => c.UserID == userId)
+                .ToList();
+
+            if (rawCart == null || !rawCart.Any())
+            {
+                TempData["EmptyCart"] = "Your cart is empty. Please add items before proceeding to checkout.";
+                return RedirectToAction("Cart", "Product");
+            }
+
+            foreach (var item in rawCart)
+            {
+                object product = item.Type switch
+                {
+                    "pc" => _context.PCs.FirstOrDefault(p => p.PCID == item.ProductId),
+                    "laptop" => _context.Laptops.FirstOrDefault(l => l.LaptopID == item.ProductId),
+                    _ => _context.PCParts.FirstOrDefault(p => p.PartID == item.ProductId)
+                };
+
+                if (product != null)
+                {
+                    cartItems.Add(new
+                    {
+                        item.Type,
+                        item.Quantity,
+                        Product = product
+                    });
+                }
+            }
+
+            // ✅ احذف أي بيانات شراء مباشر قديمة إذا فتح الشيك آوت عن طريق الكارت
+            HttpContext.Session.Remove("TempCart");
         }
 
         ViewBag.Cart = cartItems;
 
         decimal subtotal = 0;
-
         foreach (var i in cartItems)
         {
             if (i.Product is PC pc)
@@ -521,7 +576,6 @@ public class ProductController : Controller
         decimal shipping = user?.Region?.Trim().ToLower() == "irbid" ? 2.0m : 3.0m;
         decimal total = subtotal + shipping;
 
-        // تمرير البيانات للفيو
         ViewBag.Subtotal = subtotal;
         ViewBag.Shipping = shipping;
         ViewBag.Total = total;
@@ -536,6 +590,7 @@ public class ProductController : Controller
 
         return View(model);
     }
+
 
 
     [HttpPost]
@@ -568,14 +623,33 @@ public class ProductController : Controller
     public async Task<IActionResult> PlaceOrder(CheckoutViewModel model, IFormFile OrangeReceipt)
     {
         int? userId = HttpContext.Session.GetInt32("UserId");
-        if (userId == null) return RedirectToAction("Login", "Authintication");
+        if (userId == null)
+            return RedirectToAction("Login", "Authintication");
 
-        var cartItems = _context.Cart
-            .Where(c => c.UserID == userId)
-            .ToList();
+        List<CartItemViewModel> cartItems = new List<CartItemViewModel>();
 
-        if (!cartItems.Any())
-            return BadRequest("Cart is empty");
+        // ✅ تحقق أولاً: هل يوجد شراء مباشر مخزن بجلسة TempCart؟
+        var tempCartJson = HttpContext.Session.GetString("TempCart");
+        if (!string.IsNullOrEmpty(tempCartJson))
+        {
+            cartItems = System.Text.Json.JsonSerializer.Deserialize<List<CartItemViewModel>>(tempCartJson);
+        }
+        else
+        {
+            // ✅ لا يوجد شراء مباشر - اعتمد على السلة Cart
+            cartItems = _context.Cart
+                .Where(c => c.UserID == userId)
+                .Select(c => new CartItemViewModel
+                {
+                    ProductId = c.ProductId,
+                    Type = c.Type,
+                    Quantity = c.Quantity
+                })
+                .ToList();
+        }
+
+        if (cartItems == null || !cartItems.Any())
+            return Content("Cart is empty");
 
         decimal total = 0;
         foreach (var item in cartItems)
@@ -598,7 +672,7 @@ public class ProductController : Controller
             CreatedAt = DateTime.Now
         };
         _context.Orders.Add(order);
-        await _context.SaveChangesAsync(); 
+        await _context.SaveChangesAsync();
 
         string receiptFileName = null;
         if (model.PaymentMethod == "OrangeMoney" && OrangeReceipt != null && OrangeReceipt.Length > 0)
@@ -615,7 +689,6 @@ public class ProductController : Controller
             }
         }
 
-        // إنشاء عملية الدفع
         var payment = new Payment
         {
             UserID = userId.Value,
@@ -629,9 +702,21 @@ public class ProductController : Controller
         _context.Payments.Add(payment);
         await _context.SaveChangesAsync();
 
-        // تفريغ السلة
-        _context.Cart.RemoveRange(cartItems);
-        await _context.SaveChangesAsync();
+        // ✅ الآن تفريغ الكارت فقط إذا لم يكن شراء مباشر
+        if (string.IsNullOrEmpty(tempCartJson))
+        {
+            var userCart = _context.Cart.Where(c => c.UserID == userId).ToList();
+            if (userCart.Any())
+            {
+                _context.Cart.RemoveRange(userCart);
+                await _context.SaveChangesAsync();
+            }
+        }
+        else
+        {
+            // إذا الشراء مباشر خلينا نمسح الجلسة فقط بدون تعديل الكارت
+            HttpContext.Session.Remove("TempCart");
+        }
 
         return RedirectToAction("MyOrders", "Authintication");
     }

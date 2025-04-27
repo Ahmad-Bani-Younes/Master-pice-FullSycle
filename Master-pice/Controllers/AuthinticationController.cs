@@ -133,7 +133,6 @@ namespace Master_pice.Controllers
                         Response.Cookies.Append("RememberMe_Password", user.Password, options);
                     }
 
-
                     if (Request.Cookies.TryGetValue("Cart", out string cartJson) && !string.IsNullOrEmpty(cartJson))
                     {
                         var cookieCart = JsonSerializer.Deserialize<List<CartItemViewModel>>(cartJson);
@@ -162,14 +161,24 @@ namespace Master_pice.Controllers
 
                     SuccessMessage = "Login successful!";
 
-                    // ✅ شرط التوجيه حسب الإيميل والباسورد
+                    int? tempProductId = HttpContext.Session.GetInt32("TempProductId");
+                    string tempProductType = HttpContext.Session.GetString("TempProductType");
+
+                    if (tempProductId != null && !string.IsNullOrEmpty(tempProductType))
+                    {
+                        HttpContext.Session.Remove("TempProductId");
+                        HttpContext.Session.Remove("TempProductType");
+
+                        return RedirectToAction("CheckOut", "Product", new { productId = tempProductId, type = tempProductType });
+                    }
+
                     if (user.Email == "ahmadbaniyounes542@gmail.com" && user.Password == "Ahmad123")
                     {
-                        return RedirectToAction("Index", "Admin"); // روح على لوحة الأدمن
+                        return RedirectToAction("Index", "Admin"); 
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home"); // المستخدم العادي
+                        return RedirectToAction("Index", "Home"); 
                     }
                 }
 

@@ -47,12 +47,14 @@
                     <button type="submit" class="btn btn-primary w-100">🛒 Add to Cart</button>
                 </form>
 
-                <form asp-action="Cart" asp-controller="Product" method="post" class="w-50">
+                <form asp-action="CheckOut" asp-controller="Product" method="post" class="w-50">
                     <input type="hidden" name="ProductId" value="@(isLaptop ? device.LaptopID : device.PCID)" />
                     <input type="hidden" name="Type" value="@(isLaptop ? "laptop" : "pc")" />
                     <input type="hidden" name="Quantity" value="1" />
                     <button type="submit" class="btn btn-success w-100">💳 Buy Now</button>
                 </form>
+
+
             </div>
 
 
