@@ -42,9 +42,17 @@ namespace Master_pice.Controllers
 
             if (ModelState.IsValid)
             {
+                // ✅ تحقق إذا الإيميل موجود مسبقا
                 if (_context.Users.Any(u => u.Email == model.Email))
                 {
                     ModelState.AddModelError("Email", "This email is already registered.");
+                    return View(model);
+                }
+
+                // ✅ تحقق إذا رقم التلفون موجود مسبقا
+                if (_context.Users.Any(u => u.Phone == model.Phone))
+                {
+                    ModelState.AddModelError("Phone", "This phone number is already registered.");
                     return View(model);
                 }
 
@@ -120,6 +128,33 @@ namespace Master_pice.Controllers
                     HttpContext.Session.SetString("UserName", user.FullName);
                     HttpContext.Session.SetString("UserType", user.UserType);
                     HttpContext.Session.SetString("UserImage", user.ProfileImage ?? "");
+
+
+                    // تحقق إذا كان هناك تقييم معلق بالكوكيز
+                    if (Request.Cookies.TryGetValue("PendingReview", out var pendingReviewJson))
+                    {
+                        var tempReview = System.Text.Json.JsonSerializer.Deserialize<TempReviewModel>(pendingReviewJson);
+
+                        if (tempReview != null)
+                        {
+                            var newRating = new Rating
+                            {
+                                UserId = user.ID,
+                                ProductId = tempReview.ProductId,
+                                ProductType = tempReview.Type,
+                                Stars = tempReview.Stars,
+                                Comment = tempReview.Comment,
+                                CreatedAt = tempReview.CreatedAt
+                            };
+
+                            _context.Ratings.Add(newRating);
+                            _context.SaveChanges();
+                            Response.Cookies.Delete("PendingReview");
+                        }
+                    }
+
+
+
 
                     if (model.RememberMe)
                     {
@@ -413,5 +448,73 @@ namespace Master_pice.Controllers
             SuccessMessage = "Password updated successfully!";
             return RedirectToAction("Profile");
         }
+
+
+
+        public IActionResult MyReviews()
+        {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login", "Authintication");
+
+            var userRatings = _context.Ratings
+                .Where(r => r.UserId == userId)
+                .OrderByDescending(r => r.CreatedAt)
+                .ToList();
+
+            var reviewDetails = new List<dynamic>();
+
+            foreach (var rating in userRatings)
+            {
+                string productName = "";
+                string productImage = "";
+
+                switch (rating.ProductType.ToLower())
+                {
+                    case "pc":
+                        var pc = _context.PCs.FirstOrDefault(p => p.PCID == rating.ProductId);
+                        if (pc != null)
+                        {
+                            productName = pc.Brand + " " + pc.Processor;
+                            productImage = pc.ImageURL;
+                        }
+                        break;
+                    case "laptop":
+                        var laptop = _context.Laptops.FirstOrDefault(l => l.LaptopID == rating.ProductId);
+                        if (laptop != null)
+                        {
+                            productName = laptop.Brand + " " + laptop.Model;
+                            productImage = laptop.ImageURL;
+                        }
+                        break;
+                    case "pcpart":
+                        var part = _context.PCParts.FirstOrDefault(p => p.PartID == rating.ProductId);
+                        if (part != null)
+                        {
+                            productName = part.Model;
+                            productImage = part.ImageURL;
+                        }
+                        break;
+                }
+
+                reviewDetails.Add(new
+                {
+                    ProductId = rating.ProductId,          // ✅ مهم جدا إضافته
+                    ProductType = rating.ProductType,       // ✅ ومهم جدا أيضا إضافته
+                    ProductName = productName,
+                    ProductImage = productImage ?? "no-image.png",
+                    Stars = rating.Stars,
+                    Comment = rating.Comment,
+                    CreatedAt = rating.CreatedAt
+                });
+            }
+
+            return View(reviewDetails);
+        }
+
+
+
+
+
     }
 }

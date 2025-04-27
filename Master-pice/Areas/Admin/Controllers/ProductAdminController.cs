@@ -477,5 +477,39 @@ namespace Master_pice.Areas.Admin.Controllers
 
 
 
+
+        public IActionResult AllReviews()
+        {
+            var allReviews = _context.Ratings
+                .OrderByDescending(r => r.CreatedAt)
+                .Select(r => new Master_pice.ViewModel.AdminReviewViewModel
+                {
+                    Stars = r.Stars,
+                    Comment = r.Comment,
+                    CreatedAt = r.CreatedAt,
+                    UserName = r.User.FullName,
+                    UserImage = r.User.ProfileImage,
+                    ProductName = r.ProductType.ToLower() == "pc"
+                        ? _context.PCs.FirstOrDefault(p => p.PCID == r.ProductId).Brand + " " + _context.PCs.FirstOrDefault(p => p.PCID == r.ProductId).Processor
+                        : r.ProductType.ToLower() == "laptop"
+                            ? _context.Laptops.FirstOrDefault(l => l.LaptopID == r.ProductId).Brand + " " + _context.Laptops.FirstOrDefault(l => l.LaptopID == r.ProductId).Model
+                            : _context.PCParts.FirstOrDefault(part => part.PartID == r.ProductId).Model,
+                    ProductImage = r.ProductType.ToLower() == "pc"
+                        ? _context.PCs.FirstOrDefault(p => p.PCID == r.ProductId).ImageURL
+                        : r.ProductType.ToLower() == "laptop"
+                            ? _context.Laptops.FirstOrDefault(l => l.LaptopID == r.ProductId).ImageURL
+                            : _context.PCParts.FirstOrDefault(part => part.PartID == r.ProductId).ImageURL
+                })
+                .ToList();
+
+            return View(allReviews);
+        }
+
+
+
+
+
+
+
     }
 }

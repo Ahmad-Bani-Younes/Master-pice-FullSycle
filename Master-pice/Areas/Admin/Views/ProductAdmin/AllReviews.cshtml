@@ -1,0 +1,58 @@
+﻿@model List<Master_pice.ViewModel.AdminReviewViewModel>
+
+<section class="container mt-5">
+    <h2 class="mb-4 text-center fw-bold">All Customer Reviews <i class="fas fa-star text-warning"></i></h2>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="row">
+            @foreach (var review in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm h-100 rounded-4">
+                        <img src="~/uploads/@(review.ProductImage ?? "no-image.png")"
+                             class="card-img-top rounded-top-4"
+                             style="height: 200px; object-fit: cover;" />
+
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@review.ProductName</h5>
+
+                            <div class="mb-2">
+                                @for (int i = 0; i < review.Stars; i++)
+                                {
+                                    <i class="fas fa-star text-warning"></i>
+                                }
+                                @for (int i = review.Stars; i < 5; i++)
+                                {
+                                    <i class="far fa-star text-warning"></i>
+                                }
+                            </div>
+
+                            <small class="text-muted d-block">@review.CreatedAt.ToString("dd MMM yyyy")</small>
+
+                            <p class="mt-2">@review.Comment</p>
+
+                            <hr />
+
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <img src="~/uploads/@(review.UserImage ?? "default-user.png")"
+                                     alt="User"
+                                     class="rounded-circle me-2"
+                                     style="width: 50px; height: 50px; object-fit: cover;" />
+                                <strong>@review.UserName</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+            No reviews posted yet! ⭐
+        </div>
+    }
+</section>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />

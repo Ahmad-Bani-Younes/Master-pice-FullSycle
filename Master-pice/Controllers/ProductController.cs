@@ -42,12 +42,107 @@ public class ProductController : Controller
             }
         }
 
-
         if (product == null)
             return NotFound();
 
+        // 1. جلب الريفيوز من الداتا بيس
+        var reviews = _context.Ratings
+            .Where(r => r.ProductId == id && r.ProductType == type)
+            .OrderByDescending(r => r.CreatedAt)
+            .Select(r => new
+            {
+                r.Stars,
+                r.Comment,
+                r.CreatedAt,
+                UserName = r.User.FullName,
+                UserImage = r.User.ProfileImage
+            })
+            .ToList();
+
+        // 2. فحص إذا في تقييم مؤقت مخزن بالكوكيز
+        if (Request.Cookies.TryGetValue("TempReview", out var tempReviewJson))
+        {
+            var tempReview = System.Text.Json.JsonSerializer.Deserialize<TempReviewModel>(tempReviewJson);
+
+            if (tempReview != null && tempReview.ProductId == id && tempReview.Type == type)
+            {
+                // ✨ أضف الريفيو تبع الكوكيز إلى قائمة الريفيوز الأصلية
+                reviews.Insert(0, new
+                {
+                    Stars = tempReview.Stars,
+                    Comment = tempReview.Comment,
+                    CreatedAt = tempReview.CreatedAt,
+                    UserName = "Guest User",
+                    UserImage = "default-user.png"
+                });
+            }
+        }
+
+        // 3. ربطهم بالـ ViewBag
+        ViewBag.Reviews = reviews;
+
+
         return View(product);
     }
+
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult SubmitReview(int ProductId, string Type, int Stars, string Comment)
+    {
+        int? userId = HttpContext.Session.GetInt32("UserId");
+
+        if (Stars < 1 || Stars > 5)
+        {
+            TempData["ErrorMessage"] = "Please select a valid rating.";
+            return RedirectToAction("Details", new { id = ProductId, type = Type });
+        }
+
+        if (userId == null)
+        {
+            // 🧠 تخزين التقييم في الكوكيز
+            var tempReview = new TempReviewModel
+            {
+                ProductId = ProductId,
+                Type = Type,
+                Stars = Stars,
+                Comment = Comment,
+                CreatedAt = DateTime.Now
+            };
+
+            string tempReviewJson = System.Text.Json.JsonSerializer.Serialize(tempReview);
+
+            CookieOptions options = new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddMinutes(30), // تخليه نص ساعة مثلاً
+                IsEssential = true
+            };
+
+            Response.Cookies.Append("TempReview", tempReviewJson, options);
+
+            TempData["SuccessMessage"] = "Review saved temporarily! Please login to submit it.";
+            return RedirectToAction("Details", new { id = ProductId, type = Type });
+        }
+
+        var review = new Rating
+        {
+            UserId = userId.Value,
+            ProductId = ProductId,
+            ProductType = Type,
+            Stars = Stars,
+            Comment = Comment,
+            CreatedAt = DateTime.Now
+        };
+
+        _context.Ratings.Add(review);
+        _context.SaveChanges();
+
+        TempData["SuccessMessage"] = "Thank you for your review!";
+        return RedirectToAction("Details", new { id = ProductId, type = Type });
+    }
+
+
 
 
     //public IActionResult Cart()

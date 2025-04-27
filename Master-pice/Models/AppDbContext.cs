@@ -39,6 +39,8 @@ namespace Master_pice.Models
         public DbSet<Master_pice.ViewModel.ProductViewModel> ProductViewModel { get; set; } = default!;
         public DbSet<ChatMessage> ChatMessages { get; set; }
         public DbSet<AboutContent> AboutContents { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+
 
 
 
