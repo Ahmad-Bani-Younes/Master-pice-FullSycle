@@ -21,7 +21,7 @@ namespace Master_pice.Controllers
         //    return View("Products");
         //}
 
-        public IActionResult Products(string? type, int page = 1)
+        public IActionResult Products(string? type, List<string>? prices, int page = 1)
         {
             int pageSize = 12;
 
@@ -69,6 +69,27 @@ namespace Master_pice.Controllers
             {
                 allProducts = allProducts
                     .Where(p => p.Name.StartsWith(type, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            // فلترة حسب السعر
+            var priceRanges = new List<(decimal Min, decimal Max)>();
+            if (prices != null && prices.Any())
+            {
+                foreach (var range in prices)
+                {
+                    var rangeParts = range.Replace("JD", "").Split('-');
+                    if (rangeParts.Length == 2 &&
+                        decimal.TryParse(rangeParts[0].Trim(), out var min) &&
+                        decimal.TryParse(rangeParts[1].Trim(), out var max))
+                    {
+                        priceRanges.Add((min, max));
+                    }
+                }
+
+
+                allProducts = allProducts
+                    .Where(p => priceRanges.Any(r => p.Price >= r.Min && p.Price <= r.Max))
                     .ToList();
             }
 

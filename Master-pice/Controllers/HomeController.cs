@@ -108,8 +108,33 @@ namespace Master_pice.Controllers
         public IActionResult About()
         {
             var sections = _context.AboutContents.OrderBy(x => x.CreatedAt).ToList();
+
+            var aboutReviews = _context.Ratings
+                .OrderByDescending(r => r.CreatedAt)
+                .Take(10) 
+                .Select(r => new
+                {
+                    UserName = r.User.FullName,
+                    UserImage = r.User.ProfileImage ?? "default-user.png",
+                    r.Comment,
+                    r.Stars,
+                    ProductName = r.ProductType == "pc"
+                        ? _context.PCs.Where(p => p.PCID == r.ProductId).Select(p => p.Brand + " " + p.Processor).FirstOrDefault()
+                        : r.ProductType == "laptop"
+                            ? _context.Laptops.Where(l => l.LaptopID == r.ProductId).Select(l => l.Brand + " " + l.Model).FirstOrDefault()
+                            : _context.PCParts.Where(p => p.PartID == r.ProductId).Select(p => p.Model).FirstOrDefault(),
+                    ProductImage = r.ProductType == "pc"
+                        ? _context.PCs.Where(p => p.PCID == r.ProductId).Select(p => p.ImageURL).FirstOrDefault()
+                        : r.ProductType == "laptop"
+                            ? _context.Laptops.Where(l => l.LaptopID == r.ProductId).Select(l => l.ImageURL).FirstOrDefault()
+                            : _context.PCParts.Where(p => p.PartID == r.ProductId).Select(p => p.ImageURL).FirstOrDefault()
+                })
+                .ToList();
+
+            ViewBag.AboutReviews = aboutReviews;
             return View(sections);
         }
+
 
         public IActionResult ContactUs()
         {
@@ -177,7 +202,7 @@ namespace Master_pice.Controllers
                 .Where(l => l.Brand.Contains(query) || l.Model.Contains(query) || l.Description.Contains(query))
                 .Select(l => new SearchResultViewModel
                 {
-                    Id = l.LaptopID,   // 👈 اضف الـ Id
+                    Id = l.LaptopID,  
                     Name = l.Brand + " " + l.Model,
                     Description = l.Description,
                     Price = l.Price,
@@ -190,7 +215,7 @@ namespace Master_pice.Controllers
                 .Where(p => p.Brand.Contains(query) || p.Description.Contains(query))
                 .Select(p => new SearchResultViewModel
                 {
-                    Id = p.PCID,   // 👈 اضف الـ Id
+                    Id = p.PCID,   
                     Name = p.Brand,
                     Description = p.Description,
                     Price = p.Price,
@@ -203,7 +228,7 @@ namespace Master_pice.Controllers
                 .Where(pp => pp.Category.Contains(query) || pp.Model.Contains(query))
                 .Select(pp => new SearchResultViewModel
                 {
-                    Id = pp.PartID,   // 👈 اضف الـ Id
+                    Id = pp.PartID,   
                     Name = pp.Category,
                     Description = pp.Model,
                     Price = pp.Price,

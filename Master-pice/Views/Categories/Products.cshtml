@@ -13,11 +13,9 @@
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-        
     }
 
-    .colors{
+    .colors {
         background-color: #d35266
     }
 
@@ -29,13 +27,10 @@
         margin-top: 10px;
     }
 
-
     .dropdown-item {
         color: #007bff;
         cursor: pointer;
     }
-
-
 </style>
 
 @section StylesProduct {
@@ -47,8 +42,6 @@
 
 <br />
 <br />
-
-
 
 <div class="container">
     <div class="row">
@@ -80,102 +73,97 @@
                     <!-- Price -->
                     <div class="filter-section mb-3">
                         <h6>Price</h6>
+
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="prices" value="JD200 - JD350" id="p1"
-                            @(Context.Request.Query["prices"].ToString().Contains("JD200 - JD350") ? "checked" : "") />
+                            @(Context.Request.Query["prices"].ToList().Contains("JD200 - JD350") ? "checked" : "") />
                             <label class="form-check-label" for="p1">JD200 - JD350</label>
                         </div>
+
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="prices" value="JD350 - JD499" id="p2"
-                            @(Context.Request.Query["prices"].ToString().Contains("JD350 - JD499") ? "checked" : "") />
+                            @(Context.Request.Query["prices"].ToList().Contains("JD350 - JD499") ? "checked" : "") />
                             <label class="form-check-label" for="p2">JD350 - JD499</label>
                         </div>
+
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="prices" value="JD500 - JD750" id="p3"
-                            @(Context.Request.Query["prices"].ToString().Contains("JD500 - JD750") ? "checked" : "") />
+                            @(Context.Request.Query["prices"].ToList().Contains("JD500 - JD750") ? "checked" : "") />
                             <label class="form-check-label" for="p3">JD500 - JD750</label>
-                        </div>
-                    </div>
-
-                    <!-- Brands -->
-                    <div class="filter-section mb-3">
-                        <h6>Brands</h6>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="brands" value="MSI" id="b1"
-                            @(Context.Request.Query["brands"].ToString().Contains("MSI") ? "checked" : "") />
-                            <label class="form-check-label" for="b1">MSI</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="brands" value="Gigabyte" id="b2"
-                            @(Context.Request.Query["brands"].ToString().Contains("Gigabyte") ? "checked" : "") />
-                            <label class="form-check-label" for="b2">Gigabyte</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="brands" value="Adata" id="b3"
-                            @(Context.Request.Query["brands"].ToString().Contains("Adata") ? "checked" : "") />
-                            <label class="form-check-label" for="b3">Adata</label>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
 
-
-
         <!-- Products Grid -->
         <div class="col-md-9">
             <div class="row">
-                @foreach (var item in Model)
+                @if (Model != null && Model.Any())
                 {
-                    <div class="col-md-4 mb-4">
-                        <div class="product-card p-3 shadow-sm border rounded text-center">
-                            <img src="~/uploads/@item.ImageURL" alt="Product Image"
-                                 class="img-fluid mb-2"
-                                 style="height: 150px; object-fit: contain;" />
-                            <h5 class="fw-bold">@item.Name</h5>
-                            <p class="text-muted" style="min-height: 40px;">@item.Description</p>
-                            <div class="price text-danger fw-semibold mb-2">
-                                $@item.Price.ToString("0.00")
-                            </div>
+                    foreach (var item in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="product-card p-3 shadow-sm border rounded text-center">
+                                <img src="~/uploads/@item.ImageURL" alt="Product Image"
+                                     class="img-fluid mb-2"
+                                     style="height: 150px; object-fit: contain;" />
+                                <h5 class="fw-bold">@item.Name</h5>
+                                <p class="text-muted" style="min-height: 40px;">@item.Description</p>
+                                <div class="price text-danger fw-semibold mb-2">
+                                    $@item.Price.ToString("0.00")
+                                </div>
 
-                            <div class="d-flex flex-column gap-2 mt-2">
-                                <a  href="@Url.Action("Details", "Product", new { id = item.ID, type = item.Type.ToLower() })"
-                                   class="btn btn-danger btn-sm w-100 colors">
-                                    View Details
-                                </a>
+                                <div class="d-flex flex-column gap-2 mt-2">
+                                    <a href="@Url.Action("Details", "Product", new { id = item.ID, type = item.Type.ToLower() })"
+                                       class="btn btn-danger btn-sm w-100 colors">
+                                        View Details
+                                    </a>
 
-                                <form asp-action="AddToCart" asp-controller="Categories" method="post" class="w-100">
-                                    <input type="hidden" name="ProductId" value="@item.ID" />
-                                    <input type="hidden" name="Type" value="@item.Type.ToLower()" />
-                                    <input type="hidden" name="Quantity" value="1" />
-                                    <button type="submit" class="btn btn-danger btn-sm w-100">Add to cart</button>
-                                </form>
+                                    <form asp-action="AddToCart" asp-controller="Categories" method="post" class="w-100">
+                                        <input type="hidden" name="ProductId" value="@item.ID" />
+                                        <input type="hidden" name="Type" value="@item.Type.ToLower()" />
+                                        <input type="hidden" name="Quantity" value="1" />
+                                        <button type="submit" class="btn btn-danger btn-sm w-100">Add to cart</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12 d-flex justify-content-center align-items-center" style="height: 300px;">
+                        <div class="alert alert-warning text-center shadow-sm p-4" role="alert" style="min-width: 60%;">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            <strong>No products found matching your filters.</strong>
+                        </div>
                     </div>
-
                 }
             </div>
 
             <!-- Pagination -->
-            <div class="pagination-container text-center mt-4">
-                <div class="pagination d-inline-flex">
-                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
-                    {
-                        <a href="@Url.Action("Products", "Categories", new { page = i, type = ViewBag.Type })"
-                           class="@(i == ViewBag.CurrentPage ? "btn btn-danger mx-1" : "btn btn-outline-danger mx-1")">
-                            @i
-                        </a>
-                    }
+            @if (Model != null && Model.Any())
+            {
+                <div class="pagination-container text-center mt-4">
+                    <div class="pagination d-inline-flex">
+                        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                        {
+                            <a href="@Url.Action("Products", "Categories", new { page = i, type = ViewBag.Type })"
+                               class="@(i == ViewBag.CurrentPage ? "btn btn-danger mx-1" : "btn btn-outline-danger mx-1")">
+                                @i
+                            </a>
+                        }
+                    </div>
                 </div>
-            </div>
+            }
         </div>
+
     </div>
 </div>
 
 @section Scripts {
     <script>
-        // تفعيل التصفية بعد أي تغيير
         document.querySelectorAll('#filterForm input[type=checkbox], #filterForm input[type=radio]').forEach(el => {
             el.addEventListener('change', function () {
                 document.getElementById("filterForm").submit();
@@ -193,6 +181,7 @@
         });
     </script>
 }
+
 <script>
     setTimeout(function () {
         var success = document.getElementById('successMessage');
@@ -205,5 +194,5 @@
             error.classList.remove('show');
             error.classList.add('hide');
         }
-    }, 3000); // 3000 ميلي ثانية = 3 ثواني
+    }, 3000);
 </script>

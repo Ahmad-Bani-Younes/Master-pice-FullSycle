@@ -13,6 +13,10 @@
         public string Description { get; set; }
         public int Stock { get; set; }
         public string AdditionalImageURLs { get; set; }
+
+        public int? CompanyId { get; set; }
+        public Company? Company { get; set; }
+
     }
 
 }

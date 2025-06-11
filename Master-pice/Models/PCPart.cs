@@ -15,5 +15,9 @@ namespace Master_pice.Models
         public string ImageURL { get; set; }
         public int Stock { get; set; }
         public string AdditionalImageURLs { get; set; }
+
+        public int? CompanyId { get; set; }
+        public Company? Company { get; set; }
+
     }
 }

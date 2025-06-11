@@ -34,13 +34,15 @@ namespace Master_pice.Models
         public DbSet<Question> Questions { get; set; }
         public DbSet<UserAnswer> UserAnswers { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Favorite> Favorites { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<Master_pice.ViewModel.ProductViewModel> ProductViewModel { get; set; } = default!;
         public DbSet<ChatMessage> ChatMessages { get; set; }
         public DbSet<AboutContent> AboutContents { get; set; }
         public DbSet<Rating> Ratings { get; set; }
 
+        public DbSet<Fav> Favorites { get; set; }
+
+        public DbSet<Company> Companies { get; set; }
 
 
 

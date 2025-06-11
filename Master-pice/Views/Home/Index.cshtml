@@ -70,12 +70,12 @@
         <div class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="background: transparent !important;">
             <h1 id="animatedText" class="text-white text-center font-weight-bold" style="font-size: 2.5rem; white-space: nowrap; text-shadow: 0 0 5px rgba(0,0,0,0.5);"></h1>
 
-            <div class=" mt-4 d-flex">
-                <form asp-action="Search" asp-controller="Home" method="get" class="d-flex" style="max-width: 500px; margin:auto;">
-                    <input type="text" name="query" class="form-control rounded-pill" placeholder="What do you search for?" style="margin-right: 10px;" required />
-                    <button type="submit" class="btn btn-primary rounded-pill">Search</button>
-                </form>
-            </div>
+            @* <div class=" mt-4 d-flex"> *@
+            @*     <form asp-action="Search" asp-controller="Home" method="get" class="d-flex" style="max-width: 500px; margin:auto;"> *@
+            @*         <input type="text" name="query" class="form-control rounded-pill" placeholder="What do you search for?" style="margin-right: 10px;" required /> *@
+            @*         <button type="submit" class="btn btn-primary rounded-pill">Search</button> *@
+            @*     </form> *@
+            @* </div> *@
         </div>
     </section>
 
@@ -469,6 +469,8 @@
             </a>
         </div>
     </section>
+
+
     <!-- end of item-3 -->
 </main>
 
@@ -503,12 +505,11 @@
             index++;
             setTimeout(typeChar, 70);
         } else {
-            // إعادة تعيين بعد انتهاء الكتابة
             setTimeout(() => {
                 target.innerHTML = "";
                 index = 0;
                 typeChar();
-            }, 1000); // مهلة بسيطة قبل إعادة الكتابة (اختياري)
+            }, 1000); 
         }
     }
 
@@ -526,5 +527,5 @@
             error.classList.remove('show');
             error.classList.add('hide');
         }
-    }, 3000); // 3000 ميلي ثانية = 3 ثواني
+    }, 3000); 
 </script>

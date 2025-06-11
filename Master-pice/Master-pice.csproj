@@ -25,6 +25,8 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\uploads\chat\" />
+    <Folder Include="wwwroot\uploads\logos\" />
+    <Folder Include="wwwroot\uploads\licenses\" />
   </ItemGroup>
 
   <ItemGroup>

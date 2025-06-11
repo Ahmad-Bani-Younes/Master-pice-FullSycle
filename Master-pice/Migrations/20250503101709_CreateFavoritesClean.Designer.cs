@@ -4,6 +4,7 @@ using Master_pice.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Master_pice.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250503101709_CreateFavoritesClean")]
+    partial class CreateFavoritesClean
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,51 +168,6 @@ namespace Master_pice.Migrations
                     b.ToTable("ChatMessages");
                 });
 
-            modelBuilder.Entity("Master_pice.Models.Company", b =>
-                {
-                    b.Property<int>("CompanyId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyId"));
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BusinessLicensePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LogoPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CompanyId");
-
-                    b.ToTable("Companies");
-                });
-
             modelBuilder.Entity("Master_pice.Models.ContactMessage", b =>
                 {
                     b.Property<int>("Id")
@@ -291,9 +249,6 @@ namespace Master_pice.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -332,8 +287,6 @@ namespace Master_pice.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LaptopID");
-
-                    b.HasIndex("CompanyId");
 
                     b.ToTable("Laptops");
                 });
@@ -382,9 +335,6 @@ namespace Master_pice.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -417,8 +367,6 @@ namespace Master_pice.Migrations
 
                     b.HasKey("PCID");
 
-                    b.HasIndex("CompanyId");
-
                     b.ToTable("PCs");
                 });
 
@@ -442,9 +390,6 @@ namespace Master_pice.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Compatibility")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -464,8 +409,6 @@ namespace Master_pice.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("PartID");
-
-                    b.HasIndex("CompanyId");
 
                     b.ToTable("PCParts");
                 });
@@ -881,15 +824,6 @@ namespace Master_pice.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Master_pice.Models.Laptop", b =>
-                {
-                    b.HasOne("Master_pice.Models.Company", "Company")
-                        .WithMany("Laptops")
-                        .HasForeignKey("CompanyId");
-
-                    b.Navigation("Company");
-                });
-
             modelBuilder.Entity("Master_pice.Models.Order", b =>
                 {
                     b.HasOne("Master_pice.Models.User", "User")
@@ -899,24 +833,6 @@ namespace Master_pice.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Master_pice.Models.PC", b =>
-                {
-                    b.HasOne("Master_pice.Models.Company", "Company")
-                        .WithMany("PCs")
-                        .HasForeignKey("CompanyId");
-
-                    b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("Master_pice.Models.PCPart", b =>
-                {
-                    b.HasOne("Master_pice.Models.Company", "Company")
-                        .WithMany("PCParts")
-                        .HasForeignKey("CompanyId");
-
-                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Master_pice.Models.Payment", b =>
@@ -1020,15 +936,6 @@ namespace Master_pice.Migrations
                     b.Navigation("Question");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Master_pice.Models.Company", b =>
-                {
-                    b.Navigation("Laptops");
-
-                    b.Navigation("PCParts");
-
-                    b.Navigation("PCs");
                 });
 #pragma warning restore 612, 618
         }

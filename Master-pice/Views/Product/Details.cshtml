@@ -17,8 +17,9 @@
     decimal price = Model.Price;
 
     string type = Model is Master_pice.Models.PC ? "pc" :
-                  Model is Master_pice.Models.Laptop ? "laptop" :
-                  Model is Master_pice.Models.PCPart ? "part" : "unknown";
+              Model is Master_pice.Models.Laptop ? "laptop" :
+              Model is Master_pice.Models.PCPart ? "pcpart" : "unknown";
+
 
     int productId = Model is Master_pice.Models.PC pcId ? pcId.PCID :
                     Model is Master_pice.Models.Laptop lapId ? lapId.LaptopID :
@@ -183,24 +184,41 @@
 
                 <p class="price">On Sale from <span>$@price</span></p>
 
-                <div class="actions">
-                    <form method="post" asp-action="AddToCart" asp-controller="Product">
+                <div class="d-flex flex-column align-items-center gap-3 mt-4">
+
+                    <form method="post" asp-action="AddToCart" asp-controller="Product" class="w-100">
                         <input type="hidden" name="ProductId" value="@productId" />
                         <input type="hidden" name="Type" value="@type" />
-                        <div class="actions">
-                            <label for="quantity" class="quantity-label">Quantity:</label>
-                            <input type="number" name="Quantity" class="quantity-input" value="1" min="1" />
+                        <div class="d-flex flex-column align-items-center gap-2">
 
-                            <button type="submit" class="btn add-to-cart" style="background-color: #d35266; color: white; border: none;">
-                                Add to Cart
-                            </button>
+                            <div class="d-flex align-items-center gap-2">
+                                <label for="quantity" class="form-label mb-0 fw-bold">Quantity:</label>
+                                <input type="number" name="Quantity" class="form-control form-control-sm" style="width: 80px;" value="1" min="1" />
+                            </div>
 
-                            <button class="btn paypal" style="background-color: #d35266; color: white; border: none;">
-                                Buy Now
-                            </button>
+                            <div class="d-flex justify-content-center gap-3 w-100">
+                                <button type="submit" class="btn btn-success w-50">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+
+                                <button type="button" class="btn btn-warning w-50" onclick="location.href='@Url.Action("CheckOut", "Product", new { productId = productId, type = type })'">
+                                    <i class="fas fa-credit-card"></i> Buy Now
+                                </button>
+                            </div>
+
                         </div>
                     </form>
+
+                    @* <form method="post" asp-controller="Favorite" asp-action="AddToFavorites" class="w-100">  *@
+                    @*     <input type="hidden" name="productId" value="@productId" />  *@
+                    @*      <input type="hidden" name="type" value="@type" />  *@
+                    @*    <button type="submit" class="btn btn-outline-danger w-100">  *@
+                    @*        <i class="fas fa-heart"></i> Add to Favorites  *@
+                    @*     </button>  *@
+                    @* </form> *@
+
                 </div>
+
 
             </div>
         </div>

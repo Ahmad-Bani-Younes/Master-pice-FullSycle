@@ -1,7 +1,8 @@
 ﻿namespace Master_pice.Models
 {
-    public class Favorite
+    public class Fav
     {
+
         public int ID { get; set; }
 
         public int UserID { get; set; }
@@ -14,7 +15,7 @@
         public PC PC { get; set; }
 
         public int? PartID { get; set; }
-        public PCPart PCPart { get; set; }
-    }
+        public PCPart Part { get; set; }
 
+    }
 }
